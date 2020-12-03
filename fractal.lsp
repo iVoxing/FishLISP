@@ -4,22 +4,10 @@
 	(if (setq en (entsel "\nSelect a LINE object: "))
 		(progn
 			(initget "1 2 3 4")
-			(setq key (getkword "\nSelect method: [1/2/3/4] "))
+			(setq key (getkword "\nSelect method: 1[2/3/4] "))
+			(setq key if key key "1")
 			(setq fac 0.618)
-			(cond
-				((= key "1")
-					(mapcar 'frc1 (list (car en)))
-				)
-				((= key "2")
-					(mapcar 'frc2 (list (car en)))
-				)
-				((= key "3")
-					(mapcar 'frc3 (list (car en)))
-				)
-				((= key "4")
-					(mapcar 'frc4 (list (car en)))
-				)
-			);cond
+			(mapcar (read (strcat "frc" key)) (list (car en)))
 		);progn
 );if
 (princ)
@@ -33,7 +21,7 @@
 	en
 )
 
-(defun frc1 (line_en / line_list)
+(defun base_line_treat ()
 	(setq
 		line_list (list)
 		ent (entget line_en)
@@ -41,7 +29,13 @@
 		pt2 (cdr (assoc 11 ent))
 		an1 (angle pt1 pt2)
 		an2 (+ an1 (/ pi 2.0))
-		dis (/ (distance pt1 pt2) 2.0)
+		dis (distance pt1 pt2)
+	)
+)
+
+(defun frc1 (line_en / line_list)
+	(base_line_treat)
+	(setq
 		fac (* fac 1)
 		pt3 (polar pt1 an1 dis)
 		pt4 (polar pt3 an2 (* dis fac))
@@ -56,14 +50,8 @@
 );defun
 
 (defun frc2 (line_en / line_list)
+	(base_line_treat)
 	(setq 
-		line_list (list)
-		ent (entget line_en)
-		pt1 (cdr (assoc 10 ent))
-		pt2 (cdr (assoc 11 ent))
-		an1 (angle pt1 pt2)
-		an2 (+ an1 (/ pi 2.0))
-		dis (distance pt1 pt2)
 		pt3 (polar pt1 an1 (/ dis 3.0))
 		pt4 (polar pt1 an1 (* dis (/ 2.0 3.0)))
 		pt5 (polar pt3 an2 (/ dis 3.0))
@@ -79,14 +67,8 @@
 );defun
 
 (defun frc3 (line_en / line_list)
+	(base_line_treat)
 	(setq 
-		line_list (list)
-		ent (entget line_en)
-		pt1 (cdr (assoc 10 ent))
-		pt2 (cdr (assoc 11 ent))
-		an1 (angle pt1 pt2)
-		an2 (+ an1 (/ pi 2.0))
-		dis (distance pt1 pt2)
 		pt3 (polar pt1 an1 (/ dis 3.0))
 		pt4 (polar pt1 an1 (* dis (/ 2.0 3.0)))
 		pt5 (polar pt3 an2 (/ dis 2.8))
@@ -102,14 +84,8 @@
 );defun
 
 (defun frc4 (line_en / line_list)
+	(base_line_treat)
 	(setq 
-		line_list (list)
-		ent (entget line_en)
-		pt1 (cdr (assoc 10 ent))
-		pt2 (cdr (assoc 11 ent))
-		an1 (angle pt1 pt2)
-		an2 (+ an1 (/ pi 2.0))
-		dis (distance pt1 pt2)
 		pt3 (polar pt1 an1 (/ dis 2.0))
 		pt4 (polar pt1 an1 (/ dis 3.0))
 		pt5 (polar pt1 an1 (* dis (/ 2.0 3.0)))
