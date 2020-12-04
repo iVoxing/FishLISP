@@ -30,7 +30,16 @@
 	)
 )
 
+(defun post_treat ()
+	(entdel line_en)
+	(redraw)
+	(if (> dis 1)
+		(mapcar (read frc) line_list)
+	)
+)
+
 (defun frc1 (line_en)
+	(setq frc "frc1")
 	(base_line_treat)
 	(setq
 		fac 0.3
@@ -38,15 +47,11 @@
 		pt4 (polar pt3 an2 (* dis fac))
 		line_list (mapcar 'make_line (list pt1 pt4) (list pt4 pt2))
 	);setq
-	(entdel line_en)
-	(redraw)
-	(if (> dis 1)
-		(mapcar 'frc1 line_list)
-	)
-	(princ)
+	(post_treat)
 );defun
 
 (defun frc2 (line_en)
+	(setq frc "frc2")
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 3.0))
@@ -55,15 +60,11 @@
 		pt6 (polar pt4 an2 (/ dis 3.0))
 		line_list (mapcar 'make_line (list pt1 pt5 pt6) (list pt5 pt6 pt2))
 	);setq
-	(entdel line_en)
-	(redraw)
-	(if (> dis 1)
-		(mapcar 'frc2 line_list)
-	)
-	(princ)
+	(post_treat)
 );defun
 
 (defun frc3 (line_en)
+	(setq frc "frc3")
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 3.0))
@@ -72,15 +73,11 @@
 		pt6 (polar pt4 an2 (/ dis -3.5))
 		line_list (mapcar 'make_line (list pt1 pt5 pt6) (list pt5 pt6 pt2))
 	);setq
-	(entdel line_en)
-	(redraw)
-	(if (> dis 1)
-		(mapcar 'frc3 line_list)
-	)
-	(princ)
+	(post_treat)
 );defun
 
 (defun frc4 (line_en)
+	(setq frc "frc3")
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 2.0))
@@ -89,12 +86,7 @@
 		pt6 (polar pt3 an2 (* dis 0.288))
 		line_list (mapcar 'make_line (list pt1 pt4 pt6 pt5) (list pt4 pt6 pt5 pt2))
 	);setq
-	(entdel line_en)
-	(redraw)
-	(if (> dis 1)
-		(mapcar 'frc4 line_list)
-	)
-	(princ)
+	(post_treat)
 );defun
 
 (princ "loaded. Start as C:FRACTAL ")
