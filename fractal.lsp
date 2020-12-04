@@ -5,25 +5,22 @@
 		(progn
 			(initget "1 2 3 4")
 			(setq key (getkword "\nSelect method: 1[2/3/4] "))
-			(setq key if key key "1")
-			(setq fac 0.618)
+			(setq key (if key key "1"))
+			(if fl_bench_begin (fl_bench_begin))
 			(mapcar (read (strcat "frc" key)) (list (car en)))
+			(if fl_bench_end (fl_bench_end))
 		);progn
-);if
-(princ)
+	);if
+	(princ)
 );defun
 
-(defun make_line (pt_1 pt_2 / en)
-	(setq 
-		en (entmake (list '(0 . "line") (cons 10 pt_1) (cons 11 pt_2)))
-		en (entlast)
-	)
-	en
+(defun make_line (pt_1 pt_2)
+	(entmake (list '(0 . "line") (cons 10 pt_1) (cons 11 pt_2)))
+	(entlast)
 )
 
 (defun base_line_treat ()
 	(setq
-		line_list (list)
 		ent (entget line_en)
 		pt1 (cdr (assoc 10 ent))
 		pt2 (cdr (assoc 11 ent))
@@ -33,11 +30,11 @@
 	)
 )
 
-(defun frc1 (line_en / line_list)
+(defun frc1 (line_en)
 	(base_line_treat)
 	(setq
-		fac (* fac 1)
-		pt3 (polar pt1 an1 dis)
+		fac 0.3
+		pt3 (polar pt1 an1 (/ dis 2.0))
 		pt4 (polar pt3 an2 (* dis fac))
 		line_list (mapcar 'make_line (list pt1 pt4) (list pt4 pt2))
 	);setq
@@ -49,7 +46,7 @@
 	(princ)
 );defun
 
-(defun frc2 (line_en / line_list)
+(defun frc2 (line_en)
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 3.0))
@@ -66,7 +63,7 @@
 	(princ)
 );defun
 
-(defun frc3 (line_en / line_list)
+(defun frc3 (line_en)
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 3.0))
@@ -83,7 +80,7 @@
 	(princ)
 );defun
 
-(defun frc4 (line_en / line_list)
+(defun frc4 (line_en)
 	(base_line_treat)
 	(setq 
 		pt3 (polar pt1 an1 (/ dis 2.0))
