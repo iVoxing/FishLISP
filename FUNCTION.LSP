@@ -9,11 +9,15 @@
 	)
 )
 
+(defun fl_check_ver (v)
+	(if (>= (read (substr (getvar "acadver") 1 2)) v) t nil)
+)
+
 ;ÉèÖÃUNDOÆğµã
 (defun fl_undo_begin (/ cmdstat) 
 	(setq cmdstat (getvar "cmdecho"))
 	(setvar "cmdecho" 0)
-	(if (= (substr (getvar "acadver") 1 2) "12") 
+	(if (fl_check_ver 16) 
 		(cmd "undo" "group")
 		(cmd "undo" "begin")
 	)
