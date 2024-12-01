@@ -1,0 +1,118 @@
+; Description of varibles
+; l1 l2	two line to contain the door
+; pt1 pt2	end points of l1
+; pt3 pt4	end points of l2
+; ptm1 ptm2	mid points of l1 and l2
+; ptm		mid point of ptm1 and ptm2, the base point to insert
+
+(defun in_door (op_ss /ssdr l1 l2 pt1 pt2 pt3 pt4 ptm1 ptm2 os oo cl ptm sc ang dr)
+	 (setq os (getvar "osmode"))
+	 (setq oo (getvar "orthomode"))
+	 (setq cl (getvar "clayer"))
+	 (setvar "cmdecho" 0)
+	 (setvar "osmode" 0)
+	 (setvar "orthomode" 0)
+	 (if (tblsearch "layer" FLLT_DOOR)
+		 (setvar "clayer" FLLT_DOOR)
+		 (cmd "layer" "m" FLLT_DOOR "")
+	 )
+	 (setq
+		ssdr (ssadd)
+		l1 (entget (ssname op_ss 0))
+		l2 (entget (ssname op_ss 1))
+		pt1 (cdr (assoc 10 l1))
+		pt2 (cdr (assoc 11 l1))
+		ptm1 (append (list (/ (+ (car pt1) (car pt2)) 2.0) (/ (+ (cadr pt1) (cadr pt2)) 2.0)) (list 0.0))
+		pt3 (cdr (assoc 10 l2))
+		pt4 (cdr (assoc 11 l2))
+		ptm2 (append (list (/ (+ (car pt3) (car pt4)) 2.0) (/ (+ (cadr pt3) (cadr pt4)) 2.0)) (list 0.0))
+		ptm (append (list (/ (+ (car ptm1) (car ptm2)) 2.0) (/ (+ (cadr ptm1) (cadr ptm2)) 2.0)) (list 0.0))
+		sc (/ (distance ptm1 ptm2) 1000.0)
+		ang (/ (* (angle ptm1 ptm2) 180.0) pi)
+	 )
+	 (cond
+		((and (>= sc 1.001) (< sc 2.3))
+			(cmd "insert" "dr1" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(cmd "insert" "dr2" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(setq dr (entsel "\nSelect the door:"))
+			(if dr
+				(progn
+					(setq dr (car dr))
+					(cmd "erase" ssdr "r" dr "")
+				)
+			)
+		)
+		((< sc 1.001)
+			(cmd "insert" "dr3" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(cmd "insert" "dr4" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(cmd "insert" "dr5" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(cmd "insert" "dr6" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(setq dr (entsel "\nSelect the door:"))
+			(if dr
+				(progn
+					(setq dr (car dr))
+					(cmd "erase" ssdr "r" dr "")
+				)
+			)
+		)
+		((>= sc 2.3)
+			(cmd "insert" "dr7" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(cmd "insert" "dr8" ptm sc sc ang)
+			(setq ssdr (ssadd (entlast) ssdr))
+			(setq dr (entsel "\nSelect the door:"))
+			(if dr
+				(progn
+					(setq dr (car dr))
+					(cmd "erase" ssdr "r" dr "")
+				)
+			)
+		)
+	 )
+	 (setvar "cmdecho" 1)
+	 (setvar "osmode" os)
+	 (setvar "orthomode" oo)
+	 (setvar "clayer" cl)
+)
+
+(defun c:door (/ olderr ucsf op_ss )
+
+	(setq olderr *error*)
+	(defun *error* (s)
+		(setvar "cmdecho" 0)
+		(fl_undo_end)
+		(setq *error* olderr)
+		(princ)
+	)
+
+	(setvar "cmdecho" 0)
+	(fl_undo_begin)
+	(setq ucsf (getvar "ucsfollow"))
+	(setvar "ucsfollow" 0)
+	(setvar "expert" 4)
+	(cmd "ucs" "s""$temp$")
+	(cmd "ucs" "w")
+
+	(prompt "\nSelect frame line to draw:")
+	(setq op_ss (ssget (list (cons 8 (strcat FLLT_WALL "," FLLT_DOOR "," FLLT_COL)) '(0 . "line"))))
+	(if (= (sslength op_ss) 2)
+		(in_door op_ss )
+		(princ "\nSelect error.")
+	)
+
+	(cmd "ucs" "r" "$temp$")
+	(cmd "ucs" "d" "$temp$")
+	(setvar "ucsfollow" ucsf)
+	(fl_undo_end)
+	(setvar "expert" 0)
+	(setvar "cmdecho" 1)
+
+	(princ)
+)
+

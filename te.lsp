@@ -1,0 +1,28 @@
+(defun te_fun (/ dmsc te_hi h)
+	(setq dmsc (getvar "dimscale"))
+	(princ (strcat "\nText Heigth in mm [Dimscale=" (rtos dmsc) "]: <"))
+	(princ #te_default)
+	(initget "Dimscale")
+	(setq te_hi (getreal "> "))
+	(cond
+		((= te_hi "Dimscale")
+			(setvar "dimscale" (getreal "\nDimscale: "))
+			(te_fun)
+		)
+		((null te_hi)
+			(setq te_hi #te_default)
+		)
+	)
+	(setq #te_default te_hi)
+	;;LCA - WARNING: The DTEXT command requires an extra argument.
+	(cmd "_dtext" pause (* te_hi dmsc))
+)
+
+(defun c:te ()
+	(setq #te_default (if #te_default #te_default 3))
+	(te_fun)
+	(princ)
+)
+
+(princ "loaded. Start as C:TE\n")
+(princ)

@@ -4,28 +4,6 @@
 ;				用mapcar直接對在list級別獲得交點
 ;				用vl-sort的function比較法
 
-(set 'cmd (if (type command-s) command-s command))
-
-;设置UNDO起点
-(defun fl_undo_begin (/ cmdstat) 
-	(setq cmdstat (getvar "cmdecho"))
-	(setvar "cmdecho" 0)
-	(if (fl_check_ver 12) 
-		(cmd "undo" "group")
-		(cmd "undo" "begin")
-	)
-	(setvar "cmdecho" cmdstat)
-)
-
-;设置UNDO终点
-;在命令结束和ERROR处理时，均可使用
-(defun fl_undo_end (/ cmdstat) 
-	(setq cmdstat (getvar "cmdecho"))
-	(setvar "cmdecho" 0)
-	(cmd "undo" "end")
-	(setvar "cmdecho" cmdstat)
-)
-
 (defun c:xc (/ ss_lines ss_amt n en_line list_lines ent_line pt1_line pt2_line list_int xpt1 xpt2 list_newpt m new_line)
 	(fl_undo_begin)
 	(prompt "\n选择多条交叉线: ")

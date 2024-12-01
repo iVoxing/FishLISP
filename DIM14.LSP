@@ -1,0 +1,73 @@
+(if fl_lay_pdim nil (setq fl_lay_pdim "БъзЂ 0"))
+
+(defun c:vh () (dim_fish "DIMLINEAR") (princ))
+
+(defun c:cn () (dim_fish "DIMCONTINUE") (princ))
+
+(defun c:al () (dim_fish "DIMALIGNED") (princ))
+
+(defun c:ldr () (dim_fish "LEADER") (princ))
+
+(defun c:vx ()
+	(setvar "dimse1" 1)
+	(dim_fish "DIMLINEAR")
+	(setvar "dimse1" 0)
+	(princ)
+)
+
+(defun dim_fish (dim_cmd / cl cc clt cts pt1)
+	(setq olderr *error*)
+	(defun *error* (s)
+		(setvar "cecolor" (if cc cc "BYLAYER"))
+		(if cl (setvar "clayer" cl))
+		(setvar "celtype" (if clt clt "BYLAYER"))
+		(if cts (setvar "textstyle" cts))
+		(setvar "osmode" (if os os 167))
+		(setvar "blipmode" (if blip blip 1))
+		(setvar "dimse1" 0)
+		(setq *error* olderr olderr nil)
+		(princ)
+	)
+	(setq 
+		cc (getvar "cecolor")
+		cl (getvar "clayer")
+		clt (getvar "celtype")
+		cts (getvar "textstyle")
+		os (getvar "osmode")
+		blip (getvar "blipmode")
+	)
+	(if (tblsearch "layer" fl_lay_pdim)
+		(setvar "clayer" fl_lay_pdim)
+		(dim_cmd "layer" "make" fl_lay_pdim "c" "g" fl_lay_pdim "")
+	)
+	(setvar "cecolor" "BYLAYER")
+	(setvar "celtype" "BYLAYER")
+	(setvar "textstyle" "STANDARD")
+	(setvar "blipmode" 1)
+
+	(princ "\nDimscale: ")
+	(princ (getvar "dimscale"))
+	(princ "")
+	
+	(if (= dim_cmd "LEADER")
+		(progn
+			(cmd dim_cmd pause pause "" (getstring t))
+		)
+		(progn
+			(cmd dim_cmd)
+			(while (= (getvar "cmdnames") dim_cmd)
+				(cmd pause)
+			)
+		)
+	)
+
+	(setvar "clayer" cl)
+	(setvar "cecolor" cc)
+	(setvar "celtype" clt)
+	(setvar "textstyle" cts)
+	(setvar "blipmode" blip)
+	(setvar "osmode" os)
+	(princ)
+)
+
+(princ)

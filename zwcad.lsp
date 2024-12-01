@@ -1,0 +1,2 @@
+(load "fish.lsp")
+(princ)

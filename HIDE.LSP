@@ -1,0 +1,8 @@
+(defun c:hd (/ en)
+	(setvar "blipmode" 0)
+	(while (setq en (entsel "\nPick an entity to hide: "))
+		(redraw (car en) 2)
+	)
+	(setvar "blipmode" 1)
+	(princ)
+) 

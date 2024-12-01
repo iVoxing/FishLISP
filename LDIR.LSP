@@ -1,0 +1,41 @@
+; 标出LINE的方向
+
+(defun c:ldir (/ loop en ent pt1 pt2 ang ang1 ang2 dis pt3 pt4 lay clr blip)
+	(setq olderr *error*)
+	(defun *error* (s)
+		(setvar "blipmode" (if blip blip 1))
+		(setq *error* olderr olderr nil)
+		(princ)
+	)
+	(setq blip (getvar "blipmode"))
+	(setvar "blipmode" 0)
+	(setq loop t)
+	(while loop
+		(setq en (entsel "\nPick a line: "))
+		(if
+		(and en (= (cdr (assoc 0 (setq ent (entget (car en))))) "LINE"))
+		(progn
+			(setq
+	pt1 (cdr (assoc 10 ent))
+				pt2 (cdr (assoc 11 ent))
+				lay (cdr (assoc 8 ent))
+				clr (cdr (assoc 62 (tblsearch "layer" lay)))
+				ang (angle pt1 pt2)
+				ang1 (+ ang 2.8)
+				ang2 (- ang 2.8)
+				dis (/ (distance pt1 pt2) 10)
+				pt3 (polar pt2 ang1 dis)
+				pt4 (polar pt2 ang2 dis)
+			)
+			(grvecs (list clr pt3 pt2 clr pt2 pt4))
+		)
+		(setq loop nil)
+		)
+	)
+	(setvar "blipmode" blip)
+	(setq *error* olderr)
+	(princ)
+)
+
+(princ "loaded. Start as C:LDIR. ")
+(princ)

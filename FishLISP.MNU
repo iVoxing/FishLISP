@@ -1,0 +1,202 @@
+//
+//
+
+***MENUGROUP=FISHLISP
+
+***POP1
+ [Fi&shLISP]
+ID_FLVER [$(eval,当前版本：$(getvar,users5))]^Pflver 
+ID_FISHLISP[访问FishLISP主页]^C^C^Pfishlisp
+ [--]
+ID_DD[通用文字编辑]^C^C^Pdd
+ID_T [到实体图层]^C^C^P't
+ [--]
+ [->快速过滤]
+ID_S [选择图层]^P's
+ID_SE[指定类型]^P'se
+ID_SST [指定文字]^P'sst
+ID_SSB [指定图块]^P'ssb
+ID_SSC [<-指定颜色]^P'ssc
+ [->图层控制]
+ [->选择关闭]
+ID_SF[选择关闭]^C^C^Psf;
+ID_SFA [增加关闭]^C^C^Psf a 
+ID_SFR [<-恢复关闭]^C^C^Psf r
+ [--]
+ID_DN[图层置底]^C^C^Pdn
+ID_FR[图层置顶]^C^C^Pfr
+ [--]
+ID_LF[选择冻结]^C^C^Plf
+ [<-恢复冻结]^C^C^P
+ID_LO[点取锁定]^C^C^Plo
+ID_CG[转换图层]^C^C^Pcg
+ [--]
+ID_LAYEROUT[分层输出]^C^C^Playerout
+ID_LAYERIN [<-图层输入]^C^C^Playerin
+ [->视图设置]
+ID_VS[视图保存]^C^C^Pvs
+ID_VR[视图恢复]^C^C^Pvr
+ID_VV[视图浏览]^C^C^Pvv
+ [--]
+ID_UE[实体UCS不跟随]^C^C^Pue
+ID_UEF [实体UCS跟随]^C^C^Puef
+ID_UCSFO [$(if,$(getvar,ucsfollow),!.)UCS跟随]^P'_ucsfollow ^P$M=$(if,$(getvar,ucsfollow),0,1)
+ [--]
+ID_SCSET [视口比例]^C^C^Pscset
+ID_VPL [视口锁定解锁]^C^C^Pvpl
+ [--]
+ID_BLA [光标平行]^C^C^Pbla
+ID_DN[图层置底]^C^C^Pdn
+ID_FR[图层置顶]^C^C^Pfr
+ID_HD[<-隐藏实体]^C^C^Phd
+ [->文字工具]
+ID_FFT [查找跟踪]^C^C^Pfft
+ID_MRGT[文字合并]^C^C^Pmrgt
+ID_FIXT[前缀后缀]^C^C^Pfixt
+ID_ARYNUM[文字阵列]^C^C^Parynum
+ID_CNT [按层统计]^C^C^Pcnt
+ID_SRP [超级替换]^C^C^Psrp
+ID_WRID[自动编号]^C^C^Pwrid
+ID_2SHX[<-全设风格为SHX]^C^C^P2shx
+ [->标注]
+ID_DIMSCA[->$(eval,标注比例：$(getvar,dimscale))]
+ID_DSC [查询实体]^Pdsc
+ID_DG[<-选择袭用]^Pdg
+ [->标高]
+ID_ELIN[标高插入]^C^C^Pelin
+ID_ELADD [批量改值]^C^C^Peladd
+ID_REEL[标高重算]^C^C^Preel
+ID_SCEL[<-比例调整]^C^C^Pscel
+ [->轴线轴号]
+ID_AID [轴号插入]^C^C^Paid
+ID_RENUM [轴号修改]^C^C^Prenum
+ID_CVA [轴号转换]^C^C^Pcva
+ID_SCAXI [<-比例调整]^C^C^Pscaxi
+ID_DL[<-平行线距离]^C^C^Pdl
+ [->总平面]
+ID_ZB[坐标标注]^C^C^Pzb
+ID_GD[一点坡度算标高]^C^C^Pgd
+ID_GM[两点坡度算标高]^C^C^Pgm
+ID_GR[<-两点算坡度距离]^C^C^Pgr
+ [->其他工具]
+ID_LW[单线转多段线]^C^C^Plw
+ID_WA[算写面积]^C^C^Pwa
+ID_AW[矩形分格]^C^C^Paw
+ID_RCT [两边画矩形]^C^C^Prct
+ID_CF[偏置画矩形]^C^C^Pcf
+ID_OW[关联偏置]^C^C^Pow
+ID_MO[多重等距偏置]^C^C^Pmo
+ID_DF[连续不等距偏置]^C^C^Pdf
+ID_DP[原地复制]^C^C^Pdp
+ID_J [连接线段]^C^C^Pj
+ID_XC[修剪交叉双线]^C^C^Pxc
+ID_CUT [多线剪切]^C^C^Pcut
+ID_RNB [点取改名]^C^C^Prnb
+ID_AT[文字图块对齐]^C^C^Pat
+ID_CHBK[图块替换]^C^C^Pchbk
+ID_XIN [外部图块替换]^C^C^Pxin
+ID_BKC [修改图块内部图层、颜色]^C^C^Pbkc
+ID_PGP [<-打开ACAD.PGP]^C^C^Ppgp
+ [--]
+ID_SYMMENU [标注符号]$i=fishlisp.sym $i=* 
+
+***IMAGE
+**SYM
+[Pdim]
+[other(sym1)]^C^C^P(indim);dchh;
+[other(elul)]^C^C^P(indim);elul;
+[other(eldl)]^C^C^P(indim);eldl;
+[other(sym13)]^C^C^P(indim);zhbzh;
+[other(sym2)]^C^C^P(indim);sy1;
+[other(elur)]^C^C^P(indim);elur;
+[other(eldr)]^C^C^P(indim);eldr;
+[other(sym14)]^C^C^P(indim);sy4;
+[other(sym3)]^C^C^P(indim);sy2;
+[other(sym7)]^C^C^P(indim);sl\
+[other(sym11)]^C^C^P(indim);su\
+[other(sym15)]^C^C^P(indim);hole1;
+[other(sym4)]^C^C^P(indim);sy3;
+[other(sym8)]^C^C^P(indim);sr\
+[other(sym12)]^C^C^P(indim);sd\
+[other(sym16)]^C^C^P(indim);hole2;
+[other(al,Arrow Left)]^C^C^P(indim);al;
+[other(ar,Arrow Right)]^C^C^P(indim);ar;
+
+***HELPSTRINGS
+ID_FLVER [显示当前FishLISP版本，点击在CDSZ局域网内查询FishLISP最新版本。FLVER]
+ID_FISHLISP[点击访问FishLISP主页：www.ivox.cc/fishlisp。FISHLISP]
+ID_DD[编辑各种类型文本，对标高图块、单属性图块等有增强功能。DD]
+ID_T [点取实体，设其图层为当前图层。T]
+ID_S [选择实体，将其图层设为选择过滤条件。'S]
+ID_SE[指定实体类型，作为选择过滤条件。'SE]
+ID_SST [指定文字，作为选择过滤条件。'SST]
+ID_SSB [指定图块名称，作为选择过滤条件。'SSB]
+ID_SSC [指定颜色代号，作为选择过滤条件。'SSC]
+ID_SF[选择实体，关闭其所在图层（忽略当前层）；并储存图层名称以便将来恢复。SF]
+ID_SFA [选择实体，关闭其所在图层（忽略当前层）；并增加图层名称到以前的设置中，将来可以一起恢复。SF A]
+ID_SFR [恢复SF所关闭的图层。SF R]
+ID_DN[选择实体，将其图层中所有实体放到显示顺序的底部。DN]
+ID_FR[选择实体，将其图层中所有实体放到显示顺序的顶部。FR]
+ID_LF[选择实体，冻结其所在的图层。LF]
+ID_LO[点取实体，锁定/解锁其所在的图层。LO]
+ID_CG[改变实体所在图层为另一所选择实体所在的图层。CG]
+ID_LAYEROUT[将当前图形分层另存为新图。LAYEROUT]
+ID_LAYERIN [输入由LAYEROUT输出的图层。LAYERIN]
+ID_VS[保存当前所显示的视图。VS]
+ID_VR[恢复图形中所保存的视图。VR]
+ID_VV[逐个查看图形中每一个视图的范围，并做恢复或删除等操作。VV]
+ID_UE[设置UCS为所选实体的OCS，不旋转图形。UE]
+ID_UEF [设置UCS为所选实体的OCS，同时旋转图形。UEF]
+ID_UCSFO [系统变量UCSFOLLOW]
+ID_SCSET [设置视口比例。SCSET]
+ID_VPL [锁定/解锁图形中全部视口。VPL]
+ID_BLA [设置捕捉光标，使之平行于所选直线。BLA]
+ID_HD[将所选实体从屏幕上隐藏，但并不删除。HD]
+ID_FFT [查找并跟踪所指定文字的TEXT实体，支持通配符。FFT]
+ID_MRGT[合并两个TEXT实体为一个。MRGT]
+ID_FIXT[为TEXT实体添加前缀、后缀。FIXT]
+ID_ARYNUM[阵列数字文本的TEXT实体，并使文本数字按数列增加。ARYNUM]
+ID_CNT [选取TEXT实体，并统计其所在图层中不同内容TEXT实体的数量。CNT]
+ID_SRP [根据所指定文本文件的内容，替换图形中内容匹配的TEXT实体。SRP]
+ID_WRID[用连续自动编号的方式，在指定位置生成数字TEXT实体。WRID]
+ID_2SHX[将所有文字风格设风格为TXT1,HZTXT。2SHX]
+ID_DIMSCA[系统变量DIMSCALE]
+ID_DSC [按字高=3mm，反查标注实体的比例。DSC]
+ID_DG[选择标注实体，设标注比例与之相同。DG]
+ID_ELIN[标高插入。ELIN]
+ID_ELADD [按增量批量修改所选标高值。ELADD]
+ID_REEL[根据基准点设置，重算所选标高值。REEL]
+ID_SCEL[根据指定标注比例，调整标高块的比例。SCEL]
+ID_AID [轴号插入。AID]
+ID_RENUM [批量轴号修改。RENUM。单个轴号修改可用DD]
+ID_CVA [将圆圈和数字散装的轴号转换为轴号图块。CVA]
+ID_SCAXI [根据指定标注比例，调整轴号块的比例。SCAXI]
+ID_DL[标注所选平行线距离。DL]
+ID_ZB[总图坐标标注，注意坐标系统设置。ZB]
+ID_GD[选择标高块，指定坡度，算目标点的标高，并插入标高块。GD]
+ID_GM[根据同一坡度上两个标高，和该坡度，算另一点的标高并插入标高块。GM]
+ID_GR[计算并标注两个标高块之间的坡度和距离。GR]
+ID_LW[将单线、圆弧、圆转换为多段线；或修改多段线的宽度。LW]
+ID_WA[在标准AREA命令之后加入换算为SQM，并标注的功能。WA]
+ID_AW[在矩形内部做横竖分格。AW]
+ID_RCT [根据两边长度画矩形。RCT]
+ID_CF[以偏置一边的方式画矩形。CF]
+ID_OW[偏置端线后能够自动连接原来的边线。OW]
+ID_MO[多重等距偏置。MO]
+ID_DF[连续不等距偏置，用空格分隔每端距离，必须按回车确认。DF]
+ID_DP[原位置复制所选实体。DP]
+ID_J [连接两个LINE实体为一个。J]
+ID_XC[修剪交叉双线。XC]
+ID_CUT [用多条LINE剪切别的LINE。CUT]
+ID_RNB [选择图块，修改该图块名称。RNB]
+ID_AT[使多个文字或图块按指定方向对齐。AT]
+ID_CHBK[图块替换。CHBK]
+ID_XIN [用外部图块替换内部图块。XIN]
+ID_BKC [选择图块，修改其内部实体图层或颜色。BKC]
+ID_PGP [打开当前使用的ACAD.PGP文件。PGP]
+ID_SYMMENU [插入一些常用的标注符号] 
+
+***TOOLBARS
+**FishLISP
+ID_TbFISHLISP[_Toolbar("FishLISP", _Floating, _show, 150, 200, 1)]
+ID_FISHLISP[_Button("访问FishLISP主页", "fishlisp001.BMP", "fishlisp001.BMP")]^C^Cfishlisp
