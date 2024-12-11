@@ -54,7 +54,7 @@
 			pt1 (cdr (assoc 10 ent))
 			count (1+ count)
 		)
-		(if (or (=typ "LINE") (= typ "TEXT"))
+		(if (or (= typ "LINE") (= typ "TEXT"))
 			 (flt_lin)
 			 (if (= typ "INSERT")
 				(flt_ins)

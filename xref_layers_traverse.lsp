@@ -9,8 +9,8 @@
 ;	可以考虑对图层列表先作过滤，排除标注等图层
 
 ; 历史：
-; 	2024-11/22	0.1	思路
-; 	2024/12/11	0.2 完整架构，调试通过
+; 	2024-11-22	0.1	思路
+; 	2024-12-11	0.2 完整架构，调试通过
 ; -----------------------------------------------------------------
 
 ; 用户定制项
@@ -22,8 +22,8 @@
 
 ; 程序内容
 
-; 判断是否排除
-(defun is_exclude (l_name); bool
+; 判断是否排除项
+(defun is_excluded (l_name); bool
 	(apply 'or
 		(mapcar
 			(lambda (str) (wcmatch (strcase l_name) (strcat "*" str "*")))
@@ -32,8 +32,8 @@
 	)
 )
 
-; 通过点选方式直接选取
-; 2024/12/11 tested
+; 通过点选方式直接选取 2024-12-11
+; 2024-12-11 tested
 (defun select_xref () ; 返回 xref 图块名称
 	(setq obj (entsel "\nSelect a Xref Insert: "))
 	(if obj 
@@ -51,7 +51,7 @@
 )
 
 ; 获得XREF图层
-; 2024/12/11 tested
+; 2024-12-11 tested
 (defun list_xref_layers (b_name / la_list la la_name) ; 返回包含 xref 图块的所有图层的列表
 	(defun *error* (msg)
 		(princ "\nlist_xref_layers function error:\t")
@@ -64,7 +64,7 @@
 		(if (= (logand (cdr (assoc 70 la)) 1) 1); 冻结图层不处理
 			nil
 			(if (wcmatch la_name (strcat b_name "*"))
-				(if (is_exclude la_name); 排除标注等图层
+				(if (is_excluded la_name); 排除标注等图层
 					nil
 					(setq la_list (append la_list (list la_name)))
 				)
@@ -86,7 +86,7 @@
 )
 
 ; 打开一个XREF图层，显示图层名称; Next
-; 2024/12/11, tested
+; 2024-12-11, tested
 (defun show_layer (b_name l_list / get_lay lay k amt idx); nil
 	(setq amt (length l_list) idx 1)
 	(setq lay (car l_list) l_list (cdr l_list))

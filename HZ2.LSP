@@ -21,13 +21,13 @@
 			(progn ;not a xref style
 				(setq
 					font_name (cdr (assoc 3 next_style))
-					big_name(cdr (assoc 4 next_style))
-					font_found(or (findfile font_name) (findfile (strcat font_name ".shx")) (findfile (strcat font_name ".ttf")))
+					big_name (cdr (assoc 4 next_style))
+					font_found (or (findfile font_name) (findfile (strcat font_name ".shx")) (findfile (strcat font_name ".ttf")))
 					big_found (or (= "" big_name) (findfile big_name) (findfile (strcat big_name ".shx")) (findfile (strcat big_name ".ttf")))
 					font_name (if font_found font_name font_new)
-					big_name(if big_found big_name big_new)
-					ft_set(strcat font_name "," big_name)
-					ft_set(if (= ft_set (strcat font_new ",")) (strcat font_new "," big_new) ft_set)
+					big_name (if big_found big_name big_new)
+					ft_set (strcat font_name "," big_name)
+					ft_set (if (= ft_set (strcat font_new ",")) (strcat font_new "," big_new) ft_set)
 				)
 				(if (and font_found big_found)
 					(setq old_amt (1+ old_amt))

@@ -5,29 +5,19 @@
 		}
 	],
 	"settings": {
-		"editor.autoIndent": "full",
-		"editor.tabSize": 4,
 		"autolispext.debug.LaunchProgram": "D:\\Program Files\\ZWSOFT\\ZWCAD 2019\\ZWCAD.exe",
 		"editor.formatOnType": true,
 		"[autolisp]": {
 			"editor.wordSeparators": "`|;'\",()"
-		}
+		},
+		"atlisp.format.indentWidth": 4,
+		"autolispext.format.NarrowStyleIndent": 4
 	},
 	"launch": {
-		"version": "0.2.0",
-		"configurations": [
-			{
-				"type": "launchlisp",
-				"request": "launch",
-				"name": "AutoLISP Debug: Launch",
-				"attributes": {
-					"//": "This configuration has been deprecated. Instead use the Debug: Launch Program and Debug: Launch Parameters settings of the AutoCAD AutoLISP Extension."
-				}
-			}
-		]
 	},
 	"extensions": {
 		"recommendations": [
+			"niaoge.autolisp",
 			"vscode-icons-team.vscode-icons"
 		]
 	}

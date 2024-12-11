@@ -29,9 +29,9 @@
 	)
 	(setq *error* olderr)
 	(princ)
-	)
+)
 
-	(defun c:bta (/ olderr lay ss amt idx en t_area t_peri)
+(defun c:bta (/ olderr lay ss amt idx en t_area t_peri)
 	(setq olderr *error*)
 	(defun *error* (s)
 		(setq oderr nil ss nil amt nil idx nil t_area nil lay nil t_peri nil)

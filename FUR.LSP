@@ -45,7 +45,7 @@
 	(setvar "orthomode" 1)
 	(cmd "_rotate" ss "" pt0)
 	(setvar "cmdecho" 1)
-	cmd pause)
+	(cmd pause)
 	(setvar "cmdecho" 0)
 	(cmd "_ucs" "p")
 	(cmd "_undo" "end")
