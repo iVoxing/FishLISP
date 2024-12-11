@@ -927,6 +927,7 @@
 (defun c:wup () (load "wall-up.lsp") (c:wup) (princ))
 (defun c:xc () (load "#_cross.lsp") (c:xc) (princ))
 (defun c:xdata () (load "xdata.lsp") (c:xdata) (princ))
+(defun c:xlt () (load "xref_layers_traverse.lsp") (c:xlt) (princ))
 (defun c:xrr () (load "xrefutil.lsp") (c:xrr) (princ))
 (defun c:xru () (load "xrefutil.lsp") (c:xru) (princ))
 (defun c:xrd () (load "xrefutil.lsp") (c:xrd) (princ))

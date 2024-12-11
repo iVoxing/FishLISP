@@ -5,6 +5,8 @@
 		}
 	],
 	"settings": {
+		"editor.autoIndent": "full",
+		"editor.tabSize": 4,
 		"autolispext.debug.LaunchProgram": "D:\\Program Files\\ZWSOFT\\ZWCAD 2019\\ZWCAD.exe",
 		"editor.formatOnType": true,
 		"[autolisp]": {
@@ -22,6 +24,11 @@
 					"//": "This configuration has been deprecated. Instead use the Debug: Launch Program and Debug: Launch Parameters settings of the AutoCAD AutoLISP Extension."
 				}
 			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"vscode-icons-team.vscode-icons"
 		]
 	}
 }
