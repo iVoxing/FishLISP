@@ -1,53 +1,84 @@
 ; 车库坡度基本计算
 ; 通过起止点计算是否满足最大坡度限制，并绘制最大坡度或合适坡度的关键剖线
+; 2025-11-16	rewrited, 
+;				一个思路：可以用UCS，但本就不复杂，所以也简化不了啥
 
-(defun c:fslope (/ osm pt1 pt2 h0 b0 slp1 b_min h1)
-	;; 基本设置
-	(setq osm (getvar "osmode"))
+(setq DRAW_REF t)
+
+(defun c:fsl (/ osm pt1 pt2)
 	;; 获取起止点
 	(setq pt1 (getpoint "\n起点："))
 	(if pt1 (setq pt2 (getpoint pt1 "\n终点")))
 	(if pt2
-		(if (> (car pt1) (car pt2))
-			(setq temp pt1 pt1 pt2 pt2 temp temp nil)
+		(progn
+			(setq flat_w (getreal "\n缓坡水平长度<3600>："))
+			(setq flat_w (if flat_w flat_w 3600.0))
 		)
 	)
-	;; 根据高差计算最小坡长，以确定起止点是否满足最大坡度限制
-	(setq 
-		h0 (- (cadr pt2) (cadr pt1))
-		b0 (- (car pt2) (car pt1))
+	(if (is_slope_ok pt1 pt2 flat_w)
+		(draw_slope pt1 pt2 flat_w)
+		(alert_min)
 	)
-	(setq slp1 (getreal "\n缓坡水平长度<3600>："))
-	(setq slp1 (if slp1 slp1 3600.0))
-	(setq b_min (+ (* slp1 2) (/ (- h0 (* slp1 2 0.075)) 0.15)))
-	;; 
-	(setvar "osmode" 0)
-	(cond
-		((< b0 b_min) ; 不满足限制
-			(alert "起止点不满足最大坡度限制\n绘制最大坡度作为参考")
-			(setq 
-				spt1 pt2
-				spt2 (list (- (car pt2) slp1) (- (cadr pt2) (* slp1 0.075)))
-				spt3 (list (- (car spt2) (/ (- h0 (* slp1 0.15)) 0.15)) (+ (cadr pt1) (* slp1 0.075)))
-				spt4 (list (- (car spt3) slp1) (cadr pt1))
-			)
-		);< b0 b_min
-		(t
-			(princ "\n起止点满足最大坡度限制。")
-			(setq 
-				h1 (/ (* (/ h0 2) slp1) (- b0 slp1))
-				spt1 pt2
-				spt2 (list (- (car pt2) slp1) (- (cadr pt2) h1))
-				spt3 (list (+ (car pt1) slp1) (+ (cadr pt1) h1))
-				spt4 pt1
-			)
-		);>= b0 b_min
-	);cond
-	(setvar "cmdecho" 0)
-	(cmd "line" spt1 spt2 spt3 spt4 "")
-	(setvar "cmdecho" 1)
-	;; 恢复基本设置
-	(setvar "osmode" (if osm osm 175))
-);defun
+	(princ)
+)
 
-(princ " Start as C:FSLOPE")
+(defun is_slope_ok (pt_1 pt_2 flat_wid)
+	(setq 	x_dif (abs (- (car pt_1) (car pt_2)))
+			y_dif (abs (- (cadr pt_1) (cadr pt_2)))
+			x_min (+ (* flat_wid 2) (/ (abs (- y_dif (* flat_wid 0.15))) 0.15))
+	)
+	(>= x_dif x_min)
+)
+
+(defun alert_min (/ msg adj)
+	(setq msg
+		(strcat
+			"起止点不满足最大坡度限制"
+			"\n坡道投影长度为："
+			(rtos x_dif)
+			", 最小应为："
+			(rtos x_min)
+		)
+	)
+	(alert msg)
+	(if DRAW_REF
+		(progn
+			(setq adj (if (> (car pt2) (car pt1)) x_min (- x_min)))
+			(setq pt2 (list (+ (car pt1) adj) (cadr pt2)))
+			(draw_slope pt1 pt2 flat_w)
+		)
+	)
+)
+
+(defun draw_slope (pt_1 pt_2 flat_wid / flat_hei spt1 spt2)
+	(setq 	x_dif (abs (- (car pt_1) (car pt_2)))
+			y_dif (abs (- (cadr pt_1) (cadr pt_2)))
+			x_min (+ (* flat_wid 2) (/ (abs (- y_dif (* flat_wid 0.15))) 0.15))
+	)
+	(setq flat_hei (/ (* (/ y_dif 2) flat_wid) (- x_dif flat_wid)))
+	(princ "\ntest: ")
+	(princ flat_hei)
+	(setq flat_wid 
+		(if (> (car pt_2) (car pt_1)) 
+			flat_wid
+			(- flat_wid)
+		)
+	)
+	(setq flat_hei 
+		(if (> (cadr pt_2) (cadr pt_1))
+			flat_hei 
+			(- flat_hei)
+		)
+	)
+	(setq 	spt1 (list (+ (car pt_1) flat_wid) (+ (cadr pt_1) flat_hei)) 
+			spt2 (list (- (car pt_2) flat_wid) (- (cadr pt_2) flat_hei))
+	)
+	(setq os (getvar "osmode"))
+	(setvar "osmode" 0)
+	(setvar "cmdecho" 0)
+	(cmd "line" pt_1 spt1 spt2 pt_2 "")
+	(setvar "cmdecho" 1)
+	(setvar "osmode" os)
+)
+
+(princ " Start as C:FSL")

@@ -1,4 +1,6 @@
-; 添加轴线号
+; 2025-11-12	rewrite variables get|set, tested ok
+;				
+; 插入轴线号
 (load "function.lsp")
 
 (fl_layer_check "PAXIS" "134")
@@ -10,7 +12,7 @@
 		(setq en (entsel "\nSelect an AXIS line: "))
 		(if en
 			(progn
-				(setq 
+				(setq
 					en_typ (cdr (assoc 0 (setq ent (entget (car en)))))
 					en_lay (strcase (cdr (assoc 8 ent)))
 					pickpt (cadr en)
@@ -22,13 +24,13 @@
 							(setq loop nil)
 						)
 						(setq loop nil msg (princ "\n1 was not Axis-line. "))
-					)
+		  			)
 					(setq loop nil msg (princ "\n1 was not Line. "))
 				)
-			);progn
+	  		);progn
 			(setq loop nil)
 		);if en
-	);while
+  	);while
 	(princ)
 )
 
@@ -41,30 +43,28 @@
 		ln2 (distance pt0 pt2)
 		id_str (strcase id_str)
 		sym (if (> (strlen id_str) 1) "axi" "axi0")
-		sc (getvar "dimscale")
-		os (getvar "osmode")
-		cl (getvar "clayer")
-		attr (getvar "attreq")
-	)
+        sc (getvar "dimscale")
+		var_list (list "osmode" "clayer" "attreq")
+		var_saved (mapcar 'getvar var_list)
+  	)
+  
 	(if (> ln1 ln2)
 		(setq tmp pt1 pt1 pt2 pt2 tmp tmp nil)
-	)
-	(setq 
+ 	)
+
+	(setq
 		ang (angle pt2 pt1)
 		ins (polar pt1 ang (* sc 4))
 		ins (trans ins 0 1)
-	)
-	(setvar "attreq" 1)
-	(setvar "attdia" 0)
-	(setvar "blipmode" 0)
-	(setvar "osmode" 0)
-	(setvar "clayer" "paxinum")
-	(setvar "cmdecho" 0)
+  	)
+
+   	(mapcar 'setvar
+		(list "attreq" "attdia" "blipmode" "osmode" "clayer" "cmdecho")
+		(list 1         0       0           0       "paxinum" 0)
+  	)
 	(cmd "insert" sym ins (if (= (getvar "insunits") 6) (* 1000 sc) sc) "" 0 (strcase id_str))
-	(setvar "attreq" attr)
+  	(mapcar 'setvar var_list var_saved)
 	(setvar "blipmode" 1)
-	(setvar "osmode" os)
-	(setvar "clayer" cl)
 )
 
 (defun cvtlin (/ kwd)
@@ -77,9 +77,9 @@
 			(if (= kwd "Yes")
 				(entmod (subst (cons 8 "PAXIS") (assoc 8 ent) ent))
 				(setq loop nil)
-			)
+	  		)
 		)
-	)
+  	)
 	loop
 )
 
