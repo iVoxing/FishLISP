@@ -1,6 +1,10 @@
-; 2001/13/98	Bug: Not work in UCS.
-; 2008/28/99	v2.6	更灵活的Symbol选择.
-; 2001/24/14	v3.0	增加圖紙單位為米時的處理
+; 2025-11-18			大幅度重写
+; 2014/01/24	v3.0	增加圖紙單位為米時的處理
+; 1999/08/28	v2.6	更灵活的 block 选择.
+; 1998/01/13	Bug: Not work in UCS.
+; 1995/12/13
+
+(load "function")
 
 (setvar "cmdecho" 0)
 (if (tblsearch "layer" FLLT_DIM0)
@@ -9,33 +13,32 @@
 )
 (setvar "cmdecho" 1)
 
-(defun c:elin (/ olderr os cl el_sc aq unit_scale)
+(defun c:elin (/ olderr os cl aq EL_SCALE UNIT_SCALE)
 	(setq olderr *error*)
 	(defun *error* (s)
-		(if os (setvar "osmode" os))
-		(if cl (setvar "clayer" cl))
-		(if aq (setvar "attreq" aq))
+		(setvar "osmode" (if os os 175))
+		(setvar "clayer" (if cl  cl "0"))
+		(setvar "attreq" (if aq aq 1))
 		(setvar "cmdecho" 0)
-		(undoend)
+		;(undoend)
 		(setvar "cmdecho" 1)
 		(setq *error* olderr olderr nil os nil cl nil aq nil)
 		(princ)
 	)
-	(prompt "\nFishLISP. 12/13/1995. v2.6.")
 	(setq
 		os (getvar "osmode")
 		cl (getvar "clayer")
 		aq (getvar "attreq")
 	)
-	(setq unit_scale (if (= (getvar "insunits") 6) 1.0 1000.0))
+	(setq UNIT_SCALE (if (= (getvar "insunits") 6) 1.0 0.001))
 	(setvar "cmdecho" 0)
-	(setvar "dimzin" 1)
+	(setvar "dimzin" 0)
 	(setvar "attreq" 1)
 	(cmd "_undo" "g")
 	(setvar "clayer" FLLT_DIM0)
-	(if el_h nil (el_ini))
-	(if el_blk nil (setq el_blk "UR"))
-	(setq el_sc (getvar "dimscale"))
+	(if EL_BASE_Y nil (el_ini))
+	(if EL_SUFFIX nil (setq EL_SUFFIX "UR"))
+	(setq EL_SCALE (getvar "dimscale"))
 	(el_main)
 	(setvar "osmode" os)
 	(setvar "clayer" cl)
@@ -48,65 +51,68 @@
 )
 
 (defun el_main ()
-	(prompt "\n?/UNload/Copy/Move/Array/symbol:[")
-	(princ (strcase el_blk))
-	(initget "? UNload Copy Move Array UL UR DL DR Plan Value Base")
-	(setq pt1 (getpoint "]/Value/Plan mode/Base point/<insert point>: "))
+	(initget "Copy Move Array UL UR DL DR Plan Base")
+	(setq pt1 (getpoint 
+		(strcat "\nPlan mode/Base point/Copy/Move/Array/block:[" 
+				(strcase EL_SUFFIX) 
+				"]/<insert point>: "
+		)
+	))
 	(cond
-		((listp pt1) (el_ins))
-		((= pt1 "Copy")	(el_cop))
-		((= pt1 "Move")	(el_mov))
-		((= pt1 "Array")	(el_arr))
+		((listp pt1) (el_insert))
+		((= pt1 "Copy")	(el_copy))
+		((= pt1 "Move")	(el_move))
+		((= pt1 "Array") (el_array))
 		((member pt1 (list "UL" "UR" "DL" "DR"))
-			(setq el_blk pt1)
+			(setq EL_SUFFIX pt1)
 			(el_main)
 		)
 		((= pt1 "Plan")
 			(defun c:elin ()
-				(el_pla)
+				(el_plan_mode)
 				(princ)
 			)
 			(c:elin)
 		)
 		((= pt1 "Value") (el_val))
-		((= pt1 "?") (el_hlp))
-		((= pt1 "Base")	(el_bas))
+		((= pt1 "Base")	(el_base))
 		((= pt1 "UNload") (elunld))
 		(t)
 	)
 )
 
-(defun el_ins (/ el_y1 cl loop)
+; ok
+(defun el_insert (/ el_y1 cl loop)
 	(while pt1
-		(setq el_y1 (rtos (/ (- (cadr pt1) el_h) unit_scale) 2 3))
-		(ins_el el_y1)
+		(setq el_y1 (rtos (princ (* (- (cadr pt1) EL_BASE_Y) UNIT_SCALE)) 2 3))
+		(insert_el el_y1)
 		(setq loop t)
 		(while loop
 			(initget "UL UR DL DR")
-			(princ (strcat "\nSymbol:[" el_blk "]/"))
-			(setq pt1 (getpoint "<insert point>: "))
+			(setq pt1 (getpoint (strcat "\nblock:[" EL_SUFFIX "]/" "<insert point>: ")))
 			(if (listp pt1)
 				(setq loop nil)
-				(setq el_blk pt1)
+				(setq EL_SUFFIX pt1)
 			)
 		)
 	)
 )
 
-(defun ins_el (attr / tmpval)
-	(princ (strcat "\nElevation: <" attr))
-	(setq tmpval (getstring ">: "))
+; ok
+(defun insert_el (attr / tmpval)
+	(setq tmpval (getstring (strcat "\nElevation: <" attr ">: ")))
 	(if (= tmpval "") nil (setq attr tmpval))
 	(if (= attr "0.000") (setq attr "%%P0.000"))
-	(cmd "_undo" "end")
-	(cmd "_undo" "g")
+	;(cmd "_undo" "end")
+	;(cmd "_undo" "g")
 	(setvar "osmode" 0)
-	(cmd "_insert" (strcat "EL" el_blk) pt1 el_sc el_sc 0 attr)
+	(cmd "_insert" (strcat "EL" EL_SUFFIX) pt1 EL_SCALE EL_SCALE 0 attr)
 	(setvar "osmode" os)
 )
 
-(defun el_cop (/ en ent a0 y0 pt0 pt1)
-	(setq en (car (entsel "\nPick an ELevation-Block to edit: ")))
+; ok
+(defun el_copy (/ en ent a0 y0 pt0 pt1)
+	(setq en (car (entsel "\nPick an ELevation-Block to edit: <Exit>")))
 	(if en
 		(if
 			(and
@@ -117,11 +123,10 @@
 				(setq
 					pt0	(cdr (assoc 10 ent))
 					y0	(cadr (trans pt0 0 1))
-					a0	(distof (cdr (assoc 1 (entget (entnext en)))))
+					a0	(atof (cdr (assoc 1 (entget (entnext en)))))
 				)
-				(if a0 nil (setq a0 0.0))
-				(while (setq pt1 (getpoint (trans pt0 0 1) "\nInsert point: "))
-					(ins_el (rtos (+ a0 (/ (- (cadr pt1) y0) units_scale)) 2 3))
+				(while (setq pt1 (getpoint (trans pt0 0 1) "\nInsert point: <Exit>"))
+					(insert_el (princ (rtos (+ a0 (* (- (cadr pt1) y0) UNIT_SCALE)) 2 3)))
 				)
 			)
 			(princ "\n1 was not ELevation-Block. ")
@@ -129,8 +134,8 @@
 	); if en
 )
 
-(defun el_mov (/ ss rpt pt1 pt2 ang dis val count en_el ent_el pt_el en_att ent_att pt_att attr)
-	(prompt "\nSelect ELevation-Block(s) to edit: ")
+(defun el_move (/ ss rpt pt1 pt2 ang dis val count en_el ent_el pt_el en_att ent_att pt_att attr)
+	(prompt "\nSelect ELevation-Insert(s) to edit: ")
 	(setq ss (ssget '((0 . "insert") (2 . "el??"))))
 	(if ss
 		(progn
@@ -139,11 +144,8 @@
 				pt1	(getpoint "\nBase point or displacement: ")
 				pt2	(getpoint pt1 "Second point of displacement: ")
 				ang	(angle (trans pt1 1 0) (trans pt2 1 0))
-				a	(/ (* ang 180) pi)	
 				dis	(distance pt1 pt2)
-				d	dis
-				val	(/ (- (cadr pt2) (cadr pt1)) unit_scale)
-				v	val
+				val	(* (- (cadr pt2) (cadr pt1)) UNIT_SCALE)
 				idx	0
 			)
 			(repeat rpt
@@ -153,15 +155,14 @@
 					en_att	(entnext en_el)
 					ent_att	(entget en_att)
 					pt_el	(polar (cdr (assoc 10 ent_el)) ang dis)
-					pt_att	(polar (cdr (assoc 10 ent_att)) ang dis)
+					pt_att1	(polar (cdr (assoc 10 ent_att)) ang dis)
 					pt_att2	(polar (cdr (assoc 11 ent_att)) ang dis)
-					attr0	(cdr (assoc 1 ent_att))
-					attr	(rtos (+ (if (= attr0 "%%P0.000") 0.0 (distof attr0)) val) 2 3)
+					attr	(rtos (+ (atof (cdr (assoc 1 ent_att))) val) 2 3)
 				)
 				(if (= attr "0.000") (setq attr "%%P0.000"))
 				(entmod (subst (cons 10 pt_el) (assoc 10 ent_el) ent_el))
 				(setq
-					ent_att (subst (cons 10 pt_att) (assoc 10 ent_att) ent_att)
+					ent_att (subst (cons 10 pt_att1) (assoc 10 ent_att) ent_att)
 					ent_att (subst (cons 11 pt_att2) (assoc 11 ent_att) ent_att)
 				)
 				(entmod (subst (cons 1 attr) (assoc 1 ent_att) ent_att))
@@ -172,17 +173,13 @@
 	);if ss
 )
 
-(defun el_arr (/ ss os cl rpt idx row dis en_el ent_el pt_el0 bkname attr0 times pt_el1 attr1)
-	(prompt "\nSelect ELevation-Block(s) to edit: ")
+(defun el_array (/ ss os cl rpt idx row dis en_el ent_el pt_el0 bkname ele_0 times pt_el1 attr1)
+	(prompt "\nSelect EL-Block(s) to edit: ")
 	(setq ss (ssget '((0 . "insert") (2 . "el??"))))
 	(if ss
 		(progn
-			(setq os (getvar "osmode"))
-			(setvar "osmode" 0)
-			(setvar "cmdecho" 0)
-			(setvar "clayer" FLLT_DIM0)
 			(setq
-				rpt (sslength ss) g_rpt rpt
+				rpt (sslength ss)
 				idx 0
 				row (getint "\nNumber of rows (---): ")
 				dis (getdist "\nDistance between rows (---): ")
@@ -193,17 +190,20 @@
 					ent_el	(entget en_el)
 					pt_el0	(cdr (assoc 10 ent_el))
 					bkname	(cdr (assoc 2 ent_el))
-					attr0	(cdr (assoc 1 (entget (entnext en_el))))
+					ele_0	(atof (cdr (assoc 1 (entget (entnext en_el)))))
 					times	1
 				)
 				(while (< times row)
 					(setq
 						pt_el1	(subst (+ (cadr pt_el0) (* dis times)) (cadr pt_el0) pt_el0)
-						attr1	(rtos (+ (distof attr0) (/ dis times unit_scale)) 2 3)
+						attr1	(rtos (+ ele_0 (* dis times UNIT_SCALE)) 2 3)
 					)
 					(if (= attr1 "0.000") (setq attr1 "%%P0.000"))
+					(setq os (getvar "osmode"))
+					(setvar "clayer" FLLT_DIM0)
 					(setvar "osmode" 0)
-					(cmd "_insert" bkname pt_el1 el_sc el_sc 0 attr1)
+					(setvar "cmdecho" 0)
+					(cmd "_insert" bkname pt_el1 EL_SCALE EL_SCALE 0 attr1)
 					(setvar "osmode" os)
 					(setq times (1+ times))
 				);while
@@ -216,52 +216,43 @@
 	);if
 )
 
-(defun el_pla (/ pt1)
-	(setq el_cop nil el_mov nil el_arr nil el_h nil el_main nil el_ins nil ins_el nil)
-	(princ (strcat "\nElevation mode/Style," el_blk))
-	(initget "Elevation Style Insert")
-	(setq pt1 (getpoint "/<Insert point>"))
+(defun el_plan_mode (/ pt1)
+	(setq el_copy nil el_move nil el_array nil EL_BASE_Y nil el_main nil el_insert nil insert_el nil)
+	(initget "Elevation UR UL DR DL")
+	(setq pt1 (getpoint (strcat "\nElevation mode/block[" EL_SUFFIX "]/<insert point>: "))
 	(cond
-		((listp pt1) (pla_ins))
+		((listp pt1) (insert_plan_mode))
 		((= pt1 "Elevation")
 			(load "elins2")
 			(c:elin)
 		)
 		((= pt1 "Style") (el_sty))
-		((= pt1 "Insert") (pla_ins))
+		((= pt1 "Insert") (insert_plan_mode))
 		(t)
 	)
 )
 
-(defun pla_ins (/ os)
+(defun insert_plan_mode (/ os)
 	(setq os (getvar "osmode"))
 	(setvar "osmode" 0)
 	(setvar "cmdecho" 0)
-	(if (= (type pt1) 'STR) (setq pt1 (getpoint "\nInsert point:")))
+	(if (= (type pt1) 'STR) (setq pt1 (getpoint "\nInsert point: <Exit>")))
 	(while pt1
-		(setq str (getstring "\nLevel of this point: "))
+		(setq str (getstring "\nElevation: "))
 		(setvar "osmode" 0)
-		(cmd "_insert" (strcat "EL" el_blk) pt1 el_sc el_sc 0 str)
+		(cmd "_insert" (strcat "EL" EL_SUFFIX) pt1 EL_SCALE EL_SCALE 0 str)
 		(setvar "osmode" os)
-		(setq pt1 (getpoint "\nInsert point: "))
+		(setq pt1 (getpoint "\nInsert point: <Exit>"))
 	)
 	(setvar "osmode" os)
 	(setvar "cmdecho" 1)
 )
 
-(defun el_val ()
-	(alert "Module not defuned yet!")
-)
-
-(defun el_hlp ()
-	(alert "Module not defuned yet!\nbut you can turn to Litte Fish for help.")
-)
-
-(defun el_bas (/ hx)
+(defun el_base (/ hx)
 	(setq el_bpt (getpoint "\nBase point: "))
-	(setq hx (getreal "\nLevel of this point<0.000>: "))
+	(setq hx (getreal "\nElevation: <0.000>"))
 	(if (= hx nil) (setq hx 0.0))
-	(setq el_h (- (cadr el_bpt) (* hx unit_scale)))
+	(setq EL_BASE_Y (- (cadr el_bpt) (/ hx UNIT_SCALE)))
 	(el_main)
 )
 
@@ -270,14 +261,14 @@
 	(setq pt0 (getpoint "\nPlan mode/<base point>: "))
 	(cond
 		((listp pt1)
-			(setq hx (getreal "\nLevel of this point<0.000>: "))
+			(setq hx (getreal "\nElevation of base point: <0.000>"))
 			(if (= hx nil) (setq hx 0.0))
-			(setq el_h (- (cadr pt0) (* hx unit_scale)))
+			(setq EL_BASE_Y (- (cadr pt0) (/ hx UNIT_SCALE)))
 			(setq el_bpt pt0)
 		)
 		((= pt0 "Plan")
 			(defun c:elin ()
-				(el_pla)
+				(el_plan_mode)
 				(princ)
 			)
 			(c:elin)
@@ -293,9 +284,9 @@
 (defun elunld ()
 	(mapcar
 		'(lambda (x) (setq x nil))
-		'(el_main el_ins ins_el el_cop el_mov el_arr el_pla pla_ins el_val el_hlp el_bas el_ini elunld el_h el_blk)
+		'(el_main el_insert insert_el el_copy el_move el_array el_plan_mode insert_plan_mode el_val EL_BASE_Ylp el_base el_ini elunld EL_BASE_Y EL_SUFFIX)
 	)
-	(defun c:elin () (load "elins2") (c:elin) (princ))
+	(defun c:elin () (load "elins3") (c:elin) (princ))
 	(princ "\nAppliction unloaded. Type ELIN to reload and run.")
 )
 
@@ -305,4 +296,5 @@
 	(elins)
 )
 
+(princ "start as C:ELIN")
 (princ)

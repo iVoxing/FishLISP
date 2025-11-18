@@ -226,6 +226,7 @@
 	(if (setq en (entsel)) (princ (entget (car en))))
 	(princ)
 )
+
 (defun c:dxff (/ en x)
 	(if (setq en (entsel))
 		(mapcar 
@@ -674,7 +675,7 @@
 			(strcat
 				"标注比例：$(getvar,dimscale)  "
 				"线型比例：$(getvar,ltscale)  "
-				"UCS跟随：$(if,$(=,$(getvar,ucsfollow),1),否,是)  "
+				"UCS跟随: $(if,$(=,$(getvar,ucsfollow),1),否,是)  "
 				"组选择：$(if,$(=,$(getvar,pickstyle),1),是,否)  "
 			)
 		)
@@ -751,20 +752,17 @@
 	(princ "\n")
 	(princ (vlist))
 	(princ " View(s) found. \n")
-		(setq vw (getstring "\nView name to save: "))
-		(if (= vw "")
-			 nil
+	(setq vw (getstring "\nView name to save: "))
+	(if (/= vw "")
+		(if (tblsearch "view" vw)
 			(progn
-				(if (tblsearch "view" vw)
-					(progn
-						(initget "Yes No")
-						(setq k (getkword "\nView already exist. Overwrite? Yes/<No> "))
-						(if k nil (setq k "No"))
-						(if (= k "Yes") (cmd "view" "s" vw))
-					)
-					(cmd "view" "s" vw)
-				)
-		 )
+				(initget "Yes No")
+				(setq k (getkword "\nView already exist. Overwrite? Yes/<No> "))
+				(if k nil (setq k "No"))
+				(if (= k "Yes") (cmd "view" "s" vw))
+			)
+			(cmd "view" "s" vw)
+		)
 	)
 	(setvar "cmdecho" 1)
 	(princ)

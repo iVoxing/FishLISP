@@ -2,7 +2,6 @@
 ; 2025-11-17		重写结构
 ;					增加了vla函数求曲线中点及中点切线角度，用于放置标注
 ;					今天才知道，(atof "any") 返回 0.0，所以处理%%P0.000其实非常简单
-;					写了 r2s 函数，弥补 rtos 不再补 "0" 的问题
 ; 2023-10-08 v1.4	C:GR 增加了多段线距离，未测试
 ; 2014-02-26 v1.3	修改一个小错误
 ;		 			增加了 insunitsdefsource 归零设置
@@ -20,10 +19,9 @@
 
 (vl-load-com)
 
-(if (eq (type r2s) 'SUBR) nil (load "FUNCTION"))
-
 (defun set_insunits (/ insu dwgu)
 	(setvar "insunitsdefsource" 0)
+	(setvar "dimzin" 0)
 	(setq insu (getvar "insunits"))
 	(cond
 		((= insu 4);毫米
@@ -174,7 +172,7 @@
 			(setq a0 (if a0 a0 0.0))
 			(setq pt1 (getpoint pt0 "\n目标点："))
 			(setq podu (getreal "\n坡度(%)："))
-			(setq attr (r2s (+ a0 (* podu (distance pt0 pt1) 0.01 VP_FAC)) 2 3))
+			(setq attr (rtos (+ a0 (* podu (distance pt0 pt1) 0.01 VP_FAC)) 2 3))
 			(princ (strcat "\n确认标高：<" attr))
 			(setq tmpval (getstring ">: "))
 			(if (= tmpval "") nil (setq attr tmpval))
@@ -207,7 +205,7 @@
 		dis0 (distance bk_in1 bk_in2)
 		newpt (getpoint "\n目标点：")
 		dis1 (distance bk_in1 newpt)
-		attr (r2s (+ h1 (* (/ hd dis0) dis1)) 2 3)
+		attr (rtos (+ h1 (* (/ hd dis0) dis1)) 2 3)
 	)
 	(make_el_ins bk_nam newpt attr)
 	(princ)
@@ -235,7 +233,7 @@
 		newhd (getreal "\n指定标高值：")
 		newdis (* (/ (- newhd h1) hd) dis0)
 		newpt (polar bk_in1 ang0 newdis)
-		attr (r2s newhd 2 3)
+		attr (rtos newhd 2 3)
 	)
 	(make_el_ins bk_nam newpt attr)
 	(princ)

@@ -1,3 +1,5 @@
+; 2025-11-12 rewrite
+
 (defun op_ins (/ wd)
 	(if in_door nil (load "door.lsp"))
 	(if in_win nil (load "win.lsp"))
@@ -13,6 +15,11 @@
 		((= wd "Window") (in_win op_ss))
 		(t)
 	)
+)
+
+; 2025-11-12
+(defun make_line (pt1 pt2)
+	(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt1) (cons 11 pt2)))
 )
 
 (defun op_wall (/ pt1 pt2 ang1 ang01 ang02 pt0 pt3 pt4 ss ent2 dtct_wid insu ufac pt5 pt6 int ang2 wid pt7 pt8 pt9 pt10 pt dis0 grid_wid)
@@ -82,15 +89,15 @@
 			)
 			(entmod (subst (cons 11 pt9) (assoc 11 ent1) ent1))
 			(entmod (subst (cons 11 pt10) (assoc 11 ent2) ent2))
-			(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt7) (cons 11 pt2)))
-			(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt8) (cons 11 pt6)))
+			(make_line pt7 pt2)
+			(make_line pt8 pt6)
 			(if (inters pt7 pt8 pt9 pt10)
 				(setq pt pt8 pt8 pt10 pt10 pt pt nil)
 			)
 			(setq op_ss (ssadd))
-			(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt7) (cons 11 pt8)))
+			(make_line pt7 pt8)
 			(setq op_ss (ssadd (entlast) op_ss))
-			(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt9) (cons 11 pt10)))
+			(make_line pt9 pt10)
 			(setq op_ss (ssadd (entlast) op_ss))
 		)
 	)
@@ -123,9 +130,9 @@
 			(if op_ss (op_ins))
 		)
 		(cond
-			((not en) (alert "You picked nothing"))
-			((/= ln "LINE") (alert "The selection is not Line"))
-			((/= wl FLLT_WALL) (alert "The Line is not on layer Wall"))
+			((not en) (alert "Nothing picked"))
+			((/= ln "LINE") (alert "The selection is NOT Line"))
+			((/= wl FLLT_WALL) (alert "The Line is NOT on layer Wall"))
 		)
 	)
 

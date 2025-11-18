@@ -1,16 +1,17 @@
-(defun dvlin (/ pt1 pt2 lay ang dis count pt3)
+; 2025-11-12 parts request move out from func
+
+(defun dvlin (ent parts / pt1 pt2 lay ang dis part pt3)
 	(setq 
 		pt1 (cdr (assoc 10 ent))
 		pt2 (cdr (assoc 11 ent))
 		lay (cdr (assoc 8 ent))
 		ang (angle pt1 pt2)
 		dis (distance pt1 pt2)
-		count (getint "\nHow many times to divide:")
-		dis (/ dis count)
+		dis (/ dis parts)
 		pt3 (polar pt1 ang dis)
 	)
 	(entmod (subst (cons 11 pt3) (assoc 11 ent) ent))
-	(repeat (1- count)
+	(repeat (1- parts)
 		(setq pt1 pt3 pt3 (polar pt1 ang dis))
 		(entmake (list
 			(cons 0 "line")
@@ -21,18 +22,17 @@
 	)
 )
 
-(defun dvarc (/ cen rad lay ang1 ang2 ang count)
+(defun dvarc (ent parts/ cen rad lay ang1 ang2 ang)
 	(setq 
 		cen (cdr (assoc 10 ent))
 		rad (cdr (assoc 40 ent))
 		lay (cdr (assoc 8 ent))
 		ang1 (cdr (assoc 50 ent))
 		ang2 (cdr (assoc 51 ent))
-		count (getint "\nHow many times to divide:")
-		ang (/ (- ang2 ang1) count)
+		ang (/ (- ang2 ang1) parts)
 	)
 	(entdel (cdr (assoc -1 ent)))
-	(repeat count
+	(repeat parts
 		(setq ang2 (+ ang1 ang))
 		(entmake (list 
 			(cons 0 "ARC")
@@ -44,24 +44,29 @@
 		))
 		(setq ang1 ang2)
 	)
-	(princ)
 )
 
-(defun c:div (/ ent)
+(defun c:div (/ ent foo parts)
 	(while (not ent)
 		(setq ent (entsel "\nSelect Line or ARC to edit:"))
 	)
 	(setq ent (entget (car ent)))
 	(cond 
 		((= (cdr (assoc 0 ent)) "LINE")
-			(dvlin)
+			(setq foo dvlin)
 		)
 		((= (cdr (assoc 0 ent)) "ARC")
-			(dvarc)
+			(setq foo dvarc)
 		)
 		((and (/= (cdr (assoc 0 ent)) "LINE") (/= (cdr (assoc 0 ent)) "ARC"))
-			(princ "\nWhat you select is neither Line nor ARC.")
+			(princ "\nSelection is NOT Line nor ARC.")
+			(exit)
 		)
 	)
+  
+	(setq parts (getint "\nHow many parts to divide:"))
+	(if (not parts) (exit))
+  
+	(foo ent parts)
 	(princ)
 )
