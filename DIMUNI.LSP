@@ -17,8 +17,8 @@
 		(if pt0 nil (setq pt0 (cdr (assoc 10 ent))))
 		(if lay nil (setq lay (cdr (assoc 8 ent))))
 		(if (= horv (cdr (assoc 50 ent)))
-			 (setq 
-			 	pt1 (cdr (assoc 13 ent))
+			(setq 
+				pt1 (cdr (assoc 13 ent))
 				pt2 (cdr (assoc 14 ent))
 				x1 (car pt1)
 				y1 (cadr pt1)
@@ -26,7 +26,7 @@
 				y2 (cadr pt2)
 				x_list (append x_list (list x1 x2))
 				y_list (append y_list (list y1 y2))
-			 )
+			)
 		)
 		(setq idx (1+ idx))
 	)
@@ -53,7 +53,7 @@
 		(t)
 	)
 	(if (= kw "Yes")
-		 cmd pt0 "" "_erase" dim_ss "")
+		 (cmd pt0 "" "_erase" dim_ss "")
 		 (progn
 			(setvar "cmdecho" 1)
 			(princ "Dimension line location: ")

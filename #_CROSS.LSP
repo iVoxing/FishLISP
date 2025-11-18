@@ -1,6 +1,6 @@
-;FishLISP
-;清除双线交叉
-;	2015-05-18	用新思路重寫，加強list級別的操作
+; FishLISP
+; 清除双线交叉
+; 2015-05-18	用新思路重寫，加強list級別的操作
 ;				用mapcar直接對在list級別獲得交點
 ;				用vl-sort的function比較法
 

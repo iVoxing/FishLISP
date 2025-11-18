@@ -124,7 +124,7 @@
 		count0
 		n_plus 0
 		th (* 3 (getvar "ltscale"))
-		pt (getpoint "\nPick a point to write value, or RETURN to ignore:")
+		pt (getpoint "\nPick a point to write value, or <ignore>:")
 	)
 	(repeat (sslength ss) 
 		(setq 

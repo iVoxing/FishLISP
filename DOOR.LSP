@@ -77,7 +77,6 @@
 )
 
 (defun c:door (/ olderr ucsf op_ss )
-
 	(setq olderr *error*)
 	(defun *error* (s)
 		(setvar "cmdecho" 0)
