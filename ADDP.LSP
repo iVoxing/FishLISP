@@ -1,9 +1,12 @@
+; 2025-11-19	rewrite
+
+; add prefix or postfix to text en
 (defun c:fixt (/ ss idx txtent newstr k) 
 	(setq 
-		fx_pre (if fx_pre fx_pre "")
-		fx_pos (if fx_pos fx_pos "")
+		FX_PRE (if FX_PRE FX_PRE "")
+		FX_POST (if FX_POST FX_POST "")
 	)
-	(princ (strcat "\nPrefix: '" fx_pre "'\tPostfix: '" fx_pos "'"))
+	(princ (strcat "\nPrefix: '" FX_PRE "'\tPostfix: '" FX_POST "'"))
 	(initget "Option Select")
 	(setq 
 		k (getkword "\n[Option]<Select text object>: ")
@@ -11,8 +14,8 @@
 	)
 	(if (= k "Option") 
 		(setq 
-			fx_pre (getstring 1 "\nPrefix: ")
-			fx_pos (getstring 1 "\nPostfix: ")
+			FX_PRE (getstring 1 "\nPrefix: ")
+			FX_POST (getstring 1 "\nPostfix: ")
 		)
 	)
 	(setq 
@@ -23,7 +26,7 @@
 		(repeat (sslength ss) 
 			(setq
 				txtent (entget (ssname ss idx))
-				newstr (strcat fx_pre (cdr (assoc 1 txtent)) fx_pos)
+				newstr (strcat FX_PRE (cdr (assoc 1 txtent)) FX_POST)
 			)
 			(entmod (subst (cons 1 newstr) (assoc 1 txtent) txtent))
 			(setq idx (1+ idx))
@@ -32,88 +35,69 @@
 	(princ)
 )
 
-;* C:mrgtxt	* Merge strings to one
-;
-(defun c:mrgt (/ txtmod mrgtsetup k k1 k2 txt0 ent0 str0 txt1 str1) 
+(defun mrgtsetup (/ k k1 k2) 
+	(princ (strcat "\nOption: Keep additional text: <" MRG_TXT_KEEP ">\tAdd to: <" HorT ">"))
+	(initget "Option")
+	(setq k (getkword "\nOption/<origenal text>: "))
+	(if (= k "Option") 
+		(progn 
+			(initget "Yes No")
+			(setq k1 (getkword (strcat "\nkeep additional text: <" MRG_TXT_KEEP "> ")))
+			(setq MRG_TXT_KEEP (if k1 k1 MRG_TXT_KEEP))
+
+			(setq fix_kw (if (= HorT "Head") "<Head>/Tail: " "Head/<Tail>: "))
+			(initget "Head Tail")
+			(setq k2 (getkword (strcat "\nAdd to " fix_kw)))
+			(setq HorT (if k2 k2 HorT))
+			(mrgtsetup)
+		)
+	)
+)
+
+; C:mrgtxt	Merge strings to one
+(defun c:mrgt (/ txt0 ent0 str0 txt1 str1) 
 	(setq olderr *error*)
 	(defun *error* (s) 
 		(setvar "cmdecho" 0)
 		(fl_undo_end)
-		(setq *error* olderr olderrnil)
+		(setq *error* olderr olderr nil)
 		(princ)
 	)
 	(setvar "cmdecho" 0)
 	(fl_undo_begin)
 
-	(setq mrgtxtkeep (if mrgtxtkeep mrgtxtkeep "No"))
+	(setq MRG_TXT_KEEP (if MRG_TXT_KEEP MRG_TXT_KEEP "No"))
 	(setq HorT (if HorT HorT "Tail"))
-	(defun txtmod () 
-		(setq str0 (strcat str1 str2))
-		(entmod (subst (cons 1 str0) (assoc 1 ent0) ent0))
-	)
-
-	(defun mrgtsetup () 
-		(princ 
-			(strcat "\nOption: Keep additional text: <" mrgtxtkeep ">\tAdd to: <" HorT ">")
-		)
-		(initget "Option")
-		(setq k (getkword "\nOption/<origenal text>: "))
-		(if (= k "Option") 
-			(progn 
-				(princ "\nKeep additional text: <")
-				(princ mrgtxtkeep)
-				(princ "> ")
-				(initget "Yes No")
-				(setq k1 (getkword))
-				(setq mrgtxtkeep (if k1 k1 mrgtxtkeep))
-				(princ "\nAdd to ")
-				(if (= HorT "Head") 
-					(princ "<Head>/Tail: ")
-					(princ "Head/<Tail>: ")
-				)
-				(initget "Head Tail")
-				(setq k2 (getkword))
-				(setq HorT (if k2 k2 HorT))
-				(mrgtsetup)
-			)
-			(setq txt0 (entsel))
-		)
-	)
 
 	(mrgtsetup)
 
-	(if txt0 
+	(if (setq txt0 (entsel)) 
 		(progn 
 			(setq 
 				ent0 (entget (car txt0))
 				str0 (cdr (assoc 1 ent0))
 			)
-			(while (setq txt1 (entsel "\nAdditional text, or RETURN to exit:")) 
+			(while (setq txt1 (entsel "\nAdditional text: <Exit>")) 
 				(setq str1 (cdr (assoc 1 (entget (car txt1)))))
 				(if (eq HorT "Head") 
 					(setq str2 str0)
-					(setq
-						str2 str1
-						str1 str0
-					)
+					(setq str2 str1 str1 str0)
 				)
-				(if (= mrgtxtkeep "No") 
+				(if (= MRG_TXT_KEEP "No") 
 					(entdel (car txt1))
 				)
-				(txtmod)
+				(entmod (subst (cons 1 (strcat str1 str2)) (assoc 1 ent0) ent0))
 			)
 		)
 	)
 
 	(fl_undo_end)
-	(setvar "cmdecho" 1)
 	(princ)
 )
 
-;
-;* C:str+	* Pick numbers to add together and write it
-;
-(defun c:str+ (/ cl ss count n_plus th pt num) 
+;* C:stradd	* Pick numbers to add together and write it
+; 2025-11-19	rewrite, dtext height follow the first en
+(defun c:stradd (/ ss idx n_plus hei lay pt num cla) 
 	(setvar "cmdecho" 0)
 	(if (tblsearch "layer" FLLT_DIM0) 
 		nil
@@ -121,31 +105,33 @@
 	)
 	(setq
 		ss (ssget '((0 . "text")))
-		count0
+		idx 0
 		n_plus 0
-		th (* 3 (getvar "ltscale"))
-		pt (getpoint "\nPick a point to write value, or <ignore>:")
 	)
 	(repeat (sslength ss) 
 		(setq 
-			num (read (cdr (assoc 1 (entget (ssname ss count)))))
+			ent (entget (ssname ss idx))
+			num (read (cdr (assoc 1 ent)))
+			hei (if hei hei (cdr (assoc 40 ent)))
+			lay (if lay lay (cdr (assoc 8 ent)))
 			n_plus (+ n_plus num)
-			count(1+ count)
+			idx (1+ idx)
 		)
 	)
 	(setq n_plus (rtos n_plus 2 1))
-	(if pt 
-		(progn 
-			(setvar "clayer" "t")
-			(cmd "text" pt th "0" n_plus)
+	(setq pt (getpoint (strcat "\nSum: " n_plus ". Positon to write value: <ignore>")))
+	(if pt
+		(progn
+			(setq cla (getvar "clayer"))
+			(setvar "clayer" lay)
+			(cmd "text" pt hei "0" n_plus)
+			(setvar "clayer" cla)
 		)
-		(princ (strcat "\nThe total is " n_plus))
 	)
-	(if cl (setvar "clayer" cl))
 	(setvar "cmdecho" 1)
 	(princ)
 )
 
-(princ "loaded.\nFishLISP. Text entity utilities. Start as C:FIXT C:MRGT C:STR+ " )
+(princ "loaded.\nFishLISP. Text entitie utilities. C:FIXT C:MRGT C:STRADD " )
 (princ)
 

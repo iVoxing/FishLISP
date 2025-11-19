@@ -1,60 +1,58 @@
 ; 图块替换，非常有用；
+; 2025-11-16	rewrited 
 ; 1996-12-26	v1.0.
 
-(defun chblk (blkname / ins_name en1 ins_ss idx en ent)
-	(setq ins_name (getstring "\nInsert name, or RETURN to pick: "))
-	(if (= ins_name "") 
-		(setq en1 (entsel "\nPick an insert to change: "))
-		(progn
-			(prompt "\nSelect insert entities to change: ")
-			(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
-			(if ins_ss nil (princ "\nInsert not found."))
+(defun chblk (block_name / idx en ent)
+	(setq idx 0)
+	(repeat (sslength ins_ss)
+		(setq 
+			en (ssname ins_ss idx)
+			ent (entget en)
 		)
-	)
-	(if en1 
-		(progn
-			(setq ins_name (cdr (assoc 2 (entget (car en1)))))
-			(prompt "\nSelect insert entities to change: ")
-			(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
-			(if ins_ss nil (princ "\nInsert not found."))
-		)
-	)
-	(if ins_ss
-		(progn
-			(setq idx 0)
-			(repeat (sslength ins_ss)
-				(setq 
-					en (ssname ins_ss idx)
-					ent (entget en)
-				)
-				(entmod (subst (cons 2 blkname) (assoc 2 ent) ent))
-				(entupd en)
-				(setq idx (1+ idx))
-			)
-		)
+		(entmod (subst (cons 2 block_name) (assoc 2 ent) ent))
+		(entupd en)
+		(setq idx (1+ idx))
 	)
 )
  
-(defun c:chbk (/ blkname)
-	(princ "\nFishLISP, C:CHBK")
-	(if chblk_name 
-		(progn
-			(princ (strcat "\nBlock name <" chblk_name))
-			(setq blkname (getstring ">: "))
-			(if (= blkname "")
-				(setq blkname chblk_name)
-			)
+(defun c:chbk (/ blkname ins_name en_picked ins_ss)
+	(if CHBLK_NAME
+		(setq 
+			blkname (getstring (strcat "\nBlock name: <" CHBLK_NAME ">"))
+			blkname (if (= blkname "") CHBLK_NAME blkname)
 		)
 		(setq blkname (getstring "\nBlock name: "))
 	)
-	(if (and (/= blkname "") (tblsearch "block" blkname))
+	(if (tblsearch "block" blkname)
 		(progn
-			(chblk blkname)
-			(setq chblk_name blkname)
+			(setq CHBLK_NAME blkname)
+			(setq ins_name (getstring "\nInsert name: <Pick an insert>"))
+			(if (= ins_name "") 
+				(setq en_picked (entsel "\nPick an insert to get name: "))
+				(progn
+					(prompt (strcat "\nSelect [" ins_name "] to change: "))
+					(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
+					(if ins_ss nil (princ "\nInsert not found."))
+				)
+			)
+			(if en_picked 
+				(progn
+					(setq ins_name (cdr (assoc 2 (entget (car en_picked)))))
+					(prompt (strcat "\nSelect [" ins_name "] to change: "))
+					(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
+				)
+			)
+			(if ins_ss 
+				(chblk blkname) 
+				(princ "\nInsert not found.")
+			)
 		)
 		(if (/= blkname "")
 			(princ "\nBlock not defined.")
 		)
 	)
 	(princ)
-) 
+)
+
+(princ "\nFishLISP. C:CHBK ")
+(princ)

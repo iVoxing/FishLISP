@@ -1,7 +1,8 @@
 ; 总图标高、坡度工具集
+; 2025-11-19		增加 rotate_labels，处理文本颠倒的情况
 ; 2025-11-17		重写结构
 ;					增加了vla函数求曲线中点及中点切线角度，用于放置标注
-;					今天才知道，(atof "any") 返回 0.0，所以处理%%P0.000其实非常简单
+;					今天才知道，(atof "any") 返回 0.0，所以处理 %%P0.000 其实非常简单
 ; 2023-10-08 v1.4	C:GR 增加了多段线距离，未测试
 ; 2014-02-26 v1.3	修改一个小错误
 ;		 			增加了 insunitsdefsource 归零设置
@@ -80,9 +81,22 @@
 		pt_ofs (+ dim_g (/ dim_h 2))
 		dimpt1 (polar pt (+ ang (/ pi 2)) pt_ofs)
 		dimpt2 (polar pt (- ang (/ pi 2)) pt_ofs)
+		label_ss (ssadd)
 	)
 	(entmake (list '(0 . "text") (cons 1 label1) (cons 62 7) (cons 72 4) (cons 8 lay) (cons 10 dimpt1) (cons 11 dimpt1) (cons 40 dim_h) (cons 50 ang)))
+	(setq label_ss (ssadd (entlast) label_ss))
 	(entmake (list '(0 . "text") (cons 1 label2) (cons 62 7) (cons 72 4) (cons 8 lay) (cons 10 dimpt1) (cons 11 dimpt2) (cons 40 dim_h) (cons 50 ang)))
+	(setq label_ss (ssadd (entlast) label_ss))
+	(rotate_labels label_ss pt)
+)
+
+(defun rotate_labels (ss_ pt_ / ot)
+	(setq ot (getvar "orthomode"))
+	(setvar "orthomode" 1)
+	(setvar "cmdecho" 0)
+	(cmd "_rotate" ss_ "" pt_ pause)
+	(setvar "cmdecho" 1)
+	(setvar "orthomode" ot)
 )
 
 ; ok

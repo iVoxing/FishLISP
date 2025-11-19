@@ -59,8 +59,7 @@
 			(setq foo dvarc)
 		)
 		((and (/= (cdr (assoc 0 ent)) "LINE") (/= (cdr (assoc 0 ent)) "ARC"))
-			(princ "\nSelection is NOT Line nor ARC.")
-			(exit)
+			(exit (princ "\nSelection is NOT Line nor ARC."))
 		)
 	)
   
