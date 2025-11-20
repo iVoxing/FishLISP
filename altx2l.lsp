@@ -21,11 +21,11 @@
 	(princ)
 )
 
-(defun align_txt_2_line (text_obj line_obj)
+(defun align_txt_2_line (text_obj_ line_obj_)
 	(setq 
-		l_ent (entget (car line_obj))
+		l_ent (entget (car line_obj_))
 		l_ang (angle (cdr (assoc 10 l_ent)) (cdr (assoc 11 l_ent)))
-		t_ent (entget (car text_obj))
+		t_ent (entget (car text_obj_))
 		t_ang (cdr (assoc 50 t_ent))
 	)
 	(if t_ang

@@ -6,7 +6,7 @@
 ; 2005-09-29 v1.0 
 ;
 (setq olderr *error*)
-(defun *error* (s) 
+(defun *error* (s_) 
 	(princ "\n缺少文件 Function.lsp，程序不能运行！")
 	(setq *error* olderr
 		  olderr  nil
@@ -88,48 +88,48 @@
 				(setq ss_idx (1+ ss_idx))
 			) ;repeat
 			(setq ax_line_ss   nil
-				  ax_xpt1_list (vl-sort ax_xpt1_list '(lambda (pt1 pt2) (< (car pt1) (car pt2))))
-				  ax_xpt2_list (vl-sort ax_xpt2_list '(lambda (pt1 pt2) (< (car pt1) (car pt2))))
-				  ax_ypt1_list (vl-sort ax_ypt1_list '(lambda (pt1 pt2) (< (cadr pt1) (cadr pt2))))
-				  ax_ypt2_list (vl-sort ax_ypt2_list '(lambda (pt1 pt2) (< (cadr pt1) (cadr pt2))))
+				  ax_xpt1_list (vl-sort ax_xpt1_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
+				  ax_xpt2_list (vl-sort ax_xpt2_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
+				  ax_ypt1_list (vl-sort ax_ypt1_list '(lambda (pt1_ pt2_) (< (cadr pt1_) (cadr pt2_))))
+				  ax_ypt2_list (vl-sort ax_ypt2_list '(lambda (pt1_ pt2_) (< (cadr pt1_) (cadr pt2_))))
 				  id_x_list    (mapcar 
-									'(lambda (x) (rtos (1+ (vl-position x ax_xpt1_list)) 2 0))
+									'(lambda (x_) (rtos (1+ (vl-position x_ ax_xpt1_list)) 2 0))
 									ax_xpt1_list
 							   )
 			)
 			(mapcar 
-				'(lambda (pt1 pt2 ins_at / ins_bk) 
-					 (setq ins_bk (if (> (strlen ins_at) 1) "axi" "axi0"))
-					 (if (> (cadr pt1) (cadr pt2)) 
-						 (setq temp pt1
-							   pt1  pt2
-							   pt2  temp
+				'(lambda (pt1_ pt2_ ins_at_ / ins_bk) 
+					 (setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
+					 (if (> (cadr pt1_) (cadr pt2_)) 
+						 (setq temp pt1_
+							   pt1_  pt2_
+							   pt2_  temp
 							   temp nil
 						 )
 					 )
-					 (setq pt1 (subst (- (cadr pt1) ax_rad) (cadr pt1) pt1))
-					 (setq pt2 (subst (+ (cadr pt2) ax_rad) (cadr pt2) pt2))
-					 (cmd "insert" ins_bk pt1 ax_sca "" 0 ins_at)
-					 (cmd "insert" ins_bk pt2 ax_sca "" 0 ins_at)
+					 (setq pt1_ (subst (- (cadr pt1_) ax_rad) (cadr pt1_) pt1_))
+					 (setq pt2_ (subst (+ (cadr pt2_) ax_rad) (cadr pt2_) pt2_))
+					 (cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
+					 (cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
 				 ) ;lambda
 				ax_xpt1_list
 				ax_xpt2_list
 				id_x_list
 			) ;mapcar
 			(mapcar 
-				'(lambda (pt1 pt2 ins_at / ins_bk) 
-					(setq ins_bk (if (> (strlen ins_at) 1) "axi" "axi0"))
-					(if (> (car pt1) (car pt2)) 
-						(setq temp pt1
-							pt1  pt2
-							pt2  temp
+				'(lambda (pt1_ pt2_ ins_at_ / ins_bk) 
+					(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
+					(if (> (car pt1_) (car pt2_)) 
+						(setq temp pt1_
+							pt1_  pt2_
+							pt2_  temp
 							temp nil
 						)
 					)
-					(setq pt1 (subst (- (car pt1) ax_rad) (car pt1) pt1))
-					(setq pt2 (subst (+ (car pt2) ax_rad) (car pt2) pt2))
-					(cmd "insert" ins_bk pt1 ax_sca "" 0 ins_at)
-					(cmd "insert" ins_bk pt2 ax_sca "" 0 ins_at)
+					(setq pt1_ (subst (- (car pt1_) ax_rad) (car pt1_) pt1_))
+					(setq pt2_ (subst (+ (car pt2_) ax_rad) (car pt2_) pt2_))
+					(cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
+					(cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
 				) ;lambda
 				ax_ypt1_list
 				ax_ypt2_list

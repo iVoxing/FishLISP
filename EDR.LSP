@@ -1,5 +1,14 @@
 ; 删除Door，并且恢复墙线。
+;	2025-11-20	bug fixed
 ;	2023-10-06	l58 开始，好像可以重写
+
+(defun is_dr_ins (en_name_ / ent)
+	(and
+		en_name_
+		(= "INSERT" (cdr (assoc 0 (setq ent (entget en_name_)))))
+		(member (strcase (cdr (assoc 2 ent))) (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8"))
+	)
+)
 
 
 (defun c:edr ();/ olderr en ent pt0 ang wid ptm1 ptm2 ss l1 lent1 pt11 pt12 pt21 pt22 l11 l12 l21 l22 lent11 lent12 lent 21 lent22 pt111 pt112 pt211 pt212 pt121 pt122 pt221 pt222 npt11 npt21 npt12 npt22 idx wid1 ang1)
@@ -12,30 +21,28 @@
 	)
 	(setvar "cmdecho" 0)
 	(fl_undo_begin)
-	(setq en (entsel "\nSelect a door to earse: "))
-	(if
-		(and
-			en
-			(= "INSERT" (cdr (assoc 0 (setq ent (entget (car en))))))
-			(member (strcase (cdr (assoc 2 ent))) (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8"))
-		)
+	(setq en (entsel "\nSelect a door to earse: ") enn (car en))
+	(if (is_dr_ins enn)
 		(progn
-			(setq 
+			(setq
+				ent (entget enn)
 				pt0 (cdr (assoc 10 ent))
 				ang (cdr (assoc 50 ent))
 				wid (abs (/ (cdr (assoc 41 ent)) 0.002))
 			)
-			(entdel (car en))
+			(entdel enn)
 			(setq 
 				ptm1 (polar pt0 ang wid)
 				ptm2 (polar pt0 ang (- wid))
+				ptf1 (polar pt0 ang (* wid 1.01))
+				ptf2 (polar pt0 ang (* wid -1.01))
 			)
-			(setq ss (ssget "f" (list ptm1 ptm2) (list (cons 8 FLLT_WALL))))
+			(setq ss (ssget "f" (list ptf1 ptf2) (list (cons 8 FLLT_WALL))))
 			(cond
 				((not ss)
 					(princ "\n1 DOOR was not in the Wall. ")
 				)
-				( t
+				(t 
 					(setq 
 						l1 (ssname ss 0)
 						lent1 (entget l1)
@@ -49,7 +56,7 @@
 						pt22 (polar ptm2 ang1 (- wid1))
 					)
 					(if (inters pt11 pt21 pt12 pt22)
-						(setq temp pt12 pt12 pt22 pt22 temp temp nil)
+						(setq temp pt11 pt11 pt12 pt12 temp temp nil)
 					)
 					(setq idx 0)
 					(repeat (sslength ss)
@@ -78,10 +85,7 @@
 						pt222 (cdr (assoc 11 lent22))
 						npt22 (if (< (distance pt22 pt221) (distance pt22 pt222)) pt222 pt221)
 					)
-					(entdel l11)
-					(entdel l12)
-					(entdel l21)
-					(entdel l22)
+                    (mapcar 'entdel (list l11 l12 l21 l22))
 					(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 npt11) (cons 11 npt21)))
 					(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 npt12) (cons 11 npt22)))
 				); cap check passed end
