@@ -51,7 +51,7 @@
 	(princ)
 )
 
-(defun dimlin ();/ ent pt1 pt2 ang y_list idx oo os cl ucsf)
+(defun dimlin ()
 	(setq 
 		oo (getvar "orthomode")
 		os (getvar "osmode")
@@ -84,8 +84,8 @@
 	)
 	(setq y_list (vl-sort y_list '<))
 	(mapcar 
-		'(lambda (y1 y2)
-			(cmd "_dim1" "ver" (list x0 y1) (list x0 y2) pt_base "")
+		'(lambda (y1_ y2_)
+			(cmd "_dim1" "ver" (list x0 y1_) (list x0 y2_) pt_base "")
 		)
 		y_list
 		(cdr y_list)

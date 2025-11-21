@@ -1,29 +1,29 @@
 ; History:
+; 2025-11-20	getreal etc
 ; 2003-07-013.0 合并pline和line的命令；完善程序
 ; 2.5 处理UCS
 ; 2001-10-082.0 处理CIRCLE等
-;1995-11-271.0 最初版本
+; 1995-11-271.0 最初版本
 
-(defun plw_chw (pl_ss pl_wd / count elst)
+(defun plw_chw (pl_ss_ pl_wd_ / idx elst)
 	(setvar "cmdecho" 0)
-	(setq count 0)
-	(repeat (sslength pl_ss)
-		(setq elst (ssname pl_ss count))
-		(cmd "pedit" elst "w" pl_wd "")
-		(setq count (1+ count))
+	(setq idx 0)
+	(repeat (sslength pl_ss_)
+		(setq elst (ssname pl_ss_ idx))
+		(cmd "pedit" elst "w" pl_wd_ "")
+		(setq idx (1+ idx))
 	)
 )
 
-(defun plw_setwd ()
-	(if plw_wd nil (setq plw_wd (getvar "plinewid")))
-	(princ "\nEnter the new width<")
-	(princ plw_wd)
-	(setq wd (getreal ">:"))
-	(if wd nil (setq wd plw_wd))
-	(setq plw_wd wd)
+(defun plw_setwd (/ wd)
+	(setq PLW_WIDTH (if PLW_WIDTH PLW_WIDTH (getvar "plinewid")))
+	(setq wd (getreal (strcat "\nEnter the new width: <" PLW_WIDTH ">")))
+	(setq wd (if wd wd PLW_WIDTH))
+	(setq PLW_WIDTH wd)
+	wd
 )
 
-(defun c:lw (/ wd ss ss_l ss_p count elst ent etyp d0 d1 d2 cen uf olderr)
+(defun c:lw (/ wd ss ss_l ss_p elst ent etyp d0 d1 d2 cen uf olderr)
 	(setq olderr *error*)
 	(defun *error* (s)
 		(if uf (setvar "ucsfollow" uf))
@@ -35,14 +35,13 @@
 		(setq *error* olderr olderr nil)
 		(princ)
 	)
-	(princ "\nFishLISP. Nov 27 1995")
-	(princ "\nChange lines Width, ver 1.3.")
+	(princ "\nChange lines Width.")
 	(setq uf (getvar "ucsfollow"))
 	(setvar "cmdecho" 0)
 	(setvar "ucsfollow" 0)
 	(cmd "_undo" "group")
 
-	(plw_setwd)
+	(setq wd (plw_setwd))
 
 	(setq ss (ssget '((0 . "LINE,ARC,CIRCLE,POLYLINE,LWPOLYLINE"))))
 	(cmd "ucs" "w")

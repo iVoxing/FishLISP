@@ -2,7 +2,7 @@
 (if (tblsearch "layer" axi_num_layer) nil (load "reini"))
 (setq axi_num_layer nil)
 
-(defun C:RENUM (/ os cl ss ssl sc n en en1 en2 sn sn1 number nnmuber axi_num_layer attr) 
+(defun C:RENUM (/ os cl ss ssl sc n en_ins en_att old_attr new_attr axi_num_layer attr) 
 	(setq 
 		os (getvar "osmode")
 		sc (getvar "dimscale")
@@ -21,18 +21,17 @@
 	)
 	(setvar "clayer" axi_num_layer)
 	(repeat ssl 
-		(setq en (entget (setq sn (ssname ss n))))
-		(setq insp (cdr (assoc 10 en)))
-		(setq en1 (entget (setq sn1 (entnext sn))))
-		(setq en2 (entget (entnext sn1)))
-		(princ "\nNew Nummber <")
-		(princ (setq number (cdr (assoc 1 en1))))
-		(setq nnumber (strcase (getstring ">:")))
-		(if (= nnumber "") (setq nnumber number))
-		(cmd "erase" sn "")
-		(if (> (strlen nnumber) 1) 
-			(cmd "insert" "axi" (trans insp 0 1) sc "" 0 nnumber)
-			(cmd "insert" "axi0" (trans insp 0 1) sc "" 0 nnumber)
+		(setq
+			en_ins (ssname ss n)
+			en_ins_pt (cdr (assoc 10 (entget en_ins)))
+			old_attr (cdr (assoc 1 (entget (entnext en_ins))))
+			new_attr (strcase (getstring (strcat "\nNew Nummber: <" old_attr ">")))
+			new_attr (if (= new_attr "") old_attr new_attr)
+		)
+		(entdel en_ins)
+		(if (> (strlen new_attr) 1) 
+			(cmd "insert" "axi" (trans en_ins_pt 0 1) sc "" 0 new_attr)
+			(cmd "insert" "axi0" (trans en_ins_pt 0 1) sc "" 0 new_attr)
 		)
 		(setq n (1+ n))
 	)
@@ -44,7 +43,7 @@
 	(princ)
 )
 
-(defun C:INSNUM (/ olderr os cl sc sp ep number ins ang axi_num_layer attr) 
+(defun C:INSNUM (/ olderr os cl sc sp ep old_attr ins ang axi_num_layer attr) 
 	(setq olderr *error*)
 	(defun *error* (s) 
 		(if os (setvar "osmode" os))
@@ -71,23 +70,23 @@
 		(setvar "osmode" 167)
 		(setq sp (getpoint "\nStart Point: "))
 		(if sp (setq ep (getpoint sp "\nEnd Point: ")) (setq loop nil))
-		(if ep (setq number (getstring "\nNummber: ")) (setq loop nil))
-		(if number 
+		(if ep (setq old_attr (getstring "\nNummber: ")) (setq loop nil))
+		(if old_attr 
 			(progn 
 				(setq 
-					number (strcase number)
+					old_attr (strcase old_attr)
 					ins(polar ep (setq ang (angle sp ep)) (* sc 4))
 				)
-				(if (> (strlen number) 1) 
+				(if (> (strlen old_attr) 1) 
 					(progn 
 						(cmd "line" sp ep "")
 						(setvar "osmode" 0)
-						(cmd "insert" "axi" ins sc "" 0 number)
+						(cmd "insert" "axi" ins sc "" 0 old_attr)
 					)
 					(progn 
 						(cmd "line" sp ep "")
 						(setvar "osmode" 0)
-						(cmd "insert" "axi0" ins sc "" 0 number)
+						(cmd "insert" "axi0" ins sc "" 0 old_attr)
 					)
 				)
 			)

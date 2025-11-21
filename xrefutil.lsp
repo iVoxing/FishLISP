@@ -24,11 +24,11 @@
 					(if (= 4 (logand 4 (cdr (assoc 70 ben))))
 						(setq xname (cdr (assoc 2 ben)))
 						(princ "\n对象不是XREF图块。")
-					); if xref?
-				); progn =insert
+					)
+				)
 				(princ "\n对象不是图块。")
-			); if insert?
-		); progn seleted any thing
+			)
+		)
 	)
 	xname ; retuen value
 )

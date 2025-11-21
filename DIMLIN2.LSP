@@ -16,7 +16,7 @@
 
 (setq *error* olderr olderr nil)
 
-(defun c:dimlin2 (/ );ss amnt pt_base pt_ext olderr)
+(defun c:dimlin2 (/ )
 	;(fishlisp "DIMLIN" "v2.0")
 	;(fl_undo_begin)
 	;(setq olderr *error*)
@@ -44,7 +44,7 @@
 	(princ)
 )
 
-(defun dimlin (/ ); ent pt1 pt2 ang y_list idx oo os cl ucsf)
+(defun dimlin (/ )
 	(setq 
 		oo (getvar "orthomode")
 		os (getvar "osmode")

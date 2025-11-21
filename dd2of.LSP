@@ -90,7 +90,7 @@
 	(end_list)
 )
 
-;|Ë«ÏòÆ«ÒÆ SNSJ 2004.3.8
+;Ë«ÏòÆ«ÒÆ SNSJ 2004.3.8
 (defun ptlay (x y)
 	(if y
 		(vla-put-layer

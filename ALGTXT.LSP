@@ -27,7 +27,7 @@
 			( t 
 				(setq pt nil)
 			)
-		);pt
+		)
 	)
 
 	(fl_undo_begin)
@@ -54,7 +54,7 @@
 		)
 		(entmod ent1)
 		(setq idx (1+ idx))
-	);repeat
+	)
 	(fl_undo_end)
 	(setq *error* olderr)
 	(princ)

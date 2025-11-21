@@ -20,6 +20,7 @@
 ;WL31 CONTINUOUS
 
 ; History:
+; 2025-11-21	rewrite with assoc list
 ; 2003-06-16: Bugfix
 ; WD-ID text objects filter
 ; 2003-03-24: update
@@ -27,7 +28,6 @@
 ; more filter for text and other objects type.
 ; layer color and linetype changed.
 
-(setvar "cmdecho" 0)
 (cmd "undo" "begin")
 (setvar "regenmode" 0)
 
@@ -38,35 +38,51 @@
 ;(cmd "linetype" "load" "acad_iso04w100" "acad.lin" "")
 ;)
 
+(setq rename_list
+	(list 
+		'("WALL" "墙体")
+		'("WINDOW" "门窗")
+		'("WINDOW_TEXT" "文字 门窗")
+		'("AREA" "面积")
+		'("COLUMN" "结构柱")
+		'("251" "填充 30%")
+		'("dote" "轴线")
+		'("1-空调-30" "设备 空调")
+		'("厨卫" "布置 厨具")
+		'("STAIR" "看线 0")
+		'("空调" "设备 空调")
+		'("厨房" "布置 厨具")
+		'("卫生间" "布置 洁具")
+	)
+)
+
+(defun rename_layer (name_ / itm old_name new_name)
+	(if (setq itm (assoc old_name rename_list))
+		(progn 
+			(setq new_name (cdr itm))
+			(cmd "layer" "rename" old_name new_name "")
+		)
+	)
+)
+
 ; save layer F/T L/U state
-(setq oldname_list (list "WALL"	"WINDOW"	"WINDOW_TEXT"	"AREA"	"COLUMN"	"251"		"dote"	"1-空调-30"	"厨卫"		"STAIR"		"空调"		"厨房"		"卫生间" ))
-(setq newname_list (list "墙体"	"门窗"		"文字 门窗"	"面积"	"结构柱"	"填充 30%"	"轴线"	"设备 空调"	"布置 厨具"	"看线 0"	"设备 空调"	"布置 厨具"	"布置 洁具"))
-(defun rnla (oldname)
-	(if (member oldname oldname_list)
-		(cmd "layer" "rename" oldname (nth (- (length oldname_list) (length (member oldname oldname_list))) newname_list) "")
-	)
+(setq 	lay_f_str (get_laystr_by_state "freeze")
+		lay_l_str (get_laystr_by_state "lock")
 )
-(setq 
-	lay_f_list (list)
-	lay_l_list (list)
-	lay (tblnext "layer" t)
-)
-(while lay
-	(if (= (logand (cdr (assoc 70 lay)) 1) 1)
-		(setq lay_f_list (append lay_f_list (list (cdr (assoc 2 lay)))))
-	)
-	(if (= (logand (cdr (assoc 70 lay)) 4) 4)
-		(setq lay_l_list (append lay_l_list (list (cdr (assoc 2 lay)))))
-	)
-	(rnla (cdr (assoc 2 lay)))
-	(setq lay (tblnext "layer"))
-)
+
+(setvar "cmdecho" 0)
 (cmd "layer" "t" "*" "")
 (cmd "layer" "u" "*" "")
 
+(setq lay (tblnext "layer" t))
+(while lay
+	(rename_layer (cdr (assoc 2 lay)))
+	(setq lay (tblnext "layer"))
+)
+
 ; Make layer function
-(defun rsla (laname laclr laltype)
-	(cmd "layer" "m" laname "c" laclr "" "l" laltype "" "")
+(defun make_layer (laname_ laclr_ laltype_)
+	(cmd "layer" "m" laname_ "c" laclr_ "" "l" laltype_ "" "")
 )
 
 ; Make layers
@@ -76,25 +92,25 @@
 )
 (setq clay (getvar "clayer"))
 (princ "\n\t设置缺省图层")
-(rsla "1"	"9"	"")
-(rsla "面积"	"1"	"")
-(rsla "结构柱" "6" "")
-(rsla "填充 15%" "251" "")
-(rsla "填充 30%" "252" "")
-(rsla "defpoints" "5" "")
-(rsla "门窗"	"150"	"")
-(rsla "文字 门窗"	"2"	"")
-(rsla "布置 家具"	"252"	"")
-(rsla "轴线"	"134"	"")
-(rsla "标注 0"	"3"	"")
-(rsla "文字 名称"	"4"	"")
-(rsla "布置 洁具"	"4"	"")
-(rsla "墙体"	"41"	"")
-(rsla "布置 厨具"	"4"	"")
-(rsla "看线 0"	"9"	"")
-(rsla "设备 空调"	"3"	"")
-(rsla "栏杆"	"3"	"")
-
+(make_layer "1"	"9"	"")
+(make_layer "面积" "1"	"")
+(make_layer "结构柱" "6" "")
+(make_layer "填充 15%" "251" "")
+(make_layer "填充 30%" "252" "")
+(make_layer "defpoints" "5" "")
+(make_layer "门窗" "150" "")
+(make_layer "文字 门窗"	"2"	"")
+(make_layer "布置 家具"	"252"	"")
+(make_layer "轴线" "134" "")
+(make_layer "标注 0" "3" "")
+(make_layer "文字 名称"	"4"	"")
+(make_layer "布置 洁具"	"4"	"")
+(make_layer "墙体" "41" "")
+(make_layer "布置 厨具"	"4"	"")
+(make_layer "看线 0" "9" "")
+(make_layer "设备 空调"	"3"	"")
+(make_layer "栏杆" "3" "")
+(setvar "clayer" clay)
 
 (setvar "highlight" 0)
 (setq 
@@ -109,7 +125,6 @@
 )
 
 (if ss_d (princ "\n\t转换标注实体Dimension的图层; "))
-
 (if ss_e (cmd "chprop" ss_e "" "la" "标注 0" ""))
 (if ss_d (cmd "chprop" ss_d "" "la" "标注 0" ""))
 ;(if ss_a (cmd "chprop" ss_a "" "c" "7" ""))
@@ -127,15 +142,10 @@
 
 (cmd "layer" "plot" "n" "面积" "")
 
-(if lay_f_list 
-	(foreach itm lay_f_list (cmd "layer" "f" itm ""))
-)
-(if lay_l_list
-	(foreach itm lay_l_list (cmd "layer" "lo" itm ""))
-)
+(if lay_f_str (cmd "layer" "f" lay_f_str ""))
+(if lay_l_str (cmd "layer" "l" lay_l_str ""))
 
 (redraw)
-(setq rsla nil ss_d nil ss_t nil ss_n nil ss_f nil ss_l nil l_id nil en nil ss_w nil)
 (setvar "highlight" 1)
 (setvar "clayer" clay)
 (setvar "regenmode" 1)

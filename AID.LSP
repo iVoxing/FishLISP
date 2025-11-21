@@ -1,6 +1,6 @@
-; 2025-11-12	rewrite variables get|set, tested ok
-;				
 ; ≤Â»Î÷·œﬂ∫≈
+; 	2025-11-12	rewrite variables get|set, tested ok
+;				
 (load "function.lsp")
 
 (fl_layer_check "PAXIS" "134")
@@ -27,10 +27,10 @@
 		  			)
 					(setq loop nil msg (princ "\n1 was not Line. "))
 				)
-	  		);progn
+	  		)
 			(setq loop nil)
-		);if en
-  	);while
+		)
+  	)
 	(princ)
 )
 
@@ -73,7 +73,7 @@
 		(progn
 			(initget "Yes No")
 			(setq kwd (getkword "\nConvert line to Axis? [<Yes>/No] "))
-			(if kwd nil (setq kwd "Yes"))
+			(setq kwd (if kwd kwd "Yes"))
 			(if (= kwd "Yes")
 				(entmod (subst (cons 8 "PAXIS") (assoc 8 ent) ent))
 				(setq loop nil)

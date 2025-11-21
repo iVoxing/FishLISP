@@ -4,17 +4,19 @@
 ; This function is called by TK.LSP if the linetypscale changed while
 ; inserting tileblock
 ;
-(defun sctx (sc ss / count entn ent hi_old hi_new ent_nw)
-	(setq count 0)
-	(while (< count (sslength ss))
+;	2025-11-21	optimization
+
+(defun sctx (sc_ ss_ / idx entn ent hi_old hi_new ent_nw)
+	(setq idx 0)
+	(while (< idx (sslength ss_))
 		(setq 
-			entn (ssname ss count)
+			entn (ssname ss_ idx)
 			ent (entget entn)
 			hi_old (cdr (assoc 40 ent))
-			hi_new (* hi_old sc)
+			hi_new (* hi_old sc_)
 		)
 		(entmod (subst (cons 40 hi_new) (assoc 40 ent) ent))
-		(setq count (1+ count))
+		(setq idx (1+ idx))
 	)
 	(princ)
 )

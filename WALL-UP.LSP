@@ -2,7 +2,7 @@
 	(setvar "cmdecho" 0)
 	(setq 
 		a (ssget "x" '((0 . "line") (8 . "wall,door,window")))
-		b (ssget "x" '((8 . "wall,door,window")(-3 ("FISH_WALL"))))
+		b (ssget "x" '((8 . "wall,door,window")(-3 ("FL_WALL"))))
 		c (ssget "x" '((0 . "line") (8 . "wall-base")))
 	)
 	(cmd "select" a c "r" b "")
@@ -10,7 +10,7 @@
 	(cmd "select" "p" "")
 	(setq ss (ssget "p"))
 	(setq d (sslength c))
-	(if d nil (setq d 0))
+	(setq d (if d d 0))
 	(princ "\n")
 	(if ss
 		(princ (- (sslength ss) d))
@@ -22,7 +22,7 @@
 )
 
 (defun wup (en / ent xdt ss rpt idx)
-	(setq ent (entget en '("FISH_WALL")))
+	(setq ent (entget en '("FL_WALL")))
 	(if ent (setq xdt (cadr (assoc -3 ent))))
 	(if xdt
 		(setq 
@@ -51,7 +51,7 @@
 	(cmd "zoom" "1x")
 	(setvar "cmdecho" 1)
 	(setq en (entsel "\nSelect a Wall-base line: "))
-	(if en (setq ent (entget (car en) '("FISH_WALL"))))
+	(if en (setq ent (entget (car en) '("FL_WALL"))))
 	(if ent (setq xdt (cadr (assoc -3 ent))))
 	(if xdt
 		(progn

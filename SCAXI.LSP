@@ -18,10 +18,9 @@
 	)
 
 	(setq dims0 (getvar "dimscale"))
-	(princ (strcat "\nDimscale: <" (rtos dims0) "> "))
 	(initget 6)
-	(setq dims1 (getreal))
-	(if dims1 nil (setq dims1 dims0))
+	(setq dims1 (getreal (strcat "\nDimscale: <" (rtos dims0) "> ")))
+	(setq dims1 (if dims1 dims1 dims0))
 
 	(setq axi_ss (ssget '((0 . "insert") (2 . "axi,axi0"))))
 	(setq axi_amt (if axi_ss (sslength axi_ss) 0) axi_idx 0)

@@ -10,14 +10,13 @@
 		(princ)
 	)
 
-	(if lm_seg nil (setq lm_seg 4))
+	(setq lm_seg (if lm_seg lm_seg 4))
 	(setq pt1 (getpoint "\nStart point: "))
 	(if pt1 (setq pt2 (getpoint pt1 "\nEnd point: ")))
 	(if pt2
 		(progn
-			(princ (strcat "\nSegment: <" (rtos lm_seg 2 0) ">: "))
-			(setq seg (getint))
-			(if seg nil (setq seg lm_seg))
+			(setq seg (getint (strcat "\nSegment: <" (rtos lm_seg 2 0) ">: ")))
+			(setq seg (if seg seg lm_seg))
 			(setq lm_seg seg)
 			(setq dist (distance pt1 pt2))
 			(setq dwid (if (< dist 100) 0.04 40.0))

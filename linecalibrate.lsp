@@ -3,16 +3,9 @@
 (defun c:lca (/ ori_pt mysnap x0 y0 z0 x1 y1 z1 x2 y2 z2 line_obn line_obl line_ss line_idx)
 	(setvar "cmdecho" 0)
 	(cmd "undo" "begin")
-;设置原点，缺省0,0
+	;设置原点，缺省0,0
 	(setq lcab:ori_pt (if lcab:ori_pt lcab:ori_pt '(0 0 0)))
-	(princ (strcat
-	"\n设置基准点：<"
-		(rtos (car lcab:ori_pt))
-		","
-		(rtos (cadr lcab:ori_pt))
-		"> "
-	));princ
-	(setq ori_pt (getpoint))
+	(setq ori_pt (getpoint (strcat "\n设置基准点：<" (rtos (car lcab:ori_pt)) "," (rtos (cadr lcab:ori_pt)) "> ")))
 	(setq ori_pt (if ori_pt ori_pt lcab:ori_pt))
 	(setq lcab:ori_pt ori_pt)
 	(setq 
@@ -22,9 +15,7 @@
 	)
 	;设置校准精度，即模数，缺省10
 	(setq lcab:snap (if lcab:snap lcab:snap 10))
-	(princ "\n设置校准精度：<")
-	(princ lcab:snap)
-	(setq mysnap (getint "> "))
+	(setq mysnap (getint (strcat "\n设置校准精度：<" lcab:snap "> ")))
 	(setq mysnap (if mysnap mysnap lcab:snap))
 	(setq lcab:snap mysnap)
 	;收集line图元
@@ -48,8 +39,8 @@
 					y2 (cadr line_pt2)
 					z1 (caddr line_pt1)
 					z2 (caddr line_pt2)
-				);setq
-				(if (= (rem (- x1 x0) lcab:snap)
+				)
+				(if (= 	(rem (- x1 x0) lcab:snap)
 						(rem (- x2 x0) lcab:snap)
 						(rem (- y1 y0) lcab:snap)
 						(rem (- y2 y0) lcab:snap)
@@ -78,12 +69,12 @@
 						)
 						(entmod (setq line_obl (subst (cons 10 (list x1 y1 z1)) (assoc 10 line_obl) line_obl)))
 						(entmod (setq line_obl (subst (cons 11 (list x2 y2 z2)) (assoc 11 line_obl) line_obl)))
-					);progn
-				);if
+					)
+				)
 				(setq line_idx (1+ line_idx))
-			);repeat
-		);line_ss progn
-	);if line_ss
+			)
+		)
+	)
 	(cmd "undo" "end")
 	(setvar "cmdecho" 1)
 	(princ (strcat "\n" (rtos modi_idx 2 0) " Line(s) 已经校准。"))

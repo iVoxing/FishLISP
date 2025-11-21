@@ -1,44 +1,49 @@
-;
-;1/8/98	v2.0	Drawing module added.
+; 2025-11-21		rewriting
+; 1998-01-08 v2.0	Drawing module added.
 
 (defun c:fst (/ str_h str_l str_w stp_h stp_w stp_n )
 	(princ "\FishLISP. Draw stair section. Version 2.0 ")
-	(if f_str_h nil (setq f_str_h 3000.0))
-	(if f_stp_h nil (setq f_stp_h 150.0))
-	(princ "\nHigh of stair <")
-	(if f_str_h (princ f_str_h) (princ "3000.0"))
-	(setq str_h (getreal ">:"))
-	(if str_h nil (setq str_h f_str_h))
-	(setq f_str_h str_h)
 
-	(princ "\nHigh of step <")
-	(if f_stp_h (princ f_stp_h) (princ "150.0"))
-	(setq stp_h (getreal ">:"))
-	(if stp_h nil (setq stp_h f_stp_h))
 	(setq 
-		f_stp_h stp_h
+		STAIR_HEIGHT (if STAIR_HEIGHT STAIR_HEIGHT 3000.0)
+		STEP_HEIGHT (if STEP_HEIGHT STEP_HEIGHT 150.0)
+		str_h (getreal (strcat "\nStair height: <" STAIR_HEIGHT ">"))
+		str_h (if str_h str_h STAIR_HEIGHT)
+		STAIR_HEIGHT str_h
+
+		stp_h (getreal (strcat "\nStep height: <" STEP_HEIGHT ">"))
+		stp_h (if stp_h stp_h STEP_HEIGHT)
+		STEP_HEIGHT stp_h
+
 		stp_n (fix (/ str_h stp_h))
 		stp_h (/ str_h stp_n)
 		stp_w (fix (- 450.0 stp_h))
+		STEP_WIDTH stp_w
+		
+		stp_w (getreal (strcat "\nStep width: <" STEP_WIDTH ">:"))
+		stp_w (if stp_w stp_w STEP_WIDTH)
+		STEP_WIDTH stp_w
+
+		str_l (* (1- stp_n) stp_w)
 	)
-	(princ "\nWidth of steps<")
-	(princ stp_w)
-	(setq stp_w (getreal ">:"))
-	(if (= stp_w nil) (setq stp_w (- 450.0 stp_h)))
-	(setq str_l (* (1- stp_n) stp_w))
-	(princ "\nSTAIR == Hight: ")
-	(princ str_h)
-	(princ "\tLength: ")
-	(princ str_l)
-	(princ "\nSTEPS == Hight: ")
-	(princ stp_h)
-	(princ "\tWidth:")
-	(princ stp_w)
-	(princ "\tAmount: ")
-	(princ stp_n)
+	
+	(princ
+		(strcat	
+			"\nSTAIR == Hight: "
+			(rtos str_h 2 0)
+			"\tLength: "
+			(rtos str_l 2 0)
+			"\nSTEPS == Hight: "
+			(rtos stp_h 2 0)
+			"\tWidth:"
+			(rtos stp_w 2 0)
+			"\tAmount: "
+			(rtos stp_n 2 0)
+		)
+	)
 	(initget "Yes No")
 	(setq kwd (getkword "\nDraw stair? <Yes>/No"))
-	(if kwd nil (setq kwd "Yes"))
+	(setq kwd (if kwd kwd "Yes"))
 	(if (= kwd "Yes") (drw_st))
 	(princ)
 )
@@ -54,15 +59,15 @@
 	(initget "Left Right")
 	(cond 
 		((= f_st_dir "Left")
-			(setq kwd (getkword "\nChoice direction: [Left]<Right> "))
-			(if kwd nil (setq kwd "Right"))
+			(setq kwd (getkword "\nchoice direction: [Left]<Right> "))
+			(setq kwd (if kwd kwd "Right"))
 		)
 		((= f_st_dir "Right")
 			(setq kwd (getkword "\nChoice direction: [Right]<Left> "))
-			(if kwd nil (setq kwd "Left"))
+			(setq kwd (if kwd kwd "Left"))
 		)
 		((not f_st_dir)
-			(setq kwd (getkword "\nChoice direction: [Left/Right] "))
+			(setq kwd (getkword "\nchoice direction: [Left/Right] "))
 		)
 	)
 	(setq f_st_dir kwd)
@@ -73,11 +78,11 @@
 	(cond 
 		((= f_st_seg "Section")
 			(setq kwd (getkword "[Section]<Elevation> "))
-			(if kwd nil (setq kwd "Elevation"))
+			(setq kwd (if kwd kwd "Elevation"))
 		)
 		((= f_st_seg "Elevation")
 			(setq kwd (getkword "[Elevation]<Section> "))
-			(if kwd nil (setq kwd "Section"))
+			(setq kwd (if kwd kwd "Section"))
 		)
 		((not f_st_seg)
 			(setq kwd (getkword "[Elevation/Section] "))
@@ -89,7 +94,7 @@
 			pt2 (polar pt1 a90 stp_h)
 			pt3 (polar pt2 dir stp_w)
 		)
-		(if pt4 nil (setq pt4 (polar pt2 a90 -300)))
+		(setq pt4 (if pt4 pt4 (polar pt2 a90 -300)))
 		(drw_line pt1 pt2)
 		(drw_line pt2 pt3)
 		(setq pt1 pt3)
@@ -121,9 +126,9 @@
 )
 
 
-(defun drw_line (lpt1 lpt2 / lay)
+(defun drw_line (lpt1_ lpt2_ / lay)
 	(if (= kwd "Section") (setq lay FLLT_WALL) (setq lay "0"))
-	(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1 1 0)) (cons 11 (trans lpt2 1 0))))
+	(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
 )
 
 (princ "Start as C:FST")

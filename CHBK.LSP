@@ -2,14 +2,14 @@
 ; 2025-11-16	rewrited 
 ; 1996-12-26	v1.0.
 
-(defun chblk (block_name / idx en ent)
+(defun chblk (block_name_ / idx en ent)
 	(setq idx 0)
 	(repeat (sslength ins_ss)
 		(setq 
 			en (ssname ins_ss idx)
 			ent (entget en)
 		)
-		(entmod (subst (cons 2 block_name) (assoc 2 ent) ent))
+		(entmod (subst (cons 2 block_name_) (assoc 2 ent) ent))
 		(entupd en)
 		(setq idx (1+ idx))
 	)

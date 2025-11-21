@@ -23,7 +23,7 @@
 		(princ (strcat "\nView name: " vnm))
 		(initget "Next Restor Delete renaMe eXit")
 		(setq k (getkword "\n[Restor/Delete/renaMe/eXit]<Next view>: "))
-		(if k nil (setq k "Next"))
+		(setq k (if k k "Next"))
 		(cond
 			((= k "Next") (redraw))
 			((= k "Restor")
@@ -35,8 +35,7 @@
 				(redraw)
 			)
 			((= k "renaMe")
-				(princ (strcat "\nEnter new view name: <" vnm "> "))
-				(setq nnm (getstring))
+				(setq nnm (getstring (strcat "\nEnter new view name: <" vnm ">")))
 				(if (= nnm "") (setq nnm vnm))
 				(if (= nnm vnm) nil (cmd "rename" "vi" vnm nnm))
 				(redraw)

@@ -1,10 +1,10 @@
-(defun ucs_e (f_key / ucsf en et typ pt1 pt2 pt0)
+(defun ucs_e (flag_ / ucsf en et typ pt1 pt2 pt0)
 	(setq ucsf (getvar "ucsfollow"))
 	(setvar "cmdecho" 0)
 	(setq en (entsel "\nSelect object: "))
 	(if en
 		(progn
-			(setvar "ucsfollow" f_key)
+			(setvar "ucsfollow" flag_)
 			(setq 
 				et (entget (car en))
 				typ (cdr (assoc 0 et))
@@ -25,12 +25,11 @@
 					(cmd "ucs" "e" (car en))
 					(princ "\n1 is not LINE. ")
 				)
-			);cond
-		);progn
+			)
+		)
 	)
 	(setvar "cmdecho" 1)
 	(setvar "ucsfollow" ucsf)
-	(princ)
 )
 
 (defun c:ue () (ucs_e 0))

@@ -32,8 +32,8 @@
 					)
 					(setq n (1+ n))
 				)
-			);progn
-		);if lines
-	);if layer exist
+			)
+		)
+	)
 	(princ)
-);defun
+)

@@ -14,10 +14,9 @@
 	(setvar "osmode" 0)
 	(setvar "plinewid" 0.0)
 	
-	(if drwv_k nil (setq drwv_k "Pline"))
+	(setq drwv_k (if drwv_k drwv_k "Pline"))
 	(initget "Pline Vector")
-	(princ (strcat "\nDraw in [Pline/Vector]: <" drwv_k "> "))
-	(setq k (getkword))
+	(setq k (getkword (strcat "\nDraw in [Pline/Vector]: <" drwv_k "> ")))
 	(setq k (if k k drwv_k))
 	(setq drwv_k k)
 

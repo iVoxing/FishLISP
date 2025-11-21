@@ -93,8 +93,7 @@
 			bksc	(abs (cdr (assoc 41 ent)))
 			bkang	(cdr (assoc 50 ent))
 		) 
-		(princ (strcat "\nWidth: <" (rtos (* 1000 bksc)) "> "))
-		(setq new_sc (getint))
+		(setq new_sc (getint (strcat "\nWidth: <" (rtos (* 1000 bksc)) "> ")))
 		(if (and new_sc (/= new_sc (* bksc 1000)))
 			(progn
 				(setq new_sc (/ new_sc 1000.0))

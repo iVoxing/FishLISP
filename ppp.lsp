@@ -11,12 +11,12 @@
 					line_pt1 (cdr (assoc 10 line_ent))
 					line_pt2 (cdr (assoc 11 line_ent))
 					idx (1+ idx)
-				);setq
+				)
 				(cmd "plot" "y" "" "" "" "m" "l" "" "w" line_pt1 line_pt2 "f" "" "" "" "" "" "n" "n" "y")
-			);repeat
-		);progn
+			)
+		)
 		(alert "没有预设打印范围")
-	);if plot_ss
+	)
 	(princ)
 )
 

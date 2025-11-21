@@ -1,5 +1,7 @@
-(defun plwsc (en / vtxent vtxwd1 vtxwd2)
-	(setq vtxent (entget (entnext en)))
+; 2025-11-20
+; 1996-12-10
+(defun plwsc (en_ / vtxent vtxwd1 vtxwd2)
+	(setq vtxent (entget (entnext en_)))
 	(if wid
 	(while (/= (cdr (assoc 0 vtxent)) "SEQEND")
 		(setq 
@@ -32,14 +34,15 @@
 		(setq vtxent (entget (entnext (cdr (assoc -1 vtxent)))))
 	)
 	)
-	(entupd en)
+	(entupd en_)
 )
 
 (defun c:plwsc (/ ss idx en)
-	(princ "\nFishLISP, Dec 10 1996")
-	(princ "\nChange polylines' width, ver 2.0.")
-	(princ "\nSelect polylinea to change width: ")
-	(setq ss (ssget '((0 . "polyline,lwpolyline"))) idx 0)
+	(princ "\nChange polylines' width.")
+	(princ "\nSelect polyline: ")
+	(setq 	ss (ssget '((0 . "POLYLINE,LWPOLYLINE")))
+			idx 0
+	)
 	(if ss
 		(progn
 			(initget "Scale")

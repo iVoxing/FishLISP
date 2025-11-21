@@ -12,7 +12,7 @@
 )
 (setq *error* odlerr olderr nil)
 
-(defun drw_brick (pat sc an / cl os hpt pt)
+(defun drw_brick (pat_ sc_ an_ / cl os hpt pt)
 	(fl_undo_begin)
 	(setq 
 		cl (getvar "clayer")
@@ -25,9 +25,9 @@
 		(cmd "layer" "m" "paint_t1" "c" "33" "paint_t1" "")
 	)
 	(setvar "cmdecho" 1)
-	(setvar "hpname" pat)
-	(setvar "hpang" (/ (* an pi) 180.0))
-	(setvar "hpscale" sc)
+	(setvar "hpname" pat_)
+	(setvar "hpang" (/ (* an_ pi) 180.0))
+	(setvar "hpscale" sc_)
 	(setq pt (getpoint "\nBase point: "))
 	(if pt
 		(progn

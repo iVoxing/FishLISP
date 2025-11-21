@@ -1,17 +1,17 @@
 ; 2025-11-12 parts request move out from func
 
-(defun dvlin (ent parts / pt1 pt2 lay ang dis part pt3)
+(defun dvlin (ent_ parts_ / pt1 pt2 lay ang dis part pt3)
 	(setq 
-		pt1 (cdr (assoc 10 ent))
-		pt2 (cdr (assoc 11 ent))
-		lay (cdr (assoc 8 ent))
+		pt1 (cdr (assoc 10 ent_))
+		pt2 (cdr (assoc 11 ent_))
+		lay (cdr (assoc 8 ent_))
 		ang (angle pt1 pt2)
 		dis (distance pt1 pt2)
-		dis (/ dis parts)
+		dis (/ dis parts_)
 		pt3 (polar pt1 ang dis)
 	)
-	(entmod (subst (cons 11 pt3) (assoc 11 ent) ent))
-	(repeat (1- parts)
+	(entmod (subst (cons 11 pt3) (assoc 11 ent_) ent_))
+	(repeat (1- parts_)
 		(setq pt1 pt3 pt3 (polar pt1 ang dis))
 		(entmake (list
 			(cons 0 "line")
@@ -22,17 +22,17 @@
 	)
 )
 
-(defun dvarc (ent parts/ cen rad lay ang1 ang2 ang)
+(defun dvarc (ent_ parts_ / cen rad lay ang1 ang2 ang)
 	(setq 
-		cen (cdr (assoc 10 ent))
-		rad (cdr (assoc 40 ent))
-		lay (cdr (assoc 8 ent))
-		ang1 (cdr (assoc 50 ent))
-		ang2 (cdr (assoc 51 ent))
-		ang (/ (- ang2 ang1) parts)
+		cen (cdr (assoc 10 ent_))
+		rad (cdr (assoc 40 ent_))
+		lay (cdr (assoc 8 ent_))
+		ang1 (cdr (assoc 50 ent_))
+		ang2 (cdr (assoc 51 ent_))
+		ang (/ (- ang2 ang1) parts_)
 	)
-	(entdel (cdr (assoc -1 ent)))
-	(repeat parts
+	(entdel (cdr (assoc -1 ent_)))
+	(repeat parts_
 		(setq ang2 (+ ang1 ang))
 		(entmake (list 
 			(cons 0 "ARC")

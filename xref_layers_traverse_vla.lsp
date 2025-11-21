@@ -33,14 +33,24 @@
 	)
 )
 
+; 判断图块是否为外部引用 by name
+(defun is_xref (b_name / b_def xr)
+	(setq xr nil)
+	(setq b_def (vla-item (vla-get-blocks (vla-get-ActiveDocument (vlax-get-acad-object))) b_name))
+	(if b_def
+		(setq xr (vla-get-IsXRef b_def))
+	)
+	xr
+)
+
 ; 通过点选方式直接选取 2024-12-11
 ; 2024-12-11 tested
 (defun select_xref (/ obj ent block_name block_def block_type) ; -> xref 图块名称
 	(setq obj (entsel "\nSelect a Xref Insert: "))
 	(if obj 
-		(setq ent (entget (car obj))
-			block_name (cdr (assoc 2 ent))
-			block_def (tblsearch "block" block_name)
+		(setq xobj (vlax-ename->vla-object (car obj))
+			block_name (vla-get-Name xobj)
+			block_def (vla-item (vla-get-blocks (vla-get-ActiveDocument (vlax-get-acad-object))) block_name)
 		)
 	)
 	(if block_def
@@ -76,12 +86,12 @@
 	la_list
 )
 
-; 将图层改为红色
+; 将所有XREF图层改为红色
 (defun layers_2_red (b_name)
 	(command "_.layer" "color" "red" (strcat b_name "*") "")
 )
 
-; 将图层关闭
+; 将所有XREF图层关闭
 (defun layers_off (b_name)
 	(command "_.layer" "off" (strcat b_name "*") "")
 )
@@ -92,7 +102,7 @@
 	(setq amt (length l_list) idx 1)
 	(setq lay (car l_list) l_list (cdr l_list))
 	(while lay
-		(layers_off b_name);将图层关闭
+		(layers_off b_name)
 		(command "_.layer" "on" lay "")
 		(initget "Next Exit")
 		(setq k (getkword (strcat "\nLayer " (rtos idx) "/" (rtos amt) ": " lay ". Exit<Next>: ")))
@@ -121,7 +131,7 @@
 	)
 	(if layer_list
 		(progn
-			(layers_2_red block_name);将图层改为红色
+			(layers_2_red block_name)
 			(show_layer block_name layer_list)
 		)
 	)

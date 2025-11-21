@@ -44,11 +44,11 @@
 							((= (strlen new_v) (strlen old_v) 1)
 								(entmod (subst (cons 1 new_v) (assoc 1 att_ent) att_ent))
 								(entupd en_name)
-							)				;block no change 1
+							)
 							((and (> (strlen new_v) 1) (> (strlen old_v) 1))
 								(entmod (subst (cons 1 new_v) (assoc 1 att_ent) att_ent))
 								(entupd en_name)
-							)				;block no change 2
+							)
 							((= (strlen new_v) 1)
 								(setq 
 									att_pt10 (cdr (assoc 10 att_ent))
@@ -65,7 +65,7 @@
 									att_ent (entmod (subst (cons 41 1.0) (assoc 41 att_ent) att_ent))
 								)
 								(entupd en_name)
-							)				; block change to axi0 no fit
+							)
 							((= (strlen old_v) 1)
 								(setq
 									att_pt10 (polar bk_ins (+ att_ang (* pi 1.25)) (* 2.25 (sqrt 2) bk_scl))
@@ -79,9 +79,9 @@
 									att_ent (entmod (subst (cons 11 att_pt11) (assoc 11 att_ent) att_ent))
 								)
 								(entupd en_name)
-							)				;block change to axi fit
-						) ;cond compare new_v and old_v
-					) ;cond axi treatment
+							)
+						)
+					)
 					((member (strcase bk_name) (list "ELUR" "ELUL" "ELDR" "ELDL" "DIM_BG"))
 						(setq	
 							att_ent	(entget (entnext en_name))
@@ -116,13 +116,13 @@
 								(entmod (subst (cons 1 new_v) (assoc 1 att_ent) att_ent))
 								(entupd en_name)
 							)
-						)				;cond 
-					); 
+						)
+					)
 					(t				;cond other treatment
 						(cmd "_ddatte" en)
 					)
-				) ;cond insert type
-			) ; cond e_type = insert
+				)
+			)
 			((= e_type "DIMENSION")
 				(if (= laysta 68)
 					(princ "\nThe entity is on a locked layer. ")
@@ -132,12 +132,12 @@
 						(if new_v
 							(cmd "_dim1" "new" new_v en "")
 						)
-					)				;progn
-				)				;if layer locked?
-			)					;cond e_type=dimension
+					)
+				)
+			)
 			(t)
-		)					;cond
-	)					;while
+		)
+	)
 	(setvar "cmdecho" 1)
 	(if (fl_check_ver 16)
 		(setvar "dtexted" 0)

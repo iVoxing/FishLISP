@@ -19,10 +19,10 @@
 					(t
 						(if addtolist (princ (strcat "\n" pgp_l)))
 					)
-				);cond
-			);while
+				)
+			)
 			(close pgp_r)
-		);progn
+		)
 		(alert "\nACAD.PGPŒ¥’“µΩ£°")
 	)
 	(princ)
@@ -52,10 +52,10 @@
 							(setq cmd_list (append cmd_list (list (substr pgp_l 1 (vl-string-search "," pgp_l)))))
 						)
 					)
-				);cond
-			);while
+				)
+			)
 			(close pgp_r)
-		);progn
+		)
 		(alert "\nACAD.PGPŒ¥’“µΩ£°")
 	)
 	(princ)

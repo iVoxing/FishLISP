@@ -1,6 +1,6 @@
-(defun dim_brk (lin_en / os oo cl lin_ent lin_pt1 lin_pt2 dim_ss dim_amt dim_idx dim_ent dim_pt0 dim_lay dim_pt1 dim_pt2 dim_hv dim_int)
+(defun dim_brk (lin_en_ / os oo cl lin_ent lin_pt1 lin_pt2 dim_ss dim_amt dim_idx dim_ent dim_pt0 dim_lay dim_pt1 dim_pt2 dim_hv dim_int)
 	(setq 
-		lin_ent (entget lin_en)
+		lin_ent (entget lin_en_)
 		lin_pt1 (cdr (assoc 10 lin_ent))
 		lin_pt2 (cdr (assoc 11 lin_ent))
 		dim_ss (ssget "f" (list lin_pt1 lin_pt2) '((0 . "dimension")))

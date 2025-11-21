@@ -68,9 +68,9 @@
 		(done_dialog 1)
 	)
 
-	(defun drw_line (lpt1 lpt2 / lay)
+	(defun drw_line (lpt1_ lpt2_ / lay)
 		(if (= f_st_seg "Section") (setq lay FLLT_WALL) (setq lay "0"))
-		(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1 1 0)) (cons 11 (trans lpt2 1 0))))
+		(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
 	)
 
 	(defun drw_st (/ a90 pt0 pt1 pt2 pt3 pt4 pt5 pt6 pt7 pt8 pt9 pt10)
@@ -92,7 +92,7 @@
 				pt2 (polar pt1 a90 stp_h)
 				pt3 (polar pt2 dir stp_w)
 			)
-			(if pt4 nil (setq pt4 (polar pt2 a90 -300)))
+			(setq pt4 (if pt4 pt4 (polar pt2 a90 -300)))
 			(drw_line pt1 pt2)
 			(drw_line pt2 pt3)
 			(setq pt1 pt3)
@@ -101,7 +101,7 @@
 			pt2 (polar pt1 a90 stp_h)
 			pt3 (polar pt2 dir stp_w)
 		)
-		(if pt4 nil (setq pt4 (polar pt2 a90 -300)))
+		(setq pt4 (if pt4 pt4 (polar pt2 a90 -300)))
 		(drw_line pt1 pt2)
 		(if (= f_st_seg "Section") nil
 			(setq f_st_del (entlast))

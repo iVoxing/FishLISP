@@ -34,8 +34,8 @@
 				(while (= "STYLE" (getvar "cmdnames"))
 					(cmd "n")
 				)
-			);progn
-		);if not a xrefstyle
+			)
+		)
 		(setq flag nil)
 	)
 	(setvar "regenmode" 1)

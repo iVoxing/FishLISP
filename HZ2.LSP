@@ -6,7 +6,7 @@
 	(princ)
 )
 
-(defun set_style(font_new big_new / old_amt new_amt xref_amt next_style style_name font_name big_name font_found big_found ft_set)
+(defun set_style (font_new_ big_new_ / old_amt new_amt xref_amt next_style style_name font_name big_name font_found big_found ft_set)
 	(setvar "cmdecho" 0)
 	(setvar "regenmode" 0)
 	(setq flag t old_amt 0 new_amt 0 xref_amt 0)
@@ -14,8 +14,8 @@
 		(setq
 			next_style	(tblnext "style" flag)
 			style_name	(cdr (assoc 2 next_style))
-			fmp_list		(list)
-		);setq
+			fmp_list	(list)
+		)
 		(if (= 16 (logand 16 (cdr (assoc 70 next_style))))
 			(setq xref_amt (1+ xref_amt))
 			(progn ;not a xref style
@@ -24,10 +24,10 @@
 					big_name (cdr (assoc 4 next_style))
 					font_found (or (findfile font_name) (findfile (strcat font_name ".shx")) (findfile (strcat font_name ".ttf")))
 					big_found (or (= "" big_name) (findfile big_name) (findfile (strcat big_name ".shx")) (findfile (strcat big_name ".ttf")))
-					font_name (if font_found font_name font_new)
-					big_name (if big_found big_name big_new)
+					font_name (if font_found font_name font_new_)
+					big_name (if big_found big_name big_new_)
 					ft_set (strcat font_name "," big_name)
-					ft_set (if (= ft_set (strcat font_new ",")) (strcat font_new "," big_new) ft_set)
+					ft_set (if (= ft_set (strcat font_new_ ",")) (strcat font_new_ "," big_new_) ft_set)
 				)
 				(if (and font_found big_found)
 					(setq old_amt (1+ old_amt))
@@ -44,10 +44,10 @@
 				(while (= "STYLE" (getvar "cmdnames"))
 					(cmd "n")
 				)
-			);progn
-		);if not a xrefstyle
-		(setq flag nil); Search first item in tbl when flag is true
-	);while
+			)
+		)
+		(setq flag nil)
+	)
 	(setvar "regenmode" 1)
 	(cmd "regen")
 	(setvar "cmdecho" 1)

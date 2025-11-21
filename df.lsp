@@ -26,10 +26,10 @@
 				(setq dis (+ dis (nth idx df_list)))
 				(cmd "offset" dis et0 pt1 "")
 				(setq idx (1+ idx))
-			);repeat
+			)
 			(setq df_defaut df_list)
-		);if df_list true
-	);if df_list
+		)
+	)
 	(setvar "cmdecho" 1)
 	(setvar "offsetdist" of_dist)
 	(princ)

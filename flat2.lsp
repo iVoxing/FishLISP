@@ -8,7 +8,6 @@
 	(princ "\nFishLISP C:lca v2.0 对图元的10、11组码Z值填零。")
 	(setvar "cmdecho" 0)
 	(cmd "undo" "begin")
-	;收集图元
 	(prompt "\n选择图元：")
 	(setq ent_ss (ssget))
 	(if ent_ss
@@ -22,31 +21,31 @@
 				;替换图元
 				(entmod
 					(mapcar 
-						'(lambda (pl_itm)
-							(setq pt_vul (cdr pl_itm))
+						'(lambda (pl_itm_ / pt_vul z_vul)
+							(setq pt_vul (cdr pl_itm_))
 							(cond
-								((member (car pl_itm) (list 10 11))
+								((member (car pl_itm_) (list 10 11))
 									(if (and (setq z_vul (caddr pt_vul)) (not (zerop z_vul)))
-										pl_itm
-										(subst 0.0 z_vul pl_itm)
-									);if 
-								);cond 10 11
-								((member (car pl_itm) (list 38))
-									(subst 0.0 (cadr pt_vul) pl_itm)
-								);cond 38
-								(t
-									pl_itm
+										pl_itm_
+										(subst 0.0 z_vul pl_itm_)
+									)
 								)
-							);cond
-						);lambda
+								((member (car pl_itm_) (list 38))
+									(subst 0.0 (cadr pt_vul) pl_itm_)
+								)
+								(t
+									pl_itm_
+								)
+							)
+						)
 						ent_obl
-					);mapcar
-				);entmod ent_obl
+					)
+				)
 				(entupd ent_obn)
 				(setq ent_idx (1+ ent_idx))
-			);repeat ent_ss
-		);progn ent_ss 
-	);if ent_ss
+			)
+		)
+	)
 	(cmd "undo" "end")
 	(setvar "cmdecho" 1)
 	(princ)

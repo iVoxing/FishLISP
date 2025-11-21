@@ -11,10 +11,10 @@
 	)
 	(setq ss (ssget '((0 . "text"))))
 	(if ss
-		;;LCA - WARNING: The DWGNAME sysvar has changed.
 		(setq amt (sslength ss) idx 0 f (open (strcat (getvar "dwgprefix") (getvar "dwgname") ".lsp") "w"))
 		(setq amt 0)
 	)
+
 	(repeat amt
 		(setq 
 			ent0 (entget (ssname ss idx))

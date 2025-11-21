@@ -287,7 +287,7 @@
 	(princ)
 )
 
-(defun c:fds () ; toggle fielddisplay mode, for 2005 and above
+(defun c:fds ()
 	(if (fl_check_ver 16)
 		(setvar "fielddisplay" (- 1 (getvar "fielddisplay")))
 	)
@@ -425,17 +425,14 @@
 
 (defun c:of (/ of_dis dis en)
 	(prompt "\nOffset and erase the origenal entity.")
-	(princ "\nOffset distance or Through <")
 	(setq of_dis (getvar "offsetdist"))
-	(if (<= of_dis 0)
-		(princ "Through")
-		(princ of_dis)
-	)
+	(setq of_msg (if (<= of_dis 0) "Through" (rtos of_dis)))
+	(princ )
 	(initget "Through")
-	(setq dis (getdist ">:"))
-	(if dis nil (setq dis of_dis))
-	(if (= dis "Through") (setq dis -1))
-	(if (<= dis 0) (setq dis "Through"))
+	(setq dis (getdist (strcat "\nOffset distance: <" of_msg ">:")))
+	(setq dis (if dis dis of_dis))
+	(setq dis (if (= dis "Through") -1 dis))
+	;(if (<= dis 0) (setq dis "Through"))
 	(setvar "cmdecho" 0)
 	(cmd "_offset" dis)
 	(setvar "cmdecho" 1)
@@ -537,30 +534,17 @@
 	(princ)
 )
 
-(defun c:rb (/ pt0 os lay_f_list lay_l_list lay itm)
+(defun c:rb (/ pt0 os lay_f_str lay_l_str)
 	(fl_undo_begin)
-	(defun append_lay_byname (lay_list lay_name)
-		(append lay_list (list (cdr (assoc 2 lay_name))))
-	)
 	(if (setq pt0 (getpoint "\nNew point for base: "))
 		(progn
-			(setvar "cmdecho" 0)
 			; save layer F/T L/U state
 			(setq 
-				lay_f_list (list)
-				lay_l_list (list)
-				lay (tblnext "layer" t)
-			)
-			(while lay
-				(if (= (logand (cdr (assoc 70 lay)) 1) 1);freezed
-					(setq lay_f_list (append_lay_byname (lay_f_list lay)))
-				)
-				(if (= (logand (cdr (assoc 70 lay)) 4) 4);locked
-					(setq lay_l_list (append_lay_byname (lay_l_list lay)))
-				)
-				(setq lay (tblnext "layer"))
+				lay_f_str (get_laystr_by_state "freeze")
+				lay_l_str (get_laystr_by_state "lock")
 			)
 			; end == save layer F/T L/U state
+			(setvar "cmdecho" 0)
 			(cmd "layer" "t" "*" "")
 			(cmd "layer" "u" "*" "")
 			(cmd "layer" "on" "*" "")
@@ -573,14 +557,9 @@
 			(setvar "cmdecho" 1)
 			(setvar "highlight" 1)
 			(setvar "osmode" os)
-			;<< restore layer state
-			(if lay_f_list 
-				(cmd "layer" "f" (apply 'strcat (mapcar '(lambda (x) (strcat x ",")) lay_f_list)) "")
-			)
-			(if lay_l_list
-				(cmd "layer" "lo" (apply 'strcat (mapcar '(lambda (x) (strcat x ",")) lay_l_list)) "")
-			)
-			;restore layer state >>
+			; restore layer state
+			(cmd "layer" "f" lay_f_str "")
+			(cmd "layer" "l" lay_l_str "")
 		)
 	)
 	(fl_undo_end)
@@ -608,7 +587,7 @@
 		(progn
 			(setq lay (strcat "*" lay "*"))
 			(setq flt (ssget "x" (list (cons 8 lay))))
-		);progn
+		)
 	)
 ;(if (and flt (/= 0 (getvar "cmdactive")))
 ;flt
@@ -619,14 +598,11 @@
 
 
 (defun c:se (/ ky flt)
-	(if se_mod nil (setq se_mod "Line"))
+	(setq se_mod (if se_mod se_mod "Line"))
 	(initget "ARC ATtdef Circle Text Line Insert lwPolyline Dimension Hatch Solid Viewport Mtext pOint leadeR")
 	(princ "\nEntity mode: [Line/ARC/ATtdef/Circle/Text/Mtext/Insert/lwPolyline/Dimension/Hatch/Solid/Viewport/pOint/leadeR]")
-	(princ "\nFilter: <")
-	(princ se_mod)
-	(princ "> ")
-	(setq ky (getkword))
-	(if ky nil (setq ky se_mod))
+	(setq ky (getkword (strcat "\nFilter: <" se_mod "> ")))
+	(setq ky (if ky ky se_mod))
 	(setq se_mod ky)
 	(setq flt (ssget (list (cons 0 se_mod))))
 	(if (/= 0 (getvar "cmdactive"))
@@ -758,7 +734,7 @@
 			(progn
 				(initget "Yes No")
 				(setq k (getkword "\nView already exist. Overwrite? Yes/<No> "))
-				(if k nil (setq k "No"))
+				(setq k (if k k "No"))
 				(if (= k "Yes") (cmd "view" "s" vw))
 			)
 			(cmd "view" "s" vw)

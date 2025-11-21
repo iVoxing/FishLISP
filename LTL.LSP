@@ -41,8 +41,7 @@
 	(setvar "cmdecho" 0)
 	(while (not lay)
 		(setq bta_lay (if bta_lay bta_lay "0"))
-		(princ (strcat "\nTarget layer: <" bta_lay "> "))
-		(setq lay (getstring))
+		(setq lay (getstring (strcat "\nTarget layer: <" bta_lay "> "))
 		(if (= lay "") (setq lay bta_lay))
 		(if (tblsearch "layer" lay)
 			nil

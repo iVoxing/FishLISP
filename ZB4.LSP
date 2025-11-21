@@ -24,13 +24,8 @@
 	(setq *error* olderr olderr nil)
 	(princ)
 )
-(if (findfile "zbl.dwg")
-	nil
-	(exit)
-)
-(if (findfile "zbr.dwg")
-	nil
-	(exit)
+(foreach item (list "zbl.dwg" "zbr.dwg")
+	(if (findfile item) nil (exit))
 )
 (setq *error* odlerr olderr nil)
 
@@ -44,26 +39,22 @@
 		(rtos zb_pcs 2 0)
 		"；使用"
 		(if zb_wcs "WCS" "UCS")
-	));princ
+	))
 	(initget "F P CS")
 	(setq pt0 (getpoint "\n选项：[F前缀/P精度/CS]<点取座标>: "))
 	(cond
 		((= pt0 "F")
-			(princ (strcat "\nX前缀，或输入 . 取消：<" zb_xpf "> "))
-			(setq xpf (getstring 1))
+			(setq xpf (getstring 1 (strcat "\nX前缀，或输入 . 取消：<" zb_xpf "> ")))
 			(if (= xpf "") (setq xpf zb_xpf))
 			(setq zb_xpf xpf)
-			(princ (strcat "\n前缀，或输入 . 取消：<" zb_ypf "> "))
-			(setq ypf (getstring 1))
+			(setq ypf (getstring 1 (strcat "\n前缀，或输入 . 取消：<" zb_ypf "> ")))
 			(if (= ypf "") (setq ypf zb_ypf))
 			(setq zb_ypf ypf)
 			(zb_opt)
 		)
 		((= pt0 "P")
-			(princ "\n精度：<")
-			(princ zb_pcs)
-			(setq pcs (getint "> "))
-			(if pcs nil (setq pcs zb_pcs))
+			(setq pcs (getint (strcat "\n精度：<" zb_pcs "> ")))
+			(setq pcs (if pcs pcs zb_pcs))
 			(setq zb_pcs pcs)
 			(zb_opt)
 		)
@@ -71,8 +62,8 @@
 			(setq zb_wcs (not zb_wcs))
 			(zb_opt)
 		)
-	);cond
-);zb_opt
+	)
+)
 
 (defun c:zb (/ olderr sty wid oo pt0 pt0a pt1 pt2 pt3 pt4 pt5 x y dir sc hlfsc a90 a-90 ali tbox dis xpf ypf pcs thi insu v_fa)
 	(setvar "cmdecho" 0)
@@ -94,13 +85,13 @@
 	(defun set_insunits (/ insu dwgu)
 		(setq insu (getvar "insunits"))
 		(cond
-			((= insu 4);ms
+			((= insu 4)
 				(setq v_fa 0.001)
 			)
-			((= insu 5);cm
+			((= insu 5)
 				(setq v_fa 0.01)
 			)
-			((= insu 6);m
+			((= insu 6)
 				(setq v_fa 1.0)
 			)
 			(t
@@ -114,16 +105,16 @@
 						(setvar "insunits" 6)
 					)
 					(t)
-				);cond dwgu
+				)
 				(set_insunits)
 			)
-		);cond
+		)
 	)
 	(set_insunits)
 
-	(if zb_xpf nil (setq zb_xpf "X="))
-	(if zb_ypf nil (setq zb_ypf "Y="))
-	(if zb_pcs nil (setq zb_pcs 3))
+	(setq zb_xpf (if zb_xpf zb_xpf "X="))
+	(setq zb_ypf (if zb_ypf zb_ypf "Y="))
+	(setq zb_pcs (if zb_pcs zb_pcs 3))
 	(setq oo (getvar "orthomode"))
 
 	(zb_opt)
@@ -145,7 +136,7 @@
 		(progn
 			(setq zb_sym (if (< (car pt0) (car pt1)) "zbr" "zbl"))
 			(cmd "leader" pt0 pt1 "f" "n" "" "" "b" zb_sym "s" (getvar "dimscale") pt1 "" y1 x1)
-		);progn
+		)
 	)
 	(if oo (setvar "orthomode" oo))
 	;(fl_undo_end)

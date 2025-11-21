@@ -24,7 +24,7 @@
 			bkins	(cdr (assoc 10 ent))
 			bksc	(cdr (assoc 41 ent))
 			bkang	(/ (* (cdr (assoc 50 ent)) 180.0) pi)
-			dw_xdt(assoc -3 (entget en '("FISH_WALL")))
+			dw_xdt(assoc -3 (entget en '("FL_WALL")))
 		)
 		(entdel en)
 		(setq clay (getvar "clayer"))

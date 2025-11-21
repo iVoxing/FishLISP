@@ -1,40 +1,40 @@
 ; 2025-11-16	rewrite, test ok
 
 ; return: '('(var_name var_value) ...)
-(defun var_save (var_name_list)
+(defun var_save (var_name_list_)
 	(mapcar 
-		'(lambda (var_name) (list var_name (getvar var_name)))
-		var_name_list
+		'(lambda (var_name_) (list var_name_ (getvar var_name_)))
+		var_name_list_
 	)
 )
 
-(defun var_restore (var_list)
+(defun var_restore (var_list_)
 	(mapcar 
-		'(lambda (var)
-			(setvar (car var) (cadr var))
+		'(lambda (var_)
+			(setvar (car var_) (cadr var_))
 		)	
-		var_list
+		var_list_
 	)
 )
 
 ; varlist: '('(var_name var_value)...)
 ; use list or dict? wich better?
-(defun var_set (var_list)
+(defun var_set (var_list_)
 	(if FL:SAVE_VARS
 		(setq FL:VARS
 			(mapcar
-				'(lambda (var)
-					(list (car var) (getvar (car var)))
+				'(lambda (var_)
+					(list (car var_) (getvar (car var_)))
 				)
-				var_list
+				var_list_
 			)
 		)
 	)
 	(mapcar
-		'(lambda (var)
-			(setvar (car var) (cadr var))
+		'(lambda (var_)
+			(setvar (car var_) (cadr var_))
 		)
-		var_list
+		var_list_
 	)
 )
 

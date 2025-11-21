@@ -17,9 +17,9 @@
 			(entmod att_ent)
 			(entupd en)
 			(setq idx (1+ idx))
-		);repeat
-		); progn park_ss
-	); if park_ss?
+		)
+		)
+	)
 	(princ (strcat "\n重新编号" (rtos park_amt 2 0) "个车位。"))
 	(princ)
 )
@@ -38,19 +38,19 @@
 			(while (and id_cor (<= idx id_amt))
 				(if (setq id_fnd (ssget "x" (list (cons 0 "text") (cons 8 "park") (cons 1 (rtos idx 2 0)))))
 					(if (= (sslength id_fnd) 1)
-						(setq idx (1+ idx)); id correct
+						(setq idx (1+ idx))
 						(progn
 							(princ (strcat "\n编号" (rtos idx 2 0) "重复，请检查。"))
 							(setq id_cor nil)
-						);id exist but duplicate
+						)
 					)
 					(progn
 						(princ (strcat "\n编号" (rtos idx 2 0) "遗漏，请检查。"))
 						(setq id_cor nil)
-					);progn id not exist
-				);if 
-			);while 
-		);progn id_ss
+					)
+				)
+			)
+		)
 		(setq id_amt 0)
 	)
 	(if id_cor
@@ -72,9 +72,9 @@
 					id (1+ id)
 					id_pt (getpoint pt0 "\n编号点：")
 				)
-			);while id_pt
-		);progn id_cor
-	);if id_cor?
+			)
+		)
+	)
 	(princ)
 )
 

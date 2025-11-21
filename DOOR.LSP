@@ -7,7 +7,22 @@
 ; ptm1 ptm2	mid points of l1 and l2
 ; ptm		mid point of ptm1 and ptm2, the base point to insert
 
-(defun in_door (line_ss / ssdr ptm1 ptm2 os oo cl ptm sc ang dr)
+(defun ins_dr_block (dr_name_)
+	(cmd "insert" dr_name_ ptm sc sc ang)
+	(setq DR_SS (ssadd (entlast) DR_SS))
+)
+
+(defun clr_doors (/ dr)
+	(setq dr (entsel "\nSelect the door:"))
+	(if dr
+		(progn
+			(setq dr (car dr))
+			(cmd "erase" DR_SS "r" dr "")
+		)
+	)
+)
+
+(defun in_door (line_ss_ / ptm1 ptm2 os oo cl ptm sc ang dr)
 	(setq os (getvar "osmode"))
 	(setq oo (getvar "orthomode"))
 	(setq cl (getvar "clayer"))
@@ -21,8 +36,8 @@
   
 	(setq ptm_list 
         (mapcar 
-        	'(lambda (x / line_ent pt1 pt2)
-				(setq line_ent (entget (ssname op_ss x))
+        	'(lambda (x_ / line_ent pt1 pt2)
+				(setq line_ent (entget (ssname line_ss_ x_))
 					pt1 (cdr (assoc 10 line_ent))
 					pt2 (cdr (assoc 11 line_ent))
 				)
@@ -40,33 +55,18 @@
 		ang (/ (* (angle ptm1 ptm2) 180.0) pi)
 	)
   
-  	(defun ins_doors (door_name)
-		(cmd "insert" door_name ptm sc sc ang)
-		(setq ssdr (ssadd (entlast) ssdr))
-    )
-  
-	(defun clr_doors (/ dr)
-		(setq dr (entsel "\nSelect the door:"))
-		(if dr
-			(progn
-				(setq dr (car dr))
-				(cmd "erase" ssdr "r" dr "")
-			)
-		)
-    )
-  
-  	(setq ssdr (ssadd))
+  	(setq DR_SS (ssadd))
   	(cond
    		((and (>= sc 1.001) (< sc 2.3))
-			(mapcar 'ins_doors (list "dr1" "dr2"))
+			(mapcar 'ins_dr_block (list "dr1" "dr2"))
 			(clr_doors)
 		)
 		((< sc 1.001)
-			(mapcar 'ins_doors (list "dr3" "dr4" "dr5" "dr6"))
+			(mapcar 'ins_dr_block (list "dr3" "dr4" "dr5" "dr6"))
 			(clr_doors)
 		)
 		((>= sc 2.3)
-			(mapcar 'ins_doors (list "dr7" "dr8"))
+			(mapcar 'ins_dr_block (list "dr7" "dr8"))
 			(clr_doors)
 		)
 	)
@@ -96,7 +96,7 @@
 	(prompt "\nSelect frame line to draw:")
 	(setq op_ss (ssget (list (cons 8 (strcat FLLT_WALL "," FLLT_DOOR "," FLLT_COL)) '(0 . "line"))))
 	(if (= (sslength op_ss) 2)
-		(in_door op_ss )
+		(in_door op_ss)
 		(princ "\nSelect error.")
 	)
 

@@ -23,11 +23,7 @@
 		(setq ent (entget (ssname ss count)))
 		;; Check the lines are on the same layer or not
 		(if (/= (cdr (assoc 8 ent)) lay)
-			(progn 
-				(alert "The lines arn't on the same layer")
-				(exit)
-				(princ)
-			)
+			(exit (princ "The lines arn't on the same layer. "))
 		)
 		;; Get Endpoints and Xs, Ys
 		(setq 

@@ -18,12 +18,12 @@
 	(princ)
 )
 
-(defun make_arr (pt_0 pt_1)
+(defun make_arr (pt0_ pt1_)
 	(if arr_ent
 		(progn
-			(setq arr_ent (append arr_ent (list (cons 10 pt_1))))
+			(setq arr_ent (append arr_ent (list (cons 10 pt1_))))
 			(entmod arr_ent)
-		); following point
+		)
 		(progn
 			(setq arr_ent
 				(list	
@@ -38,13 +38,13 @@
 					'(100 . "AcDbEntity")
 					'(100 . "AcDbLeader")
 					; points must be placed here.
-					(cons 10 pt_0)
-					(cons 10 pt_1)
+					(cons 10 pt0_)
+					(cons 10 pt1_)
 				)
 			)
 			(entmake arr_ent)
 			(setq arr_ent (entget (entlast)))
-		); first point
+		)
 	)
 )
 

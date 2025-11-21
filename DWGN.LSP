@@ -1,12 +1,10 @@
 (defun c:dwgn (/ str pt h)
 	(setvar "cmdecho" 0)
 	(fl_undo_begin)
-	;;LCA - WARNING: The DWGNAME sysvar has changed.
 	(setq str (strcat (getvar "dwgprefix") (getvar "dwgname")))
 	(if (setq pt (getpoint "\nInsert point: "))
 		(if (setq h (getreal "\nText height: "))
 			(if (= (getvar "cvport") 1)
-				;;LCA - WARNING: Using 67 group code may retrieve more entities than anticipated.
 				(entmake (list '(0 . "text") (cons 1 str) (cons 10 pt) (cons 40 h) '(67 . 1)))
 				(entmake (list '(0 . "text") (cons 1 str) (cons 10 pt) (cons 40 h) '(67 . 0)))
 			)

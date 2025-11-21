@@ -11,13 +11,16 @@
 			"editor.wordSeparators": "`|;'\",()"
 		},
 		"atlisp.format.indentWidth": 4,
-		"autolispext.format.NarrowStyleIndent": 4
+		"autolispext.format.NarrowStyleIndent": 4,
+		"editor.tokenColorCustomizations": {},
+		"editor.semanticTokenColorCustomizations": {
+		},
+		"atlisp.format.CloseParenthesisStyle": "Same line"
 	},
 	"launch": {
 	},
 	"extensions": {
 		"recommendations": [
-			"niaoge.autolisp",
 			"vscode-icons-team.vscode-icons"
 		]
 	}

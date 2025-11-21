@@ -1,4 +1,56 @@
 ; ¸üÁé»îµÄ»­Rectangle
+; 2025-11-20	rewrite
+; 1995-03-12
+
+(defun lbx (/ pt1 pt2 pt3 pt4)
+	(initget "Pline")
+	(setq pt1 (getpoint "\nPline mode. <first corner>: "))
+	(cond
+		((listp pt1)
+			(setq 
+				pt3 (getcorner pt1 "\nThe other corner: ")
+				pt2 (list (car pt1) (cadr pt3))
+				pt4 (list (car pt3) (cadr pt1))
+			)
+			(setvar "osmode" 0)
+			(cmd "line" pt1 pt2 pt3 pt4 "c")
+		)
+		((= pt1 "Pline")
+			(setq rectl nil)
+			(pbx)
+		)
+		(t)
+	)
+) 
+
+(defun pbx (/ wid pt1 pt2 pt3 pt4) 
+	(setq PL_WIDTH (if PL_WIDTH PL_WIDTH (getvar "plinewid")))
+	(initget "Line Width")
+	(setq pt1 (getpoint (strcat "\nLine mode/Width[" PL_WIDTH "]: <first corner>")))
+	(cond
+		((not pt1))
+		((listp pt1)
+			(setq 
+				pt3 (getcorner pt1 "\nThe other corner: ")
+				pt2 (list (car pt1) (cadr pt3))
+				pt4 (list (car pt3) (cadr pt1))
+			)
+			(setvar "osmode" 0)
+			(cmd "pline" pt1 "w" PL_WIDTH PL_WIDTH pt2 pt3 pt4 "c")
+		)
+		((= pt1 "Line")
+			(setq rectl 1)
+			(lbx)
+		)
+		((= pt1 "Width")
+			(setq wid (getreal (strcat "\nWidth: <" PL_WIDTH ">: ")))
+			(setq wid (if wid wid PL_WIDTH))
+			(setq PL_WIDTH wid)
+			(pbx)
+		)
+		(t)
+	)
+) 
 
 (defun c:rect (/ os olderr lbx pbx recthp rectul)
 	(setq olderr *error*)
@@ -12,90 +64,6 @@
 		(princ)
 	)
 
-	(defun lbx (/ pt1 pt2 pt3 pt4)
-		(initget "? Pline Unload")
-		(setq pt1 (getpoint "\n[?/Unload/Pline mode] <first corner>: "))
-		(cond
-			((listp pt1)
-				(setq 
-					pt3 (getcorner pt1 "\nThe other corner: ")
-					pt2 (list (car pt1) (cadr pt3))
-					pt4 (list (car pt3) (cadr pt1))
-				)
-				(setvar "osmode" 0)
-				(cmd "line" pt1 pt2 pt3 pt4 "c")
-			)
-			((= pt1 "?")
-				(recthp)
-				(lbx)
-			)
-			((= pt1 "Pline")
-				(setq rectl nil)
-				(pbx)
-			)
-			((= pt1 "Unload")
-				(rectul)
-			)
-			(t)
-		)
-	) 
-
-	(defun pbx (/ wid pt1 pt2 pt3 pt4) 
-		(if rectwd nil (setq rectwd (getvar "plinewid")))
-		(initget "? Unload Line Width")
-		(princ "\nCurrent width is ")
-		(princ rectwd)
-		(setq pt1 (getpoint "\n?/Unload/Line mode/Width/<first corner>: "))
-		(cond
-			((not pt1))
-			((listp pt1)
-				(setq 
-					pt3 (getcorner pt1 "\nThe other corner: ")
-					pt2 (list (car pt1) (cadr pt3))
-					pt4 (list (car pt3) (cadr pt1))
-				)
-				(setvar "osmode" 0)
-				(cmd "pline" pt1 "w" rectwd rectwd pt2 pt3 pt4 "c")
-			)
-			((= pt1 "?")
-				(recthp)
-				(pbx)
-			)
-			((= pt1 "Line")
-				(setq rectl 1)
-				(lbx)
-			)
-			((= pt1 "Width")
-				(princ "\nWidth <")
-				(princ rectwd)
-				(setq wid (getreal ">: "))
-				(if wid (setq rectwd wid))
-				(pbx)
-			)
-			((= pt1 "Unload")
-				(rectul))
-			(t)
-		)
-	) 
-
-	(defun recthp (/ temp)
-		(textscr)
-		(prompt "\nFishLISP, Mar 12 1995 -- Mar 24 1997\n")
-		(prompt	(strcat
-			"\n?\tShow this help infomation"
-			"\nU\tUnload this application"
-			"\nL/P\tSwitch between Line mode and Pline mode"
-			"\nW\tSet pline width in Pline mode"
-		))
-		(princ "\nPress any key to continue: ")
-		(grread)
-		(princ "\r")
-	)
-
-	(defun rectul ()
-		(setq lbx nil pbx nil rectwd nil rectl nil recthp nil rectul nil)
-		(defun c:rect () (load "rect") (c:rect) (princ))
-	)
 
 	(setq os (getvar "osmode"))
 	(setvar "cmdecho" 0)
@@ -108,7 +76,6 @@
 	(setq *error* olderr)
 	(princ)
 )
-
 
 (defun c:rct (/ s_ang oo os pt1 pt2 pt3 pt4 an1 an2)
 	(setq 
@@ -144,7 +111,7 @@
 	(princ)
 )
  
-(princ "loaded. Start as C:RECT C:RCT")
+(princ "loaded. C:RECT C:RCT")
 (princ)
 
  

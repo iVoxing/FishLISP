@@ -1,4 +1,4 @@
-(if fl_lay_pdim nil (setq fl_lay_pdim "БъзЂ 0"))
+(setq fl_lay_pdim (if fl_lay_pdim fl_lay_pdim "БъзЂ 0"))
 
 (defun c:vh () (dim_fish "DIMLINEAR") (princ))
 
@@ -15,7 +15,7 @@
 	(princ)
 )
 
-(defun dim_fish (dim_cmd / cl cc clt cts pt1)
+(defun dim_fish (dim_cmd_ / cl cc clt cts pt1)
 	(setq olderr *error*)
 	(defun *error* (s)
 		(setvar "cecolor" (if cc cc "BYLAYER"))
@@ -38,7 +38,7 @@
 	)
 	(if (tblsearch "layer" fl_lay_pdim)
 		(setvar "clayer" fl_lay_pdim)
-		(dim_cmd "layer" "make" fl_lay_pdim "c" "g" fl_lay_pdim "")
+		(dim_cmd_ "layer" "make" fl_lay_pdim "c" "g" fl_lay_pdim "")
 	)
 	(setvar "cecolor" "BYLAYER")
 	(setvar "celtype" "BYLAYER")
@@ -49,13 +49,13 @@
 	(princ (getvar "dimscale"))
 	(princ "")
 	
-	(if (= dim_cmd "LEADER")
+	(if (= dim_cmd_ "LEADER")
 		(progn
-			(cmd dim_cmd pause pause "" (getstring t))
+			(cmd dim_cmd_ pause pause "" (getstring t))
 		)
 		(progn
-			(cmd dim_cmd)
-			(while (= (getvar "cmdnames") dim_cmd)
+			(cmd dim_cmd_)
+			(while (= (getvar "cmdnames") dim_cmd_)
 				(cmd pause)
 			)
 		)

@@ -18,19 +18,19 @@
 				strlist (list)
 				sslen (sslength ss)
 				idx 0
-			);setq
+			)
 			(repeat sslen
 				(setq
 					str (cdr (assoc 1 (entget (ssname ss idx))))
 					strlist (if (member str strlist) strlist (append strlist (list str)))
 					idx (1+ idx)
-				);setq
-			);repeat sslen
+				)
+			)
 			(setq
 				strlist (acad_strlsort strlist)
 				stramnt (length strlist)
 				idx 0
-			);setq
+			)
 			(princ (strcat "\n\n\n======= " (strcase lay) " =======\n")) 
 			(repeat stramnt
 				(cmd "select" ss "")
@@ -38,11 +38,11 @@
 					str (nth idx strlist)
 					amt (rtos (sslength (ssget "p" (list (cons 1 str)))) 2 0)
 					idx (1+ idx)
-				);setq
+				)
 				(princ (strcat "\n" str "\t" amt))
-			);repeat stramnt
-		);progn, if true.
-	);if text objects...
+			)
+		)
+	)
 	(textscr)
 	(setvar "highlight" 1)
 	(setvar "cmdecho" 1)

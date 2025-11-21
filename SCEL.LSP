@@ -9,11 +9,10 @@
 		(princ)
 	)
 	(fl_undo_begin)
-	(princ (strcat "\nDimscale: <" (rtos (getvar "dimscale")) "> "))
 	(initget 6)
-	(setq dims (getreal))
-	(if dims nil (setq dims (getvar "dimscale")))
-	(setq el_ss (ssget '((0 . "insert")(2 . "el??,EL??,sy1,sy2,sy3,sy4,dim_bg,dim_rl,zbr,zbl,al,ar"))))
+	(setq dims (getreal (strcat "\nDimscale: <" (rtos (getvar "dimscale")) "> ")))
+	(setq dims (if dims dims (getvar "dimscale")))
+	(setq el_ss (ssget '((0 . "insert")(2 . "EL??,EL??,SY1,SY2,SY3,SY4,DIM_BG,DIM_RL,ZBR,ZBL,AL,AR"))))
 	(setq 
 		el_amt (if el_ss (sslength el_ss) 0)
 		idx 0

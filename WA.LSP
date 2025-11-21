@@ -1,5 +1,5 @@
-;1998-01-21v1.0	This application is based on the system varibale CMDNAMES.
 ; 2005-04-15v1.1
+; 1998-01-21v1.0	This application is based on the system varibale CMDNAMES.
 
 (defun c:wa (/ olderr a wrt txt_layer insu)
 
@@ -14,8 +14,8 @@
 	(defun wrt (/ dim pt pre)
 		(setq txt_layer "area")
 		(setq insu (getvar "insunits"))
-		(if wa_pre nil (setq wa_pre 3))
-		(if wa_psf nil (setq wa_psf "m%%199"))
+		(setq wa_pre (if wa_pre wa_pre 3))
+		(setq wa_psf (if wa_psf wa_psf "m%%199"))
 		(if (and wa_ufa wa_dfa)
 			nil
 			(cond
@@ -56,17 +56,13 @@
 				(princ (strcat "\nArea of this region is " (rtos (/ (getvar "area") wa_ufa) 2 wa_pre) " M2. "))
 			)
 			((= pt "Dimscale")
-				(princ "\nDimscale: <")
-				(princ (getvar "dimscale"))
-				(setq dim (getint "> "))
+				(setq dim (getint (strcat "\nDimscale: <" (rtos (getvar "dimscale")) "> ")))
 				(if (= (type dim) 'INT) (setvar "dimscale" dim))
 				(wrt)
 			)
 			((= pt "Precision")
-				(princ "\nPrecision: <")
-				(princ wa_pre)
-				(setq pre (getint "> "))
-				(if pre nil (setq pre 1))
+				(setq pre (getint (strcat "\nPrecision: <" wa_pre "> ")))
+				(setq pre (if pre pre 1))
 				(setq wa_pre pre)
 				(wrt)
 			)
@@ -74,10 +70,10 @@
 				(cmd "'units")
 			)
 			((= pt "postFix")
-				(princ "\nPostfix: <")
-				(princ wa_psf)
-				(setq psf (getstring "> "))
-				(if psf nil (setq psf wa_psf))
+				(princ )
+				(princ )
+				(setq psf (getstring (strcat "\nPostfix: <" wa_psf "> ")))
+				(setq psf (if psf psf wa_psf))
 				(if (= psf ".") (setq psf ""))
 				(setq wa_psf psf)
 				(wrt)

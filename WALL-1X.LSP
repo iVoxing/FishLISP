@@ -56,14 +56,14 @@
 			pt4 (polar pt2 ang1 dist)
 			pt5 (polar pt1 ang2 dist)
 			pt6 (polar pt2 ang2 dist)
-			wb_xdt (list -3 (list "FISH_WALL"
+			wb_xdt (list -3 (list "FL_WALL"
 						(cons 1000 wall_id)
 						(cons 1002 "{")
 						(cons 1000 "Wall_base")
 						(cons 1041 (* 2 dist))
 						(cons 1002 "}")
 					))
-			wl_xdt (list -3 (list "FISH_WALL"
+			wl_xdt (list -3 (list "FL_WALL"
 						(cons 1000 wall_id)
 						(cons 1002 "{")
 						(cons 1000 "Wall_line")
@@ -71,7 +71,7 @@
 						(cons 1002 "}")
 					))
 		)
-		(regapp "FISH_WALL")
+		(regapp "FL_WALL")
 		(entmod (append ent (list wb_xdt)))
 
 		(setq ss_pt1 (ssdel en (ssget "x" (list (cons -4 "<or") (cons 10 pt1) (cons 11 pt1) (cons -4 "or>") '(8 . "wall-base")))))
@@ -151,7 +151,7 @@
 		(setq ss_xc (ssadd (entlast) ss_xc))
 		(setq idx (1+ idx))
 	)
-	(setq wall_wid dist)
+	(setq FL_WALL_WIDTH dist)
 	(if ss_xc (l2w_xc ss_xc))
 )
 
@@ -170,7 +170,7 @@
 	)
 ) 
 
-(defun l2w_xc (ss_xc / amt en_lst int m ent1 ent2 en rpt pt1 pt2 pt1-1 pt1-2 pt2-1 pt2-2 amnt num l ent)
+(defun l2w_xc (ss_xc / amt en_lst int m ent1 ent2 en rpt pt1 pt2 pt1_1 pt1_2 pt2_1 pt2_2 amnt num l ent)
 	(setq 
 		amt (sslength ss_xc)
 		idx 0
@@ -189,29 +189,29 @@
 	(setvar "ucsicon" 0)
 	(repeat amt
 		(setq 
-			ent1 (entget (nth idx en_lst) '("FISH_WALL"))
-			pt1-1 (cdr (assoc 10 ent1))
-			pt1-2 (cdr (assoc 11 ent1))
+			ent1 (entget (nth idx en_lst) '("FL_WALL"))
+			pt1_1 (cdr (assoc 10 ent1))
+			pt1_2 (cdr (assoc 11 ent1))
 			m (1+ idx)
 		)
 		(if (= m amt) (setq m 0))
 		(cmd "_.ucs" "e" (cdr (assoc -1 ent1)))
-		(setq int_lst (list (car (trans pt1-1 0 1))))
+		(setq int_lst (list (car (trans pt1_1 0 1))))
 		(repeat (1- amt)
 			(setq 
 				ent2 (entget (nth m en_lst))
-				pt2-1 (cdr (assoc 10 ent2))
-				pt2-2 (cdr (assoc 11 ent2))
-				int (inters pt1-1 pt1-2 pt2-1 pt2-2)
+				pt2_1 (cdr (assoc 10 ent2))
+				pt2_2 (cdr (assoc 11 ent2))
+				int (inters pt1_1 pt1_2 pt2_1 pt2_2)
 			)
-			(if (member int (list pt1-1 pt1-2)) (setq int nil))
+			(if (member int (list pt1_1 pt1_2)) (setq int nil))
 			(if int (setq int_lst (append int_lst (list (car (trans int 0 1))))))
 			(setq m (1+ m))
 			(if (= m amt) (setq m 0))
 		)
-		(setq int_lst (append int_lst (list (car (trans pt1-2 0 1)))))
+		(setq int_lst (append int_lst (list (car (trans pt1_2 0 1)))))
 		(setq int_lst (vl-sort int_lst '<))
-		(if (< (- (cadr int_lst) (car int_lst)) (* 3 wall_wid))
+		(if (< (- (cadr int_lst) (car int_lst)) (* 3 FL_WALL_WIDTH))
 			(setq int_lst (cdr int_lst))
 		)
 		(setq l 0 rpt (/ (length int_lst) 2))
@@ -244,13 +244,11 @@
 	(setvar "gridmode" 0)
 	(setvar "ucsfollow" 0)
 	(cssave)
-	(if wall_wid nil (setq wall_wid 100.0))
-	(princ "\nWidth of the wall<")
-	(princ (* 2 wall_wid))
-	(setq dist (getint ">: "))
+	(setq FL_WALL_WIDTH (if FL_WALL_WIDTH FL_WALL_WIDTH 100.0))
+	(setq dist (getint (strcat "\nWall width: <" (rtos (* 2 FL_WALL_WIDTH)) ">: ")))
 	(if dist
 		(setq dist (/ dist 2.0))
-		(setq dist wall_wid)
+		(setq dist FL_WALL_WIDTH)
 	)
 
 	(princ "\nSelect Lines to convert: ")

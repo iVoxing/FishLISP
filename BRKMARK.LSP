@@ -21,10 +21,12 @@
 	)
 
 	(entmod	(subst (cons 11 pt1) (assoc 11 ent) ent))
-	(mapcar '(lambda (pt_list)
-			(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (car pt_list)) (cons 11 (cadr pt_list))))
-			(list (list pt2 pt5) (list pt1 pt4) (list pt4 pt3) (list pt3 pt2))
-	))
+	(mapcar 
+		'(lambda (pt_list_)
+			(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (car pt_list_)) (cons 11 (cadr pt_list_))))
+		)
+		(list (list pt2 pt5) (list pt1 pt4) (list pt4 pt3) (list pt3 pt2))
+	)
 )
 
 (defun c:bm (/ en ent lay)

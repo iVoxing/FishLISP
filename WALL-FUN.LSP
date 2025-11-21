@@ -5,7 +5,7 @@
 
 (defun wall_query (/ es ent xdt)
 	(while (setq es (entsel "\nPick wall: "))
-		(setq ent (entget (car es) '("FISH_WALL")))
+		(setq ent (entget (car es) '("FL_WALL")))
 		(if (setq xdt (cadr (assoc -3 ent)))
 			(princ (strcat 
 				"\nWall ID: "
@@ -24,14 +24,14 @@
 	(setq es (entsel "\nPick wall: "))
 	(if es
 		(progn
-			(setq ent (entget (car es) '("FISH_WALL")))
+			(setq ent (entget (car es) '("FL_WALL")))
 			(if (setq wall_id (cdr (cadadr (assoc -3 ent))))
 				(progn
-					(setq ss0 (ssget "x" '((-3 ("FISH_WALL")))))
+					(setq ss0 (ssget "x" '((-3 ("FL_WALL")))))
 					(setq rpt (sslength ss0) ss (ssadd) idx 0)
 					(repeat rpt
 						(setq en (ssname ss0 idx))
-						(if (= (cdr (cadadr (assoc -3 (entget en '("FISH_WALL"))))) wall_id)
+						(if (= (cdr (cadadr (assoc -3 (entget en '("FL_WALL"))))) wall_id)
 							(setq ss (ssadd en ss))
 						)
 						(setq idx (1+ idx))
@@ -82,7 +82,7 @@
 (defun call_updt (/ kwd)
 	(initget "Yes No")
 	(setq kwd (getkword "\nUpdate Walls? <Yes>"))
-	(if kwd nil (setq kwd "Yes"))
+	(setq kwd (if kwd kwd "Yes"))
 	(if (= kwd "Yes") (wall_updt))
 )
 
@@ -101,7 +101,7 @@
 	(setq es1 (entsel "\nPick wall: "))
 	(if es1
 		(progn
-			(setq ent1 (entget (car es1) '("FISH_WALL")))
+			(setq ent1 (entget (car es1) '("FL_WALL")))
 			(if (setq wall_id1 (caadr (assoc -3 ent1)))
 				(progn
 					(setq ss1 (ssget "x" (list (list -3 (list wall_id1)))))
@@ -121,7 +121,7 @@
 	(if es1 (setq es2 (entsel "\nPick Wall: ")))
 	(if es2
 		(progn
-			(setq ent2 (entget (car es2) '("FISH_WALL")))
+			(setq ent2 (entget (car es2) '("FL_WALL")))
 			(if (setq wall_id2 (caadr (assoc -3 ent2)))
 				(progn
 					(setq ss2 (ssget "x" (list (list -3 (list wall_id2)))))
@@ -144,7 +144,7 @@
 			(cmd "erase" ss1 ss2 "")
 			(cmd "select" es1 es2 "")
 			(setq wb_ss (ssget "P"))
-			(setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget es1 '("FISH_WALL")))))) 2.0))
+			(setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget es1 '("FL_WALL")))))) 2.0))
 			(l2w_ol wb_ss)
 		)
 	)
@@ -162,18 +162,17 @@
 	(cmd "_.select" ss "")
 	(setq wl_ss (ssget "p" (list (cons 8 FLLT_WALL))))
 	(if wl_ss (cmd "_.erase" wl_ss ""))
-	(if wb_ss (setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget (ssname wb_ss 0) '("FISH_WALL")))))) 2.0)))
+	(if wb_ss (setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget (ssname wb_ss 0) '("FL_WALL")))))) 2.0)))
 	(if wb_ss (l2w_ol wb_ss))
 	(setvar "highlight" 1)
 	)
 
 	(defun c:mdw (/ k)
-	(if mdw_key nil (setq mdw_key "Query"))
+	(setq mdw_key (if mdw_key mdw_key "Query"))
 	(princ "\nModify or query walls.")
-	(princ (strcat "\nErase/Move/Fillet/Width/Update/Query/<" mdw_key ">: "))
 	(initget "Erase Move Update Query Width Fillet")
-	(setq k (getkword))
-	(if k nil (setq k mdw_key))
+	(setq k (getkword (strcat "\nErase/Move/Fillet/Width/Update/Query/<" mdw_key ">: ")))
+	(setq k (if k k mdw_key))
 	(setq mdw_key k)
 	(setvar "cmdecho" 0)
 	(cond

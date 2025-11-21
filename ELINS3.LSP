@@ -37,7 +37,7 @@
 	(cmd "_undo" "g")
 	(setvar "clayer" FLLT_DIM0)
 	(if EL_BASE_Y nil (el_ini))
-	(if EL_SUFFIX nil (setq EL_SUFFIX "UR"))
+	(setq EL_SUFFIX (if EL_SUFFIX EL_SUFFIX "UR"))
 	(setq EL_SCALE (getvar "dimscale"))
 	(el_main)
 	(setvar "osmode" os)
@@ -75,8 +75,10 @@
 			(c:elin)
 		)
 		((= pt1 "Value") (el_val))
-		((= pt1 "Base")	(el_base))
-		((= pt1 "UNload") (elunld))
+		((= pt1 "Base")
+			(el_base)
+			(el_main)
+		)
 		(t)
 	)
 )
@@ -130,8 +132,8 @@
 				)
 			)
 			(princ "\n1 was not ELevation-Block. ")
-		);if and
-	); if en
+		)
+	)
 )
 
 (defun el_move (/ ss rpt pt1 pt2 ang dis val count en_el ent_el pt_el en_att ent_att pt_att attr)
@@ -168,9 +170,9 @@
 				(entmod (subst (cons 1 attr) (assoc 1 ent_att) ent_att))
 				(entupd en_el)
 				(setq idx (1+ idx))
-			);repeat
-		);progn
-	);if ss
+			)
+		)
+	)
 )
 
 (defun el_array (/ ss os cl rpt idx row dis en_el ent_el pt_el0 bkname ele_0 times pt_el1 attr1)
@@ -206,14 +208,14 @@
 					(cmd "_insert" bkname pt_el1 EL_SCALE EL_SCALE 0 attr1)
 					(setvar "osmode" os)
 					(setq times (1+ times))
-				);while
+				)
 				(setq idx (1+ idx))
-			);repeat
+			)
 			(setvar "osmode" os)
 			(setvar "cmdecho" 1)
 			(setvar "clayer" cl)
-		);progn
-	);if
+		)
+	)
 )
 
 (defun el_plan_mode (/ pt1)
@@ -249,11 +251,13 @@
 )
 
 (defun el_base (/ hx)
-	(setq el_bpt (getpoint "\nBase point: "))
-	(setq hx (getreal "\nElevation: <0.000>"))
-	(if (= hx nil) (setq hx 0.0))
-	(setq EL_BASE_Y (- (cadr el_bpt) (/ hx UNIT_SCALE)))
-	(el_main)
+	(if (setq el_bpt (getpoint "\nBase point: "))
+		(setq 	hx (getreal "\nElevation: <0.000>")
+				hx (if hx hx 0.0)
+				EL_BASE_Y (- (cadr el_bpt) (/ hx UNIT_SCALE))
+		)
+		(princ "\nBase NOT changed. ")
+	)
 )
 
 (defun el_ini (/ pt0 hx)

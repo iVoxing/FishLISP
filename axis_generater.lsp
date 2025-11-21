@@ -1,36 +1,37 @@
-(defun skip-o-p (char-code)
+
+(defun skip-o-p (char-code_)
 	;; 如果字符码是 #\O (ASCII 79)，返回 T
-	(= char-code 79)
+	(= char-code_ 79)
 )
 
-(defun int-to-axis (n / result char-code)
-	;; 将整数 n 转换为轴线号（类似Excel列名，但跳过含O的）
+(defun int-to-axis (n_ / result char-code)
+	;; 将整数 n_ 转换为轴线号（类似Excel列名，但跳过含O的）
 	(setq result "")
-	(while (> n 0)
-		(setq n (1- n)) ; 转为0基索引
-		(setq char-code (+ 65 (rem n 26))) ; A=65
+	(while (> n_ 0)
+		(setq n_ (1- n_)) ; 转为0基索引
+		(setq char-code (+ 65 (rem n_ 26)))
 		(if (skip-o-p char-code)
 		(progn
 			;; 如果当前位是O，跳过它，进位处理
-			(setq n (1+ n)) ; 回退
-			(setq n (+ n 26)) ; 进位到下一个字母
+			(setq n_ (1+ n_)) ; 回退
+			(setq n_ (+ n_ 26)) ; 进位到下一个字母
 		)
 		(progn
 			(setq result (strcat (chr char-code) result))
-			(setq n (/ n 26))
+			(setq n_ (/ n_ 26))
 		)
 		)
 	)
 	result
 )
 
-(defun generate-axis-labels (count / i labels)
+(defun generate-axis-labels (count_ / i labels)
 	;; 生成指定数量的轴线号，跳过含O的
 	(setq i 0
 		labels '()
 		n 0
 	)
-	(while (< i count)
+	(while (< i count_)
 		(setq axis (int-to-axis (setq n (1+ n))))
 		(if (not (vl-string-search "O" axis))
 		(progn

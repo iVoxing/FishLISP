@@ -9,8 +9,35 @@
 ;	3.1	把Getreal改成了Getdist。
 ;	4.0	可以正确运行于UCS下。
 ;   4.1 修正了仅有一条线时出现的错误。
+;	2025-11-21
 
-(defun c:ow (/ olderr os hl mv_l dist loop en0 ent0 typ0 lay0 pt1 pt2 pt3 pt4 en1 ent1 ss0)
+(defun mv_l (ps1_ ps2_ ps3_ pt1_ pt2_ pt3_ / ss1 amt idx ent_l pt_4 pt_5 ang1 ang2 ang)
+	(setvar "cmdecho" 0)
+	(cmd "select" ss0 "")
+	(setq ss1 (ssget "p" (list (cons ps1_ pt1_))))
+	(setq amt (if ss1 (sslength ss1) 0) idx 0)
+	(repeat amt
+		(setq 
+			ent_l (entget (ssname ss1 idx))
+			pt_4 (cdr (assoc ps2_ ent_l))
+			ang1 (angle pt1_ pt3_)
+			ang2 (angle pt1_ pt_4)
+			ang(- (/ pi 2) ang2 (- ang1))
+		)
+		(if (= (abs (sin (- ang1 ang2))) 1.0)
+			(princ "\n1 repeated/joined line ignored. ")
+			(progn
+				(setq pt_5 (polar pt1_ ang2 (/ dist (sin ang))))
+				(entmod (subst (cons ps1_ pt_5) (assoc ps1_ ent_l) ent_l))
+				(entmod (setq ent1 (subst (cons ps3_ pt_5) (assoc ps3_ ent1) ent1)))
+			)
+		)
+		(setq idx (1+ idx))
+	)
+)
+
+
+(defun c:ow (/ olderr os hl dist loop en0 ent0 typ0 lay0 pt1 pt2 pt3 pt4 en1 ent1 ss0)
 	(prompt "\nFishLISP. 7-17-1998. ")
 	(prompt "\nOffset and modify line. Ver 4.1. ")
 	(setq olderr *error*)
@@ -28,36 +55,9 @@
 		(princ)
 	)
 
-	(defun mv_l (ps1 ps2 ps3 pt_1 pt_2 pt_3 / ss1 amt idx ent_l pt_4 pt_5 ang1 ang2 ang)
-		(setvar "cmdecho" 0)
-		(cmd "select" ss0 "")
-		(setq ss1 (ssget "p" (list (cons ps1 pt_1))))
-		(setq amt (if ss1 (sslength ss1) 0) idx 0)
-		(repeat amt
-			(setq 
-				ent_l (entget (ssname ss1 idx))
-				pt_4 (cdr (assoc ps2 ent_l))
-				ang1 (angle pt_1 pt_3)
-				ang2 (angle pt_1 pt_4)
-				ang(- (/ pi 2) ang2 (- ang1))
-			)
-			(if (= (abs (sin (- ang1 ang2))) 1.0)
-				(princ "\n1 repeated/joined line ignored. ")
-				(progn
-					(setq pt_5 (polar pt_1 ang2 (/ dist (sin ang))))
-					(entmod (subst (cons ps1 pt_5) (assoc ps1 ent_l) ent_l))
-					(entmod (setq ent1 (subst (cons ps3 pt_5) (assoc ps3 ent1) ent1)))
-				)
-			)
-			(setq idx (1+ idx))
-		)
-	)
-
-	(if ofwl_dist nil (setq ofwl_dist 0.0))
-	(princ "\nOffset distance: <")
-	(princ ofwl_dist)
-	(setq dist (getdist "> "))
-	(if dist nil (setq dist ofwl_dist))
+	(setq ofwl_dist (if ofwl_dist ofwl_dist 0.0))
+	(setq dist (getdist (strcat "\nOffset distance: <" ofwl_dist "> ")))
+	(setq dist (if dist dist ofwl_dist))
 	(setq ofwl_dist dist)
 
 	(setq ucsf (getvar "ucsfollow"))

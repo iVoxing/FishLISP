@@ -52,42 +52,42 @@
 )
 (set_insunits)
 
-(defun get_curve_len (en_name / obj)
-	(setq obj (vlax-ename->vla-object en_name)) ; 转成 VLA 对象
+(defun get_curve_len (en_name_ / obj)
+	(setq obj (vlax-ename->vla-object en_name_)) ; 转成 VLA 对象
 	(vlax-curve-getDistAtParam obj (vlax-curve-getEndParam obj))
 )
 
 ; 求曲线中点, ok
-(defun get_curve_midpt (en_name / obj len)
-	(setq obj (vlax-ename->vla-object en_name)) ; 转成 VLA 对象
+(defun get_curve_midpt (en_name_ / obj len)
+	(setq obj (vlax-ename->vla-object en_name_)) ; 转成 VLA 对象
 	(setq len (vlax-curve-getDistAtParam obj (vlax-curve-getEndParam obj))) ; 曲线总长
 	(vlax-curve-getPointAtDist obj (/ len 2.0))
 )
 
 ; 求曲线中点处切线方向, ok
-(defun get_curve_midang (en_name / obj len deriv)
-	(setq obj (vlax-ename->vla-object en_name)) ; 转成 VLA 对象
+(defun get_curve_midang (en_name_ / obj len deriv)
+	(setq obj (vlax-ename->vla-object en_name_)) ; 转成 VLA 对象
 	(setq len (vlax-curve-getDistAtParam obj (vlax-curve-getEndParam obj))) ; 曲线总长
 	(setq deriv (vlax-curve-getFirstDeriv obj (vlax-curve-getParamAtDist obj (/ len 2.0)))) ; 一阶导数向量
 	(angle '(0.0 0.0 0.0) deriv) ; 向量与 X 轴夹角
 )
 
 ; ok
-(defun place_label (pt ang lay label1 label2 / dimsc dim_g dim_h pt_ofs dimpt1 dimpt2)
+(defun place_label (pt_ ang_ lay_ label1_ label2_ / dimsc dim_g dim_h pt_ofs dimpt1 dimpt2)
 	(setq
 		dimsc (getvar "dimscale")
 		dim_g (* (getvar "dimgap") dimsc)
 		dim_h (* (getvar "dimtxt") dimsc)
 		pt_ofs (+ dim_g (/ dim_h 2))
-		dimpt1 (polar pt (+ ang (/ pi 2)) pt_ofs)
-		dimpt2 (polar pt (- ang (/ pi 2)) pt_ofs)
+		dimpt1 (polar pt_ (+ ang_ (/ pi 2)) pt_ofs)
+		dimpt2 (polar pt_ (- ang_ (/ pi 2)) pt_ofs)
 		label_ss (ssadd)
 	)
-	(entmake (list '(0 . "text") (cons 1 label1) (cons 62 7) (cons 72 4) (cons 8 lay) (cons 10 dimpt1) (cons 11 dimpt1) (cons 40 dim_h) (cons 50 ang)))
+	(entmake (list '(0 . "text") (cons 1 label1_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt1) (cons 40 dim_h) (cons 50 ang_)))
 	(setq label_ss (ssadd (entlast) label_ss))
-	(entmake (list '(0 . "text") (cons 1 label2) (cons 62 7) (cons 72 4) (cons 8 lay) (cons 10 dimpt1) (cons 11 dimpt2) (cons 40 dim_h) (cons 50 ang)))
+	(entmake (list '(0 . "text") (cons 1 label2_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt2) (cons 40 dim_h) (cons 50 ang_)))
 	(setq label_ss (ssadd (entlast) label_ss))
-	(rotate_labels label_ss pt)
+	(rotate_labels label_ss pt_)
 )
 
 (defun rotate_labels (ss_ pt_ / ot)
@@ -100,12 +100,12 @@
 )
 
 ; ok
-(defun get_elevation (en_name / attr_txt)
-	(atof (cdr (assoc 1 (entget (entnext en_name)))))
+(defun get_elevation (en_name_ / attr_txt)
+	(atof (cdr (assoc 1 (entget (entnext en_name_)))))
 )
 
-(defun get_ins (en_name)
-	(cdr (assoc 10 (entget en_name)))
+(defun get_ins (en_name_)
+	(cdr (assoc 10 (entget en_name_)))
 )
 
 (defun make_el_ins (bkname_ pt_ attr_ / os lay)
@@ -187,8 +187,7 @@
 			(setq pt1 (getpoint pt0 "\n目标点："))
 			(setq podu (getreal "\n坡度(%)："))
 			(setq attr (rtos (+ a0 (* podu (distance pt0 pt1) 0.01 VP_FAC)) 2 3))
-			(princ (strcat "\n确认标高：<" attr))
-			(setq tmpval (getstring ">: "))
+			(setq tmpval (getstring (strcat "\n确认标高：<" attr ">: ")))
 			(if (= tmpval "") nil (setq attr tmpval))
 			(make_el_ins bkname pt1 attr)
 		)

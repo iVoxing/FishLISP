@@ -27,26 +27,26 @@
 						(setq ena (cdr (assoc 2 ent)))
 						(setq loop t)
 						(while loop
-							(princ "\n图块名称：<")
-							(princ ena)
-							(setq enn (getstring 1 "> "))
+							(princ )
+							(princ )
+							(setq enn (getstring 1 (strcat "\n图块名称：<" ena "> ")))
 							(if (member enn (list "" " " ena))
 								(setq loop nil enn ena)
 								(if (tblsearch "block" enn)
 									(princ "\n已经存在此名称的图块。")
 									(setq loop nil)
-								); if exist?
-							); if no change?
-						); while
+								)
+							)
+						)
 						(setvar "cmdecho" 0)
 						(cmd "rename" "block" ena enn)
 						(setvar "cmdecho" 1)
-					); progn =INSERT
+					)
 					(princ "\n对象不是图块。")
-				);if INSERT?
-			); progn en
-		); if en?
-	); if picked
+				)
+			)
+		)
+	)
 	(princ)
 )
 

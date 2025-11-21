@@ -26,7 +26,7 @@
 		((< bkc_color 8) (nth bkc_color bkc_color_list))
 		((= bkc_color 256) "ByLayer")
 		(t (rtos bkc_color 2 0))
-	)) ;setq bkc_alias
+	))
 	(princ "\nFISHLISP: BKC v1.0. Little Fish Studio. 2003-08-15")
 	(princ (strcat "\nTarget Layer: " bkc_layer ", target Color: " bkc_alias))
 	(while (setq bk (getbk)) 
@@ -41,13 +41,13 @@
 					nil
 					(setq ent (append ent (list (cons 62 bkc_color))))
 				)
-			) ;
+			)
 			(entmod ent)
 			(setq cnt (1+ cnt))
 			(setq en (entnext en))
-		) ;while
+		)
 		(princ (strcat "\n" (rtos cnt 2 0) " entitie(s) in Block " bk " changed. Regen required. "))
-	) ;while bk
+	)
 	(princ "\n")
 	(cmd "regen")
 	(setq *error* olderr)
@@ -68,14 +68,13 @@
 					bkc_layer
 				)
 				(t bl)
-			)) ; setq bl
+			))
 			(setq bkc_layer bl)
 			(getbk)
-		) ; layer
+		)
 		((= bk_en "Color")
-			(princ (strcat "\nTarget Color: <" bkc_alias "> "))
 			(initget "byBlock byLayer Red Yellow Green Cyan BLue Magenta White")
-			(setq bc (getint))
+			(setq bc (getint (strcat "\nTarget Color: <" bkc_alias "> ")))
 			(setq bcc (member bc bkc_color_list))
 			(setq bc (cond 
 				((not bc) bkc_color)
@@ -90,21 +89,21 @@
 							(princ "\nInvalid color index ignored! ")
 							bkc_color
 						)
-					) ;if
-				) ;else
-			) ;cond
-			) ;setq
+					)
+				)
+			)
+			)
 			(setq bkc_color bc)
 			(getbk)
-		) ; color
+		)
 		((listp bk_en)
 			(setq bk_ent (entget (car bk_en)))
 			(setq bk_name (if (= "INSERT" (cdr (assoc 0 bk_ent))) (cdr (assoc 2 bk_ent))))
 			bk_name
 		)
 		(t nil)
-	) ;cond
-); getbk
+	)
+)
 
 (princ "loaded. Start as C:BKC ")
 (princ)

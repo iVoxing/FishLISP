@@ -5,7 +5,6 @@
 ;
 
 (defun c:sf (/ ss amt lay_list idx lay_name key lay_all str)
-	(prompt "\nFishLISP, 6-10-1998. Ver 2.0")
 	(setq olderr *error*)
 	(defun *error* (s)
 		(setq ss nil amt nil lay_list nil idx nil lay_name nil key nil lay_all nil str nil)
@@ -21,9 +20,8 @@
 
 	(if snf_lay
 		(progn
-			(princ (strcat "\nLayer(s) stored: " snf_lay ".\n[Restore/Add/Delete]<Select object(s)>: "))
 			(initget "Restore Add Delete")
-			(setq key (getkword))
+			(setq key (getkword (strcat "\nLayer(s) stored: " snf_lay ".\n[Restore/Add/Delete]<Select object(s)>: ")))
 			(cond
 				((= key "Restore") (setq key "on"))
 				((= key "Delete") t)

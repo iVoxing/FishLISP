@@ -43,7 +43,7 @@
 				ypt1_list (list)
 				ypt2_list (list)
 				ss_idx 0
-			);setq
+			)
 			(repeat (sslength line_ss)
 				(setq 
 					line_ent (entget (ssname line_ss ss_idx))
@@ -73,49 +73,49 @@
 					)
 					( t 
 					)
-				);cond
+				)
 				(setq ss_idx (1+ ss_idx))
-			);repeat
+			)
 			(setq 
 				line_ss nil
-				xpt1_list (vl-sort xpt1_list '(lambda (pt1 pt2) (< (car pt1) (car pt2))))
-				xpt2_list (vl-sort xpt2_list '(lambda (pt1 pt2) (< (car pt1) (car pt2))))
-				ypt1_list (vl-sort ypt1_list '(lambda (pt1 pt2) (< (cadr pt1) (cadr pt2))))
-				ypt2_list (vl-sort ypt2_list '(lambda (pt1 pt2) (< (cadr pt1) (cadr pt2))))
-				id_x_list (mapcar '(lambda (x) (rtos (1+ (vl-position x xpt1_list)) 2 0)) xpt1_list)
+				xpt1_list (vl-sort xpt1_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
+				xpt2_list (vl-sort xpt2_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
+				ypt1_list (vl-sort ypt1_list '(lambda (pt1_ pt2_) (< (cadr pt1_) (cadr pt2_))))
+				ypt2_list (vl-sort ypt2_list '(lambda (pt1_ pt2_) (< (cadr pt1_) (cadr pt2_))))
+				id_x_list (mapcar '(lambda (x_) (rtos (1+ (vl-position x_ xpt1_list)) 2 0)) xpt1_list)
 			)
 			(mapcar
-				'(lambda (pt1 pt2 ins_at)
-					(setq ins_bk (if (> (strlen ins_at) 1) "axi" "axi0"))
-					(if (> (cadr pt1) (cadr pt2))
-						(setq temp pt1 pt1 pt2 pt2 temp temp nil)
+				'(lambda (pt1_ pt2_ ins_at_)
+					(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
+					(if (> (cadr pt1_) (cadr pt2_))
+						(setq temp pt1_ pt1_ pt2_ pt2_ temp temp nil)
 					)
-					(setq pt1 (subst (- (cadr pt1) rad) (cadr pt1) pt1))
-					(setq pt2 (subst (+ (cadr pt2) rad) (cadr pt2) pt2))
-					(cmd "insert" ins_bk pt1 sca "" 0 ins_at)
-					(cmd "insert" ins_bk pt2 sca "" 0 ins_at)
-				);lambda
+					(setq pt1_ (subst (- (cadr pt1_) rad) (cadr pt1_) pt1_))
+					(setq pt2_ (subst (+ (cadr pt2_) rad) (cadr pt2_) pt2_))
+					(cmd "insert" ins_bk pt1_ sca "" 0 ins_at_)
+					(cmd "insert" ins_bk pt2_ sca "" 0 ins_at_)
+				)
 				xpt1_list
 				xpt2_list
 				id_x_list
-			);mapcar
+			)
 			(mapcar
-				'(lambda (pt1 pt2 ins_at)
-					(setq ins_bk (if (> (strlen ins_at) 1) "axi" "axi0"))
-					(if (> (car pt1) (car pt2))
-						(setq temp pt1 pt1 pt2 pt2 temp temp nil)
+				'(lambda (pt1_ pt2_ ins_at_)
+					(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
+					(if (> (car pt1_) (car pt2_))
+						(setq temp pt1_ pt1_ pt2_ pt2_ temp temp nil)
 					)
-					(setq pt1 (subst (- (car pt1) rad) (car pt1) pt1))
-					(setq pt2 (subst (+ (car pt2) rad) (car pt2) pt2))
-					(cmd "insert" ins_bk pt1 sca "" 0 ins_at)
-					(cmd "insert" ins_bk pt2 sca "" 0 ins_at)
-				);lambda
+					(setq pt1_ (subst (- (car pt1_) rad) (car pt1_) pt1_))
+					(setq pt2_ (subst (+ (car pt2_) rad) (car pt2_) pt2_))
+					(cmd "insert" ins_bk pt1_ sca "" 0 ins_at_)
+					(cmd "insert" ins_bk pt2_ sca "" 0 ins_at_)
+				)
 				ypt1_list
 				ypt2_list
 				id_y_list
-			);mapcar
-		);progn line_ss
-	);if
+			)
+		)
+	)
 	(setvar "cmdecho" 1)
 	(setvar "clayer" cu_lay)
 	(fl_undo_end)

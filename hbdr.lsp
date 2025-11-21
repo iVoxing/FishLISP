@@ -73,7 +73,7 @@
 			)
 	 )
 )
-)					; For testing purpose
+)
 					; (setq A2k nil)
 (if (/= (setq ss2 (ssget '((0 . "HATCH")))) nil)
 (progn
@@ -85,22 +85,22 @@
 	)
 	(setq xv (cdr (assoc 210 ed1)))
 	(cmd "._ucs" "_w")
-	(setq loops1 (cdr (assoc 91 ed1))) ; number of boundary paths (loops)
+	(setq loops1 (cdr (assoc 91 ed1)))
 	(if (and A2k (= (strcase (cdr (assoc 410 ed1))) "MODEL"))
 	(setq space *ModelSpace*)
 	(setq space *PaperSpace*)
 	)
 	(repeat	loops1
 	(setq ed1 (member (assoc 92 ed1) ed1))
-	(setq bptf (cdr (car ed1)))	; boundary path type flag
-	(setq ic (cdr (assoc 73 ed1))) ; is closed
-	(setq noe (cdr (assoc 93 ed1))) ; number of edges
+	(setq bptf (cdr (car ed1)))
+	(setq ic (cdr (assoc 73 ed1)))
+	(setq noe (cdr (assoc 93 ed1)))
 	(setq ed1 (member (assoc 72 ed1) ed1))
-	(setq bul (cdr (car ed1)))	; bulge
+	(setq bul (cdr (car ed1)))
 	(setq plist nil)
 	(setq blist nil)
 	(cond
-	((> (boole 1 bptf 2) 0)	; polyline
+	((> (boole 1 bptf 2) 0)
 	 (repeat noe
 	 (setq ed1 (member (assoc 10 (cdr ed1)) ed1))
 	 (setq plist (append plist (list (cdr (assoc 10 ed1)))))
@@ -152,7 +152,7 @@
 	 (repeat noe
 	 (setq et (cdr (assoc 72 ed1)))
 	 (cond
-		 ((= et 1)		; line
+		 ((= et 1)
 		(setq ed1 (member (assoc 10 (cdr ed1)) ed1))
 		(if A2k
 		(vla-AddLine
@@ -171,7 +171,7 @@
 		)
 		(setq ed1 (cddr ed1))
 		 )
-		 ((= et 2)		; circular arc
+		 ((= et 2)
 		(setq ed1 (member (assoc 10 (cdr ed1)) ed1))
 		(setq ang1 (cdr (assoc 50 ed1)))
 		(setq ang2 (cdr (assoc 51 ed1)))
@@ -225,7 +225,7 @@
 		)
 		(setq ed1 (cddddr ed1))
 		 )
-		 ((= et 3)		; elliptic arc
+		 ((= et 3)
 		(setq ed1 (member (assoc 10 (cdr ed1)) ed1))
 		(setq ang1 (cdr (assoc 50 ed1)))
 		(setq ang2 (cdr (assoc 51 ed1)))
@@ -257,7 +257,7 @@
 		)
 		(setq lwp nil)
 		 )
-		 ((= et 4)		; spline
+		 ((= et 4)
 		(setq ed1 (member (assoc 94 (cdr ed1)) ed1))
 		(setq knot-list nil)
 		(setq controlpoint-list nil)
@@ -302,8 +302,8 @@
 		(setq ed1 (member (assoc 10 ed1) ed1))
 		(setq lwp nil)
 		 )
-	 )			; end cond
-	 )				; end repeat noe
+	 )
+	 )
 	 (if lwp
 	 (progn
 		 (setq en1 (entnext lastent))
@@ -313,9 +313,9 @@
 		 (cmd "_.pedit" (entlast) "_Y" "_J" ss "" "")
 	 )
 	 )
-	)				; end t
-	)				; end cond
-	)				; end repeat loops1
+	)
+	)
+	)
 	(setq i (1+ i))
 )
 )

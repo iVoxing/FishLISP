@@ -1,6 +1,8 @@
 
+; 2025-11-21	Optimization
+; 1999-12-03
+
 (defun c:saa (/ olderr sa0 sa1 sa_a k loop)
-	(princ "\nFishLISP, Ver1.0, 1999-12-3.")
 	(princ "\nChange snap angle in a curtain value. Start as C:SAA.")
 	(setq olderr *error*)
 	(defun *error* (s)
@@ -17,11 +19,8 @@
 		(princ (rem (/ (* sa0 180) pi) 90))
 		(princ "\tPrevious=")
 		(princ (rem (/ (* sa_anp 180) pi) 90))
-		(princ "\n[Angle/0/Free/Previous]<increase: ")
-		(princ sa_a)
-		(princ "> ")
 		(initget "Angle 0 Free Previous")
-		(setq k (getkword))
+		(setq k (getkword (strcat "\n[Angle/0/Free/Previous]<increase: " sa_a "> ")))
 		(cond
 			((= k "Angle")
 				(setq sa_a1 (getreal "\nAngle: "))
@@ -50,7 +49,7 @@
 			)
 		)
 	)
-	(princ "\nSnapang=")
+	(princ "\nSnapang: ")
 	(princ (rem (/ (* (getvar "snapang") 180) pi) 90))
 	(setq *error* olderr)
 	(princ)

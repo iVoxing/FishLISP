@@ -7,8 +7,8 @@
 	(if (findfile itm)
 		nil
 		(exit (strcat "\n" itm "没有找到，不能正确设置标注字体！"))
-	);if
-);foreach
+	)
+)
 
 (setvar "expert" 5)
 (setvar "cmdecho" 0)
@@ -24,10 +24,10 @@
 )
 (setvar "cmdecho"1)
 
-(defun save_dim_style (style_name)
+(defun save_dim_style (style_name_)
 	(set_base)
 	(setvar "cmdecho" 0)
-	(cmd "dimstyle" "save" style_name)
+	(cmd "dimstyle" "save" style_name_)
 	(setvar "cmdecho" 1)
 )
 

@@ -1,14 +1,13 @@
 ; 2025-11-12 rewrite
+; 1996-11-08
 
 (defun op_ins (/ wd)
 	(if in_door nil (load "door.lsp"))
 	(if in_win nil (load "win.lsp"))
-	(if op_wd nil (setq op_wd "Door"))
+	(setq op_wd (if op_wd op_wd "Door"))
 	(initget "Window Door None")
-	(princ "\nInsert:[Window/Door/None]. <")
-	(princ op_wd)
-	(setq wd (getkword ">:"))
-	(if wd nil (setq wd op_wd))
+	(setq wd (getkword (strcat "\nInsert:[Window/Door/None]. <" op_wd ">:")))
+	(setq wd (if wd wd op_wd))
 	(setq op_wd wd)
 	(cond
 		((= wd "Door") (in_door op_ss))
@@ -18,8 +17,8 @@
 )
 
 ; 2025-11-12
-(defun make_line (pt1 pt2)
-	(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt1) (cons 11 pt2)))
+(defun make_line (pt1_ pt2_)
+	(entmake (list (cons 0 "line") (cons 8 FLLT_WALL) (cons 10 pt1_) (cons 11 pt2_)))
 )
 
 (defun op_wall (/ pt1 pt2 ang1 ang01 ang02 pt0 pt3 pt4 ss ent2 dtct_wid insu ufac pt5 pt6 int ang2 wid pt7 pt8 pt9 pt10 pt dis0 grid_wid)
@@ -40,7 +39,7 @@
 		(t 
 			(setq ufac 1.0)
 		)
-	);cond
+	)
 	(setq 
 		pt1 (cdr (assoc 10 ent1))
 		pt2 (cdr (assoc 11 ent1))
@@ -53,7 +52,7 @@
 		pt3 (polar pt0 ang01 dtct_wid)
 		pt4 (polar pt0 ang02 dtct_wid)
 		ss (ssget "f" (list pt3 pt4))
-		ss (ssget "p" (list (cons 8 FLLT_WALL) '(0 . "line")))
+		ss (ssget "p" (list (cons 8 FLLT_WALL) '(0 . "LINE")))
 		ss (ssdel (car en) ss)
 	)
 	(if (= (sslength ss) 1)
@@ -68,12 +67,9 @@
 				pt4 (polar pt0 ang02 dtct_wid)
 			)
 			; 插入点取整 >>>
-			(princ "\nWidth to open <")
-			(if op_wid nil (setq op_wid (* 900.0 ufac)))
-			(princ op_wid)
-			(princ ">: ")
-			(setq wid (getdist))
-			(if wid nil (setq wid op_wid))
+			(setq op_wid (if op_wid op_wid (* 900.0 ufac)))
+			(setq wid (getdist (strcat "\nWidth: <" op_wid ">")))
+			(setq wid (if wid wid op_wid))
 			(setq op_wid wid wid (/ wid 2.0))
 			(setq 
 				ent2 (entget (ssname ss 0))
@@ -87,6 +83,7 @@
 				pt9 (polar pt0 ang1 (* -1 wid))
 				pt10 (polar int ang2 (* -1 wid))
 			)
+	(princ "\ntest")
 			(entmod (subst (cons 11 pt9) (assoc 11 ent1) ent1))
 			(entmod (subst (cons 11 pt10) (assoc 11 ent2) ent2))
 			(make_line pt7 pt2)
@@ -111,7 +108,6 @@
 		(setq *error* olderr)
 		(princ)
 	)
-	(princ "\nFishLISP, Oct. 8 1996")
 	(setvar "cmdecho" 0)
 	(fl_undo_begin)
 	(setq ucsf (getvar "ucsfollow"))
@@ -119,8 +115,7 @@
 	(setvar "expert" 4)
 	(cmd "ucs" "s""$temp$")
 	(cmd "ucs" "w")
-	(if
-		(and
+	(if (and
 			(setq en (entsel "\nPick a wall-line:"))
 			(= (setq ln (cdr (assoc 0 (setq ent1 (entget (car en)))))) "LINE")
 			(= (setq wl (strcase (cdr (assoc 8 ent1)))) FLLT_WALL)

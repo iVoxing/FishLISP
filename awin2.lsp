@@ -2,6 +2,7 @@
 ; C:AW
 ; Draw an array of rectangles inside one.
 ; History:
+;	2025-11-21		optimization
 ; 	2003-09-04 v2.1	IMPROVE:	More convenient option.
 ; 					NEW:		Continuous mode ON/OFF.
 ; 	2003-09-03 v2.0 NEW:		2 dimension array.
@@ -21,9 +22,9 @@
 	)
 	(fl_undo_begin)
 	(princ "\nFISHLISP C:AW v2.1.")
-	(if aw_cg_wid nil (setq aw_cg_wid 50.0))
-	(if aw_cg_x_a nil (setq aw_cg_x_a 2))
-	(if aw_cg_y_a nil (setq aw_cg_y_a 2))
+	(setq aw_cg_wid (if aw_cg_wid aw_cg_wid 50.0))
+	(setq aw_cg_x_a (if aw_cg_x_a aw_cg_x_a 2))
+	(setq aw_cg_y_a (if aw_cg_y_a aw_cg_y_a 2))
 	(aw_opt)
 	(setq cg_wid aw_cg_wid)
 	(setq cg_x_a aw_cg_x_a)
@@ -67,55 +68,50 @@
 							"c"
 						)
 						(setq x_n (1+ x_n) x_m (1+ x_m))
-					);repeat x
+					)
 					(setq y_n (1+ y_n) y_m (1+ y_m))
-				);repeat y
+				)
 				(setvar "cmdecho" 1)
 				(setvar "osmode" os)
 				(setvar "plinewid" plwd)
-			);progn pt2 true
-		);if pt2
+			)
+		)
 		(setq pt1 (if aw_cnt (getpoint "\n矩形角点：") nil))
-	);while pt1
+	)
 	(fl_undo_end)
 	(princ)
-);defun c:aw
+)
 
 (defun aw_opt ()
-	(princ "\n选项:[格间宽度 W：")
-	(princ aw_cg_wid)
-	(princ "，横向分格 X：")
-	(princ aw_cg_x_a)
-	(princ "，纵向分格 Y：")
-	(princ aw_cg_y_a)
-	(princ "，连续模式 C：")
-	(princ (if aw_cnt "ON]" "OFF]"))
+	(princ 
+		(strcat 
+			"\n选项:[格间宽度 W："
+			(rtos aw_cg_wid)
+			"，横向分格 X："
+			(rtos aw_cg_x_a)
+			"，纵向分格 Y："
+			(rtos aw_cg_y_a)
+			"，连续模式 C："
+			(if aw_cnt "ON]" "OFF]")
+		)
+	)
 	(initget "W X Y C")
 	(setq pt1 (getpoint "\n[W X Y C 更改选项]矩形角点："))
 	(cond 
 		((= pt1 "W")
-			(princ "\n格间宽度 W：<")
-			(princ aw_cg_wid)
-			(princ "> ")
-			(setq cg_wid (getreal))
+			(setq cg_wid (getreal (strcat "\n格间宽度 W：<" aw_cg_wid ">")))
 			(setq cg_wid (if cg_wid cg_wid aw_cg_wid))
 			(setq aw_cg_wid cg_wid)
 			(aw_opt)
 		)
 		((= pt1 "X")
-			(princ "\n横向分格 X：<")
-			(princ aw_cg_x_a)
-			(princ "> ")
-			(setq cg_x_a (getint))
+			(setq cg_x_a (getint (strcat "\n横向分格 X：<" aw_cg_x_a ">")))
 			(setq cg_x_a (if cg_x_a cg_x_a aw_cg_x_a))
 			(setq aw_cg_x_a cg_x_a)
 			(aw_opt)
 		)
 		((= pt1 "Y")
-			(princ "\n纵向分格 Y：<")
-			(princ aw_cg_y_a)
-			(princ "> ")
-			(setq cg_y_a (getint))
+			(setq cg_y_a (getint (strcat "\n纵向分格 Y：<" aw_cg_y_a ">")))
 			(setq cg_y_a (if cg_y_a cg_y_a aw_cg_y_a))
 			(setq aw_cg_y_a cg_y_a)
 			(aw_opt)
@@ -124,9 +120,8 @@
 			(setq aw_cnt (not aw_cnt))
 			(aw_opt)
 		)
-		( t
-		)
-	);cond
+		(t)
+	)
 )
 
 (princ "loaded. Start as C:AW ")

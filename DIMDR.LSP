@@ -1,12 +1,12 @@
 ; ±ê×¢ÃÅµÄ³ß´ç
 ;
 ;
-(defun dr_dim (ss / wid cnt ent ins scl ang pt txt)
+(defun dr_dim (ss_ / wid cnt ent ins scl ang pt txt)
 	(setq wid (getvar "dimscale"))
 	(setq cnt 0)
-	(repeat (sslength ss)
+	(repeat (sslength ss_)
 		(setq
-			ent (entget (ssname ss cnt))
+			ent (entget (ssname ss_ cnt))
 			ins (cdr (assoc 10 ent))
 			scl (abs (cdr (assoc 41 ent)))
 			ang (abs (- (cdr (assoc 50 ent)) pi))

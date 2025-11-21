@@ -1,4 +1,5 @@
-; 1/16/98	v4.0	Directly set the scale in modelspace;
+; 2025-11-21		optimization
+; 1998-01-16 v4.0	Directly set the scale in modelspace;
 ;
 
 (defun c:scset (/ set_sc temperr olderr vpt vptent vpt_h vpt_id vw_h psc sc_z)
@@ -9,17 +10,15 @@
 			psc (/ vw_h vpt_h)
 		)
 		(cond
-			((<= psc 50) (setq psc 50))
-			((and (> psc 50.0) (<= psc 75.0)) (setq psc 75))
-			((and (> psc 75.0) (<= psc 100.0)) (setq psc 100))
-			((and (> psc 100.0) (<= psc 120.0)) (setq psc 120))
-			((and (> psc 120.0) (<= psc 150.0)) (setq psc 150))
+			((<= psc 50) 	(setq psc 50))
+			((<= psc 75.0) 	(setq psc 75))
+			((<= psc 100.0) (setq psc 100))
+			((<= psc 120.0) (setq psc 120))
+			((<= psc 150.0) (setq psc 150))
 			(t)
-		);cond
-		(princ "\nNew scale: 1/<")
-		(princ psc)
+		)
 		(initget 128)
-		(setq sc_z (getreal ">XP: "))
+		(setq sc_z (getreal (strcat "\nNew scale: 1/<" psc ">XP: ")))
 		(if (numberp sc_z) nil (setq sc_z psc))
 		(setq sc_z (strcat (rtos (/ 1.0 sc_z) 2 20) "xp"))
 		(cmd "_zoom" sc_z)
@@ -68,9 +67,7 @@
 	(princ)
 )
 
-	; 1/15/98	v3.0	Judge the selection is dimension text or not while selecting.
-	;
-
+; 1/15/98	v3.0	Judge the selection is dimension text or not while selecting.
 (defun c:dsc (/ olderr en loop en0 ent hi)
 	(princ "\nFishLISP. Version 3.0")
 	(setq olderr *error*)
@@ -121,8 +118,7 @@
 		)
 		(if hi
 			(progn
-				(princ (strcat "\nDimension scale: <" (rtos hi 2 1) "> "))
-				(setq sc (getreal))
+				(setq sc (getreal (strcat "\nDimension scale: <" (rtos hi 2 1) "> ")))
 				(setq sc (if sc sc hi))
 				(setvar "dimscale" sc)
 			)

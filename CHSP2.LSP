@@ -19,7 +19,7 @@
 	(if ss1 (setq ss (ssget "p")))
 	(initget "Yes No")
 	(setq MorC (getkword "\nDelete old objects <No>: "))
-	(if MorC nil (setq MorC "No"))
+	(setq MorC (if MorC MorC "No"))
 	(setq pt1 (getpoint "\nBase point: "))
 	(setvar "expert" 2)
 	(setvar "regenmode" 0)

@@ -58,7 +58,7 @@
 				  ax_ypt1_list (list)
 				  ax_ypt2_list (list)
 				  ss_idx       0
-			) ;setq
+			)
 			(repeat (sslength ax_line_ss) 
 				(setq line_ent (entget (ssname ax_line_ss ss_idx))
 					  line_pt1 (trans (cdr (assoc 10 line_ent)) 0 1)
@@ -84,9 +84,9 @@
 						)
 					)
 					(t)
-				) ;cond
+				)
 				(setq ss_idx (1+ ss_idx))
-			) ;repeat
+			)
 			(setq ax_line_ss   nil
 				  ax_xpt1_list (vl-sort ax_xpt1_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
 				  ax_xpt2_list (vl-sort ax_xpt2_list '(lambda (pt1_ pt2_) (< (car pt1_) (car pt2_))))
@@ -111,11 +111,11 @@
 					 (setq pt2_ (subst (+ (cadr pt2_) ax_rad) (cadr pt2_) pt2_))
 					 (cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
 					 (cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
-				 ) ;lambda
+				 )
 				ax_xpt1_list
 				ax_xpt2_list
 				id_x_list
-			) ;mapcar
+			)
 			(mapcar 
 				'(lambda (pt1_ pt2_ ins_at_ / ins_bk) 
 					(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
@@ -130,13 +130,13 @@
 					(setq pt2_ (subst (+ (car pt2_) ax_rad) (car pt2_) pt2_))
 					(cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
 					(cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
-				) ;lambda
+				)
 				ax_ypt1_list
 				ax_ypt2_list
 				id_y_list
-			) ;mapcar
-		) ;progn ax_line_ss
-	) ;if
+			)
+		)
+	)
 	(setvar "osmode" os_mod)
 	(setvar "cmdecho" 1)
 	(setvar "clayer" cu_lay)

@@ -12,7 +12,7 @@
 				(setq ent (entget (ssname ss idx)))
 				(entmod (subst (cons 10 pt0) (assoc 10 ent) ent))
 				(setq idx (1+ idx))
-			);repeat
+			)
 		)
 	)
 	(princ)

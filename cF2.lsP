@@ -3,7 +3,7 @@
 
 (defun cf_get_dis (/ dis)
 	(setq cf_dis (if cf_dis cf_dis 0))
-	(princ
+	(setq msg
 		(strcat
 			"\n["
 			(if cf_mode "Line" "Pline")
@@ -12,10 +12,10 @@
 			"]Offset distance: <"
 			(if (zerop cf_dis) "Through" (rtos cf_dis 2 2))
 			"> "
-		);strcat
-	);princ
+		)
+	)
 	(initget "Line Pline Middle Side Through")
-	(setq dis (getdist))
+	(setq dis (getdist msg))
 	(setq dis (if dis dis cf_dis))
 	(cond
 		((null dis)
@@ -43,7 +43,7 @@
 		( t
 			dis
 		)
-	);cond
+	)
 )
 
 (defun cf_main (/ dis en0 pt0 et0 ln0 pt01 pt02 en1 ln1 pt11 pt12)
@@ -72,8 +72,8 @@
 		(if cf_mid
 			(princ "\nModule not ready :) ")
 		)
-	);while
-);defun cf_main
+	)
+)
 
 (defun c:cf ()
 	(princ "\nOffset line to Rectangle, Ver2.0.BETA")

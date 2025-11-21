@@ -1,6 +1,6 @@
 ; History
 ; V3.1	2003-07-02	增加*ERROR*处理
-; 	2003-06-19	更改命令名称为C:FFT
+; 		2003-06-19	更改命令名称为C:FFT
 ; V3.0	2001-11-26	增加了缺省值和替换功能。
 ; V2.0	2001-03-15	更加简洁的处理，重写了Zoom部分和比例设置部分。
 ; V1.1	
@@ -16,11 +16,11 @@
 			ent (entget text_en)
 			pt0 (cdr (assoc 10 ent))
 			str (cdr (assoc 1 ent))
-		);setq
+		)
 		(cmd "_zoom" "c" pt0 z_sc)
 		(getkey)
-	);while
-	(if bsd nil (setq bsd cnt))
+	)
+	(setq bsd (if bsd bsd cnt))
 	(princ (strcat "\n" or_str " >> " (rtos cnt 2 0) " found, " (rtos bsd 2 0) " browsed. "))
 	(setvar "cmdecho" 1)
 )
@@ -28,7 +28,7 @@
 (defun getkey ()
 	(initget "Next Continue Zoom Replace Exit")
 	(setq key (getpoint "\n[Continue/Zoom height/Replace/Exit]<Next>: "))
-	(if key nil (setq key "Next"))
+	(setq key (if key key "Next"))
 	(cond
 		((listp key)
 			(setq 
@@ -68,7 +68,7 @@
 )
 
 (defun ft_rp (/ n_str)
-	(if ft_new_str nil (setq ft_new_str ""))
+	(setq ft_new_str (if ft_new_str ft_new_str ""))
 	(princ (strcat "\nNew String: <" ft_new_str ">"))
 	(setq n_str (getstring 1))
 	(if (= n_str "") (setq n_str ft_new_str))
@@ -82,9 +82,8 @@
 )
 
 (defun setsc ()
-	(princ (strcat "\nZoom height: <" z_sc ">: "))
 	(setq 
-		z_sc (getint)
+		z_sc (getint (strcat "\nZoom height: <" z_sc ">: "))
 		z_sc (if z_sc (rtos z_sc) ft_z_sc)
 	)
 	(setq ft_z_sc z_sc)
@@ -101,9 +100,9 @@
 	(prompt "\nFishLISP, Dec 23 1996.")
 	(prompt "\nFind text, ver 3.0, start as C:FFT")
 	(setvar "highlight" 0)
-	(if ft_z_sc nil (setq ft_z_sc "10000"))
-	(if ft_dft_str nil (setq ft_dft_str ""))
-	(if ft_lastidx nil (setq ft_lastidx 0))
+	(setq ft_z_sc (if ft_z_sc ft_z_sc "10000"))
+	(setq ft_dft_str (if ft_dft_str ft_dft_str ""))
+	(setq ft_lastidx (if ft_lastidx ft_lastidx 0))
 	(setq z_sc ft_z_sc)
 	(ft_get)
 	(setq ft_dft_str or_str)
@@ -116,7 +115,7 @@
 
 (defun ft_get ()
 	(princ (strcat "\nText to search: <" ft_dft_str "> "))
-	(setq or_str (getstring1))
+	(setq or_str (getstring 1))
 	(if (= or_str "") (setq or_str ft_dft_str))
 	(if (= or_str "") (ft_get))
 )

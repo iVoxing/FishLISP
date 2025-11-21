@@ -35,10 +35,10 @@
 			(cmd "mview" "l" cmdflg "all" "")
 			(setvar "cmdecho" 1)
 			(princ msg)
-		);progn vp_ss exist
+		)
 		(princ "\n没有 ViewPort 实体。")
-		);TILEMODE=0
-		(princ "\n本命令仅用于 Layout。"); TILEMODE=1
+		)
+		(princ "\n本命令仅用于 L)EMODE=1
 	)
 	(princ)
 )

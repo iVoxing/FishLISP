@@ -15,7 +15,7 @@
 			(if (= (getvar "cmdnames") "PLINE")
 				(cmd "")
 				(entdel (entlast))
-			);if
+			)
 		)
 	)
 	(setvar "plinewid" oplw)

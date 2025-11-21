@@ -1,7 +1,7 @@
 ;	2004-8-16
 
-(defun make_line (pt_start pt_end)
-	(entmake (list '(0 . "line") '(8 . "0") (cons 10 pt_start) (cons 11 pt_end)))
+(defun make_line (pt1_ pt2_)
+	(entmake (list '(0 . "line") '(8 . "0") (cons 10 pt1_) (cons 11 pt2_)))
 )
 
 (defun c:mkst ()
@@ -18,7 +18,7 @@
 				((and (>= stnum 10) (< st_num 20))
 					(setq stbkname (strcat "st" (rtos st_num 2 0)))
 				)
-			);cond
+			)
 			(if stbkname
 				(if (tblsearch "block" stbkname)
 					(setq skbkname nil)
@@ -35,20 +35,20 @@
 					(setq idx 1)
 					(repeat (1- st_num)
 						(mapcar 'make_line
-							(list (list (1- idx) (* st_hig idx) 0.0) (list idx (* st_hig idx) 0.0)) ; pt_start
-							(list (list idx (* st_hig idx) 0.0) (list (1+ idx) (* st_hig (1+ idx)) 0.0)) ; pt_end
+							(list (list (1- idx) (* st_hig idx) 0.0) (list idx (* st_hig idx) 0.0))
+							(list (list idx (* st_hig idx) 0.0) (list (1+ idx) (* st_hig (1+ idx)) 0.0))
 						)
 						(setq idx (1+ idx))
-					);repeat
+					)
 					(entmake "endblk")
 					(setq 
 						ins_wid (getreal "\nÌ¤¿í£º")
 						ins_hig (getreal "\nÌİ¶Î¸ß¶È£º")
 					)
 					(cmd "insert" stbkname "x" ins_wid "y" ins_hig "r" "0" pause)
-				);progn stbkname
-			);if stbkname
-		);progn st_num
-	);if st_num
+				)
+			)
+		)
+	)
 	(princ)
 )

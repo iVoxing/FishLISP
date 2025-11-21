@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
-警告！�?�勿编辑此文件的内�?��?
-如果试图使用 XML 编辑器来编辑此文件，�?能会失去�?定义和移植功能�?
-如果需要修改自定义文件�?的信�?，�?�使用产品中的“自定义用户界面”�?�话框�?
-要�?�问“自定义用户界面”�?�话框，请单击“工具”菜�? >“自定义�?>“界面”，或者在命令行中输入 CUI�?
+警告！�?�勿编辑此文件的内�?��?
+如果试图使用 XML 编辑器来编辑此文件，�?能会失去�?定义和移植功能�?
+如果需要修改自定义文件�?的信�?，�?�使用产品中的“自定义用户界面”�?�话框�?
+要�?�问“自定义用户界面”�?�话框，请单击“工具”菜�? >“自定义�?>“界面”，或者在命令行中输入 CUI�?
 -->
 <CustSection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <FileVersion MajorVersion="0" MinorVersion="4" IncrementalVersion="1" UserVersion="1" />
@@ -23,9 +23,9 @@
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0002">当前版本�?2005.093</Name>
+<Name xlate="true" UID="XLS_0002">当前版本�?2005.093</Name>
 <Command>^Pflver</Command>
-<HelpString xlate="true" UID="XLS_0196">显示当前FishLISP版本，点击在CDSZ局域网内查�?FishLISP最新版�?� FLVER</HelpString>
+<HelpString xlate="true" UID="XLS_0196">显示当前FishLISP版本，点击在CDSZ局域网内查�?FishLISP最新版�?� FLVER</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_FISHLISP">
@@ -34,7 +34,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0004">访问FishLISP主页</Name>
 <Command>^C^C^Pfishlisp </Command>
-<HelpString xlate="true" UID="XLS_0197">点击访问FishLISP主页：www.ivox.cc/fishlisp�?FISHLISP</HelpString>
+<HelpString xlate="true" UID="XLS_0197">点击访问FishLISP主页：www.ivox.cc/fishlisp�?FISHLISP</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DD">
@@ -43,16 +43,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0006">通用文字编辑</Name>
 <Command>^C^C^Pdd </Command>
-<HelpString xlate="true" UID="XLS_0198">编辑各�?�类型文�?，�?�标高图块、单属性图块等有�?�强功能  DD</HelpString>
+<HelpString xlate="true" UID="XLS_0198">编辑各�?�类型文�?，�?�标高图块、单属性图块等有�?�强功能  DD</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_T">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0008">到实体图�?</Name>
+<Name xlate="true" UID="XLS_0008">到实体图�?</Name>
 <Command>^C^C^P't </Command>
-<HelpString xlate="true" UID="XLS_0199">点取实体，�?�其图层为当前图层� T</HelpString>
+<HelpString xlate="true" UID="XLS_0199">点取实体，�?�其图层为当前图层� T</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_S">
@@ -61,7 +61,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0011">选择图层</Name>
 <Command>^P's </Command>
-<HelpString xlate="true" UID="XLS_0200">选择实体，将其图层�?�为选择过滤条件�?'S</HelpString>
+<HelpString xlate="true" UID="XLS_0200">选择实体，将其图层�?�为选择过滤条件�?'S</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SE">
@@ -70,7 +70,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0013">指定类型</Name>
 <Command>^P'se </Command>
-<HelpString xlate="true" UID="XLS_0201">指定实体类型，作为选择过滤条件�?'SE</HelpString>
+<HelpString xlate="true" UID="XLS_0201">指定实体类型，作为选择过滤条件�?'SE</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SST">
@@ -79,7 +79,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0015">指定文字</Name>
 <Command>^P'sst </Command>
-<HelpString xlate="true" UID="XLS_0202">指定文字，作为选择过滤条件�?'SST</HelpString>
+<HelpString xlate="true" UID="XLS_0202">指定文字，作为选择过滤条件�?'SST</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SSB">
@@ -88,7 +88,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0017">指定图块</Name>
 <Command>^P'ssb </Command>
-<HelpString xlate="true" UID="XLS_0203">指定图块名称，作为选择过滤条件�?'SSB</HelpString>
+<HelpString xlate="true" UID="XLS_0203">指定图块名称，作为选择过滤条件�?'SSB</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SSC">
@@ -97,7 +97,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0019">指定颜色</Name>
 <Command>^P'ssc </Command>
-<HelpString xlate="true" UID="XLS_0204">指定颜色代号，作为选择过滤条件�?'SSC</HelpString>
+<HelpString xlate="true" UID="XLS_0204">指定颜色代号，作为选择过滤条件�?'SSC</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SF">
@@ -106,7 +106,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0023">选择关闭</Name>
 <Command>^C^C^Psf; </Command>
-<HelpString xlate="true" UID="XLS_0205">选择实体，关�?其所在图层（忽略当前层）；并储存图层名称以便将来恢�?�� SF</HelpString>
+<HelpString xlate="true" UID="XLS_0205">选择实体，关�?其所在图层（忽略当前层）；并储存图层名称以便将来恢�?�� SF</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SFA">
@@ -115,34 +115,34 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0025">增加关闭</Name>
 <Command>^C^C^Psf a</Command>
-<HelpString xlate="true" UID="XLS_0206">选择实体，关�?其所在图层（忽略当前层）；并增加图层名称到以前的设置�?，将来可以一起恢复�?SF A</HelpString>
+<HelpString xlate="true" UID="XLS_0206">选择实体，关�?其所在图层（忽略当前层）；并增加图层名称到以前的设置�?，将来可以一起恢复�?SF A</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SFR">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0027">恢�?�关�?</Name>
+<Name xlate="true" UID="XLS_0027">恢�?�关�?</Name>
 <Command>^C^C^Psf r </Command>
-<HelpString xlate="true" UID="XLS_0207">恢�?�SF所关闭的图层�?SF R</HelpString>
+<HelpString xlate="true" UID="XLS_0207">恢�?�SF所关闭的图层�?SF R</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DN">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0029">图层�?�?</Name>
+<Name xlate="true" UID="XLS_0029">图层�?�?</Name>
 <Command>^C^C^Pdn </Command>
-<HelpString xlate="true" UID="XLS_0208">选择实体，将其图层中所有实体放到显示顺序的底部�?DN</HelpString>
+<HelpString xlate="true" UID="XLS_0208">选择实体，将其图层中所有实体放到显示顺序的底部�?DN</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_FR">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0031">图层�?�?</Name>
+<Name xlate="true" UID="XLS_0031">图层�?�?</Name>
 <Command>^C^C^Pfr </Command>
-<HelpString xlate="true" UID="XLS_0209">选择实体，将其图层中所有实体放到显示顺序的顶部�?FR</HelpString>
+<HelpString xlate="true" UID="XLS_0209">选择实体，将其图层中所有实体放到显示顺序的顶部�?FR</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_LF">
@@ -151,14 +151,14 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0033">选择冻结</Name>
 <Command>^C^C^Plf </Command>
-<HelpString xlate="true" UID="XLS_0210">选择实体，冻结其所在的图层�?LF</HelpString>
+<HelpString xlate="true" UID="XLS_0210">选择实体，冻结其所在的图层�?LF</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0017">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0035">恢�?�冻�?</Name>
+<Name xlate="true" UID="XLS_0035">恢�?�冻�?</Name>
 <Command>^C^C^P </Command>
 </Macro>
 </MenuMacro>
@@ -168,16 +168,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0037">点取锁定</Name>
 <Command>^C^C^Plo </Command>
-<HelpString xlate="true" UID="XLS_0211">点取实体，锁�?/解锁其所在的图层�?LO</HelpString>
+<HelpString xlate="true" UID="XLS_0211">点取实体，锁�?/解锁其所在的图层�?LO</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CG">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0039">�?换图�?</Name>
+<Name xlate="true" UID="XLS_0039">�?换图�?</Name>
 <Command>^C^C^Pcg </Command>
-<HelpString xlate="true" UID="XLS_0212">改变实体所在图层为另一所选择实体所在的图层�?CG</HelpString>
+<HelpString xlate="true" UID="XLS_0212">改变实体所在图层为另一所选择实体所在的图层�?CG</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_LAYEROUT">
@@ -186,7 +186,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0041">分层输出</Name>
 <Command>^C^C^Playerout </Command>
-<HelpString xlate="true" UID="XLS_0213">将当前图形分层另存为新图�?LAYEROUT</HelpString>
+<HelpString xlate="true" UID="XLS_0213">将当前图形分层另存为新图�?LAYEROUT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_LAYERIN">
@@ -195,7 +195,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0043">图层输入</Name>
 <Command>^C^C^Playerin </Command>
-<HelpString xlate="true" UID="XLS_0214">输入由LAYEROUT输出的图层�?LAYERIN</HelpString>
+<HelpString xlate="true" UID="XLS_0214">输入由LAYEROUT输出的图层�?LAYERIN</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_VS">
@@ -204,34 +204,34 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0046">视图保存</Name>
 <Command>^C^C^Pvs </Command>
-<HelpString xlate="true" UID="XLS_0215">保存当前所显示的�?�图�?VS</HelpString>
+<HelpString xlate="true" UID="XLS_0215">保存当前所显示的�?�图�?VS</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_VR">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0048">视图恢�??</Name>
+<Name xlate="true" UID="XLS_0048">视图恢�??</Name>
 <Command>^C^C^Pvr </Command>
-<HelpString xlate="true" UID="XLS_0216">恢�?�图�?�?所保存的�?�图  VR</HelpString>
+<HelpString xlate="true" UID="XLS_0216">恢�?�图�?�?所保存的�?�图  VR</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_VV">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0050">视图浏�??</Name>
+<Name xlate="true" UID="XLS_0050">视图浏�??</Name>
 <Command>^C^C^Pvv </Command>
-<HelpString xlate="true" UID="XLS_0217">逐个查看图形�?每一�?视图的范围，并做恢�?�或删除等操作� VV</HelpString>
+<HelpString xlate="true" UID="XLS_0217">逐个查看图形�?每一�?视图的范围，并做恢�?�或删除等操作� VV</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_UE">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0052">实体UCS不跟�?</Name>
+<Name xlate="true" UID="XLS_0052">实体UCS不跟�?</Name>
 <Command>^C^C^Pue </Command>
-<HelpString xlate="true" UID="XLS_0218">设置UCS为所选实体的OCS，不旋转图形�?UE</HelpString>
+<HelpString xlate="true" UID="XLS_0218">设置UCS为所选实体的OCS，不旋转图形�?UE</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_UEF">
@@ -240,7 +240,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0054">实体UCS跟随</Name>
 <Command>^C^C^Puef </Command>
-<HelpString xlate="true" UID="XLS_0219">设置UCS为所选实体的OCS，同时旋�?图形�?UEF</HelpString>
+<HelpString xlate="true" UID="XLS_0219">设置UCS为所选实体的OCS，同时旋�?图形�?UEF</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_UCSFO">
@@ -258,7 +258,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0058">视口比例</Name>
 <Command>^C^C^Pscset </Command>
-<HelpString xlate="true" UID="XLS_0221">设置视口比例�?SCSET</HelpString>
+<HelpString xlate="true" UID="XLS_0221">设置视口比例�?SCSET</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_VPL">
@@ -267,16 +267,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0060">视口锁定解锁</Name>
 <Command>^C^C^Pvpl </Command>
-<HelpString xlate="true" UID="XLS_0222">锁定/解锁图形�?全部视口�?VPL</HelpString>
+<HelpString xlate="true" UID="XLS_0222">锁定/解锁图形�?全部视口�?VPL</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_BLA">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0062">光标平�??</Name>
+<Name xlate="true" UID="XLS_0062">光标平�??</Name>
 <Command>^C^C^Pbla </Command>
-<HelpString xlate="true" UID="XLS_0223">设置捕捉光标，使之平行于所选直线�?BLA</HelpString>
+<HelpString xlate="true" UID="XLS_0223">设置捕捉光标，使之平行于所选直线�?BLA</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_HD">
@@ -285,7 +285,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0066">隐藏实体</Name>
 <Command>^C^C^Phd </Command>
-<HelpString xlate="true" UID="XLS_0224">将所选实体从屏幕上隐藏，但并不删除�?HD</HelpString>
+<HelpString xlate="true" UID="XLS_0224">将所选实体从屏幕上隐藏，但并不删除�?HD</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_FFT">
@@ -294,7 +294,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0069">查找跟踪</Name>
 <Command>^C^C^Pfft </Command>
-<HelpString xlate="true" UID="XLS_0225">查找并跟�?所指定文字的TEXT实体，支持通配符� FFT</HelpString>
+<HelpString xlate="true" UID="XLS_0225">查找并跟�?所指定文字的TEXT实体，支持通配符� FFT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_MRGT">
@@ -303,7 +303,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0071">文字合并</Name>
 <Command>^C^C^Pmrgt </Command>
-<HelpString xlate="true" UID="XLS_0226">合并两个TEXT实体为一�?�?MRGT</HelpString>
+<HelpString xlate="true" UID="XLS_0226">合并两个TEXT实体为一�?�?MRGT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_FIXT">
@@ -312,7 +312,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0073">前缀后缀</Name>
 <Command>^C^C^Pfixt </Command>
-<HelpString xlate="true" UID="XLS_0227">为TEXT实体添加前缀、后缀�?FIXT</HelpString>
+<HelpString xlate="true" UID="XLS_0227">为TEXT实体添加前缀、后缀�?FIXT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_ARYNUM">
@@ -321,16 +321,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0075">文字阵列</Name>
 <Command>^C^C^Parynum </Command>
-<HelpString xlate="true" UID="XLS_0228">阵列数字文本的TEXT实体，并使文�?数字按数列�?�加� ARYNUM</HelpString>
+<HelpString xlate="true" UID="XLS_0228">阵列数字文本的TEXT实体，并使文�?数字按数列�?�加� ARYNUM</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CNT">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0077">按层统�??</Name>
+<Name xlate="true" UID="XLS_0077">按层统�??</Name>
 <Command>^C^C^Pcnt </Command>
-<HelpString xlate="true" UID="XLS_0229">选取TEXT实体，并统�?�其所在图层中不同内�?�TEXT实体的数量� CNT</HelpString>
+<HelpString xlate="true" UID="XLS_0229">选取TEXT实体，并统�?�其所在图层中不同内�?�TEXT实体的数量� CNT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SRP">
@@ -339,43 +339,43 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0079">超级替换</Name>
 <Command>^C^C^Psrp </Command>
-<HelpString xlate="true" UID="XLS_0230">根据所指定文本文件的内容，替换图形�?内�?�匹配的TEXT实体� SRP</HelpString>
+<HelpString xlate="true" UID="XLS_0230">根据所指定文本文件的内容，替换图形�?内�?�匹配的TEXT实体� SRP</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_WRID">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0081">�?动编�?</Name>
+<Name xlate="true" UID="XLS_0081">�?动编�?</Name>
 <Command>^C^C^Pwrid </Command>
-<HelpString xlate="true" UID="XLS_0231">用连�?�?动编号的方式，在指定位置生成数字TEXT实体� WRID</HelpString>
+<HelpString xlate="true" UID="XLS_0231">用连�?�?动编号的方式，在指定位置生成数字TEXT实体� WRID</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_2SHX">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0083">全�?��?�格为SHX</Name>
+<Name xlate="true" UID="XLS_0083">全�?��?�格为SHX</Name>
 <Command>^C^C^P2shx </Command>
-<HelpString xlate="true" UID="XLS_0232">将所有文字�?�格设�?�格为TXT1,HZTXT� 2SHX</HelpString>
+<HelpString xlate="true" UID="XLS_0232">将所有文字�?�格设�?�格为TXT1,HZTXT� 2SHX</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DSC">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0087">查�?�实�?</Name>
+<Name xlate="true" UID="XLS_0087">查�?�实�?</Name>
 <Command>^Pdsc </Command>
-<HelpString xlate="true" UID="XLS_0234">按字�?=3mm，反查标注实体的比例�?DSC</HelpString>
+<HelpString xlate="true" UID="XLS_0234">按字�?=3mm，反查标注实体的比例�?DSC</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DG">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0089">选择�?�?</Name>
+<Name xlate="true" UID="XLS_0089">选择�?�?</Name>
 <Command>^Pdg </Command>
-<HelpString xlate="true" UID="XLS_0235">选择标注实体，�?�标注比例与之相同� DG</HelpString>
+<HelpString xlate="true" UID="XLS_0235">选择标注实体，�?�标注比例与之相同� DG</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_ELIN">
@@ -384,16 +384,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0092">标高插入</Name>
 <Command>^C^C^Pelin </Command>
-<HelpString xlate="true" UID="XLS_0236">标高插入�?ELIN</HelpString>
+<HelpString xlate="true" UID="XLS_0236">标高插入�?ELIN</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_ELADD">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0094">批量改�?</Name>
+<Name xlate="true" UID="XLS_0094">批量改�?</Name>
 <Command>^C^C^Peladd </Command>
-<HelpString xlate="true" UID="XLS_0237">按�?�量批量�?改所选标高值� ELADD</HelpString>
+<HelpString xlate="true" UID="XLS_0237">按�?�量批量�?改所选标高值� ELADD</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_REEL">
@@ -402,7 +402,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0096">标高重算</Name>
 <Command>^C^C^Preel </Command>
-<HelpString xlate="true" UID="XLS_0238">根据基准点�?�置，重算所选标高值�?REEL</HelpString>
+<HelpString xlate="true" UID="XLS_0238">根据基准点�?�置，重算所选标高值�?REEL</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SCEL">
@@ -411,7 +411,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0098">比例调整</Name>
 <Command>^C^C^Pscel </Command>
-<HelpString xlate="true" UID="XLS_0239">根据指定标注比例，调整标高块的比例�?SCEL</HelpString>
+<HelpString xlate="true" UID="XLS_0239">根据指定标注比例，调整标高块的比例�?SCEL</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_AID">
@@ -420,25 +420,25 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0101">轴号插入</Name>
 <Command>^C^C^Paid </Command>
-<HelpString xlate="true" UID="XLS_0240">轴号插入�?AID</HelpString>
+<HelpString xlate="true" UID="XLS_0240">轴号插入�?AID</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_RENUM">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0103">轴号�?�?</Name>
+<Name xlate="true" UID="XLS_0103">轴号�?�?</Name>
 <Command>^C^C^Prenum </Command>
-<HelpString xlate="true" UID="XLS_0241">批量轴号�?改� RENUM。单�?轴号�?改可  DD</HelpString>
+<HelpString xlate="true" UID="XLS_0241">批量轴号�?改� RENUM。单�?轴号�?改可  DD</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CVA">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0105">轴号�?�?</Name>
+<Name xlate="true" UID="XLS_0105">轴号�?�?</Name>
 <Command>^C^C^Pcva </Command>
-<HelpString xlate="true" UID="XLS_0242">将圆圈和数字散�?�的轴号�?�?为轴号图块�  CVA</HelpString>
+<HelpString xlate="true" UID="XLS_0242">将圆圈和数字散�?�的轴号�?�?为轴号图块�  CVA</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SCAXI">
@@ -447,16 +447,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0107">比例调整</Name>
 <Command>^C^C^Pscaxi </Command>
-<HelpString xlate="true" UID="XLS_0243">根据指定标注比例，调整轴号块的比例�?SCAXI</HelpString>
+<HelpString xlate="true" UID="XLS_0243">根据指定标注比例，调整轴号块的比例�?SCAXI</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DL">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0109">平�?�线距�??</Name>
+<Name xlate="true" UID="XLS_0109">平�?�线距�??</Name>
 <Command>^C^C^Pdl </Command>
-<HelpString xlate="true" UID="XLS_0244">标注所选平行线距�?�� DL</HelpString>
+<HelpString xlate="true" UID="XLS_0244">标注所选平行线距�?�� DL</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_ZB">
@@ -465,7 +465,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0112">坐标标注</Name>
 <Command>^C^C^Pzb </Command>
-<HelpString xlate="true" UID="XLS_0245">总图坐标标注，注意坐标系统�?�置�?ZB</HelpString>
+<HelpString xlate="true" UID="XLS_0245">总图坐标标注，注意坐标系统�?�置�?ZB</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_GD">
@@ -474,34 +474,34 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0114">一点坡度算标高</Name>
 <Command>^C^C^Pgd </Command>
-<HelpString xlate="true" UID="XLS_0246">选择标高块，指定坡度，算�?标点的标高，并插入标高块�?GD</HelpString>
+<HelpString xlate="true" UID="XLS_0246">选择标高块，指定坡度，算�?标点的标高，并插入标高块�?GD</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_GM">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0116">两点坡度算标�?</Name>
+<Name xlate="true" UID="XLS_0116">两点坡度算标�?</Name>
 <Command>^C^C^Pgm </Command>
-<HelpString xlate="true" UID="XLS_0247">根据同一坡度上两�?标高，和该坡度，算另一点的标高并插入标高块� GM</HelpString>
+<HelpString xlate="true" UID="XLS_0247">根据同一坡度上两�?标高，和该坡度，算另一点的标高并插入标高块� GM</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_GR">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0118">两点算坡度距�?</Name>
+<Name xlate="true" UID="XLS_0118">两点算坡度距�?</Name>
 <Command>^C^C^Pgr </Command>
-<HelpString xlate="true" UID="XLS_0248">计算并标注两�?标高块之间的坡度和距离� GR</HelpString>
+<HelpString xlate="true" UID="XLS_0248">计算并标注两�?标高块之间的坡度和距离� GR</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_LW">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0121">单线�?多�?�线</Name>
+<Name xlate="true" UID="XLS_0121">单线�?多�?�线</Name>
 <Command>^C^C^Plw </Command>
-<HelpString xlate="true" UID="XLS_0249">将单线、圆弧、圆�?�?为�?��?�线；或�?改�?��?�线的�?�?  LW</HelpString>
+<HelpString xlate="true" UID="XLS_0249">将单线、圆弧、圆�?�?为�?��?�线；或�?改�?��?�线的�?�?  LW</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_WA">
@@ -510,7 +510,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0123">算写面积</Name>
 <Command>^C^C^Pwa </Command>
-<HelpString xlate="true" UID="XLS_0250">在标准AREA命令之后加入换算为SQM，并标注的功能�?WA</HelpString>
+<HelpString xlate="true" UID="XLS_0250">在标准AREA命令之后加入换算为SQM，并标注的功能�?WA</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_AW">
@@ -519,25 +519,25 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0125">矩形分格</Name>
 <Command>^C^C^Paw </Command>
-<HelpString xlate="true" UID="XLS_0251">在矩形内部做�?竖分格� AW</HelpString>
+<HelpString xlate="true" UID="XLS_0251">在矩形内部做�?竖分格� AW</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_RCT">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0127">两边画矩�?</Name>
+<Name xlate="true" UID="XLS_0127">两边画矩�?</Name>
 <Command>^C^C^Prct </Command>
-<HelpString xlate="true" UID="XLS_0252">根据两边长度画矩�?�?RCT</HelpString>
+<HelpString xlate="true" UID="XLS_0252">根据两边长度画矩�?�?RCT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CF">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0129">偏置画矩�?</Name>
+<Name xlate="true" UID="XLS_0129">偏置画矩�?</Name>
 <Command>^C^C^Pcf </Command>
-<HelpString xlate="true" UID="XLS_0253">以偏�?一边的方式画矩�?� CF</HelpString>
+<HelpString xlate="true" UID="XLS_0253">以偏�?一边的方式画矩�?� CF</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_OW">
@@ -546,7 +546,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0131">关联偏置</Name>
 <Command>^C^C^Pow </Command>
-<HelpString xlate="true" UID="XLS_0254">偏置�?线后能�?�自动连接原来的边线� OW</HelpString>
+<HelpString xlate="true" UID="XLS_0254">偏置�?线后能�?�自动连接原来的边线� OW</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_MO">
@@ -555,16 +555,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0133">多重等距偏置</Name>
 <Command>^C^C^Pmo </Command>
-<HelpString xlate="true" UID="XLS_0255">多重等距偏置�?MO</HelpString>
+<HelpString xlate="true" UID="XLS_0255">多重等距偏置�?MO</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DF">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0135">连续不等距偏�?</Name>
+<Name xlate="true" UID="XLS_0135">连续不等距偏�?</Name>
 <Command>^C^C^Pdf </Command>
-<HelpString xlate="true" UID="XLS_0256">连续不等距偏�?，用空格分隔每�??距�?�，必须按回车确认�  DF</HelpString>
+<HelpString xlate="true" UID="XLS_0256">连续不等距偏�?，用空格分隔每�??距�?�，必须按回车确认�  DF</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_DP">
@@ -573,34 +573,34 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0137">原地复制</Name>
 <Command>^C^C^Pdp </Command>
-<HelpString xlate="true" UID="XLS_0257">原位�?复制所选实体� DP</HelpString>
+<HelpString xlate="true" UID="XLS_0257">原位�?复制所选实体� DP</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_J">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0139">连接线�??</Name>
+<Name xlate="true" UID="XLS_0139">连接线�??</Name>
 <Command>^C^C^Pj </Command>
-<HelpString xlate="true" UID="XLS_0258">连接两个LINE实体为一�?�?J</HelpString>
+<HelpString xlate="true" UID="XLS_0258">连接两个LINE实体为一�?�?J</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_XC">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0141">�?�?交叉双线</Name>
+<Name xlate="true" UID="XLS_0141">�?�?交叉双线</Name>
 <Command>^C^C^Pxc </Command>
-<HelpString xlate="true" UID="XLS_0259">�?�?交叉双线� XC</HelpString>
+<HelpString xlate="true" UID="XLS_0259">�?�?交叉双线� XC</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CUT">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0143">多线�?�?</Name>
+<Name xlate="true" UID="XLS_0143">多线�?�?</Name>
 <Command>^C^C^Pcut </Command>
-<HelpString xlate="true" UID="XLS_0260">用�?�条LINE�?切别的LINE� CUT</HelpString>
+<HelpString xlate="true" UID="XLS_0260">用�?�条LINE�?切别的LINE� CUT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_RNB">
@@ -609,7 +609,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0145">点取改名</Name>
 <Command>^C^C^Prnb </Command>
-<HelpString xlate="true" UID="XLS_0261">选择图块，修改�?�图块名称� RNB</HelpString>
+<HelpString xlate="true" UID="XLS_0261">选择图块，修改�?�图块名称� RNB</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_AT">
@@ -618,7 +618,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0147">文字图块对齐</Name>
 <Command>^C^C^Pat </Command>
-<HelpString xlate="true" UID="XLS_0262">使�?�个文字或图块按指定方向对齐�?AT</HelpString>
+<HelpString xlate="true" UID="XLS_0262">使�?�个文字或图块按指定方向对齐�?AT</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_CHBK">
@@ -627,7 +627,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0149">图块替换</Name>
 <Command>^C^C^Pchbk </Command>
-<HelpString xlate="true" UID="XLS_0263">图块替换�?CHBK</HelpString>
+<HelpString xlate="true" UID="XLS_0263">图块替换�?CHBK</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_XIN">
@@ -636,16 +636,16 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0151">外部图块替换</Name>
 <Command>^C^C^Pxin </Command>
-<HelpString xlate="true" UID="XLS_0264">用�?�部图块替换内部图块�?XIN</HelpString>
+<HelpString xlate="true" UID="XLS_0264">用�?�部图块替换内部图块�?XIN</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_BKC">
 <Macro type="Any">
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0153">�?改图块内部图层、�?�色</Name>
+<Name xlate="true" UID="XLS_0153">�?改图块内部图层、�?�色</Name>
 <Command>^C^C^Pbkc </Command>
-<HelpString xlate="true" UID="XLS_0265">选择图块，修改其内部实体图层或�?�色�?BKC</HelpString>
+<HelpString xlate="true" UID="XLS_0265">选择图块，修改其内部实体图层或�?�色�?BKC</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_PGP">
@@ -654,7 +654,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0155">打开ACAD.PGP</Name>
 <Command>^C^C^Ppgp </Command>
-<HelpString xlate="true" UID="XLS_0266">打开当前使用的ACAD.PGP文件�?PGP</HelpString>
+<HelpString xlate="true" UID="XLS_0266">打开当前使用的ACAD.PGP文件�?PGP</HelpString>
 </Macro>
 </MenuMacro>
 <MenuMacro UID="ID_SYMMENU">
@@ -671,7 +671,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0160">sym1</Name>
-<Command>^C^C^P(indim);dchh; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0077">
@@ -679,7 +679,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0162">elul</Name>
-<Command>^C^C^P(indim);elul; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0079">
@@ -687,7 +687,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0164">eldl</Name>
-<Command>^C^C^P(indim);eldl; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0081">
@@ -695,7 +695,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0166">sym13</Name>
-<Command>^C^C^P(indim);zhbzh; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0083">
@@ -703,7 +703,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0168">sym2</Name>
-<Command>^C^C^P(indim);sy1; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0085">
@@ -711,7 +711,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0170">elur</Name>
-<Command>^C^C^P(indim);elur; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0087">
@@ -719,7 +719,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0172">eldr</Name>
-<Command>^C^C^P(indim);eldr; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0089">
@@ -727,7 +727,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0174">sym14</Name>
-<Command>^C^C^P(indim);sy4; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0091">
@@ -735,7 +735,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0176">sym3</Name>
-<Command>^C^C^P(indim);sy2; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0093">
@@ -743,7 +743,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0178">sym7</Name>
-<Command>^C^C^P(indim);sl\ </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0095">
@@ -751,7 +751,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0180">sym11</Name>
-<Command>^C^C^P(indim);su\ </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0097">
@@ -759,7 +759,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0182">sym15</Name>
-<Command>^C^C^P(indim);hole1; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0099">
@@ -767,7 +767,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0184">sym4</Name>
-<Command>^C^C^P(indim);sy3; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0101">
@@ -775,7 +775,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0186">sym8</Name>
-<Command>^C^C^P(indim);sr\ </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0103">
@@ -783,7 +783,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0188">sym12</Name>
-<Command>^C^C^P(indim);sd\ </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0105">
@@ -791,7 +791,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0190">sym16</Name>
-<Command>^C^C^P(indim);hole2; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0107">
@@ -799,7 +799,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0192">Arrow Left</Name>
-<Command>^C^C^P(indim);al; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0109">
@@ -807,7 +807,7 @@
 <Revision MajorVersion="16" MinorVersion="2" UserVersion="1" />
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0194">Arrow Right</Name>
-<Command>^C^C^P(indim);ar; </Command>
+<Command>^C^C^P(indim)
 </Macro>
 </MenuMacro>
 <MenuMacro UID="MMU_0111">
@@ -816,7 +816,7 @@
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <Name xlate="true" UID="XLS_0269">访问FishLISP主页</Name>
 <Command>^C^Cfishlisp </Command>
-<HelpString xlate="true" UID="XLS_0197">点击访问FishLISP主页：www.ivox.cc/fishlisp�?FISHLISP</HelpString>
+<HelpString xlate="true" UID="XLS_0197">点击访问FishLISP主页：www.ivox.cc/fishlisp�?FISHLISP</HelpString>
 <SmallImage Name="fishlisp001.BMP" />
 <LargeImage Name="fishlisp001.BMP" />
 </Macro>
@@ -834,7 +834,7 @@
 <Name xlate="true" UID="XLS_0001">Fi&amp;shLISP</Name>
 <PopMenuItem IsSeparator="false" hasDiesel="true" UID="PMIU_0001">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0003" xlate="true">$(eval,当前版本�?$(getvar,users5))</NameRef>
+<NameRef UID="XLS_0003" xlate="true">$(eval,当前版本�?$(getvar,users5))</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_FLVER" />
 </MenuItem>
@@ -858,7 +858,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0005">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0009" xlate="true">到实体图�?</NameRef>
+<NameRef UID="XLS_0009" xlate="true">到实体图�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_T" />
 </MenuItem>
@@ -881,7 +881,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0022">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0040" xlate="true">�?换图�?</NameRef>
+<NameRef UID="XLS_0040" xlate="true">�?换图�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_CG" />
 </MenuItem>
@@ -931,7 +931,7 @@
 </PopMenu>
 <PopMenu hasDiesel="false" UID="PMU_0004">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0010">�?速过�?</Name>
+<Name xlate="true" UID="XLS_0010">�?速过�?</Name>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0007">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
 <NameRef UID="XLS_0012" xlate="true">选择图层</NameRef>
@@ -979,14 +979,14 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0016">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0030" xlate="true">图层�?�?</NameRef>
+<NameRef UID="XLS_0030" xlate="true">图层�?�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_DN" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0017">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0032" xlate="true">图层�?�?</NameRef>
+<NameRef UID="XLS_0032" xlate="true">图层�?�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_FR" />
 </MenuItem>
@@ -1003,7 +1003,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0020">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0036" xlate="true">恢�?�冻�?</NameRef>
+<NameRef UID="XLS_0036" xlate="true">恢�?�冻�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="MMU_0017" />
 </MenuItem>
@@ -1028,7 +1028,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0014">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0028" xlate="true">恢�?�关�?</NameRef>
+<NameRef UID="XLS_0028" xlate="true">恢�?�关�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_SFR" />
 </MenuItem>
@@ -1046,14 +1046,14 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0027">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0049" xlate="true">视图恢�??</NameRef>
+<NameRef UID="XLS_0049" xlate="true">视图恢�??</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_VR" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0028">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0051" xlate="true">视图浏�??</NameRef>
+<NameRef UID="XLS_0051" xlate="true">视图浏�??</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_VV" />
 </MenuItem>
@@ -1063,7 +1063,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0030">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0053" xlate="true">实体UCS不跟�?</NameRef>
+<NameRef UID="XLS_0053" xlate="true">实体UCS不跟�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_UE" />
 </MenuItem>
@@ -1104,21 +1104,21 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0037">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0063" xlate="true">光标平�??</NameRef>
+<NameRef UID="XLS_0063" xlate="true">光标平�??</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_BLA" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0038">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0064" xlate="true">图层�?�?</NameRef>
+<NameRef UID="XLS_0064" xlate="true">图层�?�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_DN" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0039">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0065" xlate="true">图层�?�?</NameRef>
+<NameRef UID="XLS_0065" xlate="true">图层�?�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_FR" />
 </MenuItem>
@@ -1164,7 +1164,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0045">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0078" xlate="true">按层统�??</NameRef>
+<NameRef UID="XLS_0078" xlate="true">按层统�??</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_CNT" />
 </MenuItem>
@@ -1178,14 +1178,14 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0047">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0082" xlate="true">�?动编�?</NameRef>
+<NameRef UID="XLS_0082" xlate="true">�?动编�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_WRID" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0048">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0084" xlate="true">全�?��?�格为SHX</NameRef>
+<NameRef UID="XLS_0084" xlate="true">全�?��?�格为SHX</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_2SHX" />
 </MenuItem>
@@ -1205,7 +1205,7 @@
 </PopMenuRef>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0059">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0110" xlate="true">平�?�线距�??</NameRef>
+<NameRef UID="XLS_0110" xlate="true">平�?�线距�??</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_DL" />
 </MenuItem>
@@ -1213,17 +1213,17 @@
 </PopMenu>
 <PopMenu hasDiesel="true" UID="ID_DIMSCA">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<Name xlate="true" UID="XLS_0086">$(eval,标注比例�?$(getvar,dimscale))</Name>
+<Name xlate="true" UID="XLS_0086">$(eval,标注比例�?$(getvar,dimscale))</Name>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0049">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0088" xlate="true">查�?�实�?</NameRef>
+<NameRef UID="XLS_0088" xlate="true">查�?�实�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_DSC" />
 </MenuItem>
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0050">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0090" xlate="true">选择�?�?</NameRef>
+<NameRef UID="XLS_0090" xlate="true">选择�?�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_DG" />
 </MenuItem>
@@ -1241,7 +1241,7 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0052">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-<NameRef UID="XLS_0095" xlate="true">批量改�?</NameRef>
+<NameRef UID="XLS_0095" xlate="true">批量改�?</NameRef>
 <MenuItem>
 <MacroRef MenuMacroID="ID_ELADD" />
 </MenuItem>
@@ -1273,14 +1273,14 @@
 </PopMenuItem>
 <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0056">
 <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-      <NameRef UID="XLS_0104" xlate="true">轴号�?�?</NameRef>
+      <NameRef UID="XLS_0104" xlate="true">轴号�?�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_RENUM" />
             </MenuItem>
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0057">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0106" xlate="true">轴号�?�?</NameRef>
+            <NameRef UID="XLS_0106" xlate="true">轴号�?�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_CVA" />
             </MenuItem>
@@ -1295,7 +1295,7 @@
         </PopMenu>
         <PopMenu hasDiesel="false" UID="PMU_0021">
           <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-          <Name xlate="true" UID="XLS_0111">总平�?</Name>
+          <Name xlate="true" UID="XLS_0111">总平�?</Name>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0060">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
             <NameRef UID="XLS_0113" xlate="true">坐标标注</NameRef>
@@ -1312,14 +1312,14 @@
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0062">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0117" xlate="true">两点坡度算标�?</NameRef>
+            <NameRef UID="XLS_0117" xlate="true">两点坡度算标�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_GM" />
             </MenuItem>
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0063">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0119" xlate="true">两点算坡度距�?</NameRef>
+            <NameRef UID="XLS_0119" xlate="true">两点算坡度距�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_GR" />
             </MenuItem>
@@ -1330,7 +1330,7 @@
           <Name xlate="true" UID="XLS_0120">其他工具</Name>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0064">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0122" xlate="true">单线�?多�?�线</NameRef>
+            <NameRef UID="XLS_0122" xlate="true">单线�?多�?�线</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_LW" />
             </MenuItem>
@@ -1351,14 +1351,14 @@
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0067">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0128" xlate="true">两边画矩�?</NameRef>
+            <NameRef UID="XLS_0128" xlate="true">两边画矩�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_RCT" />
             </MenuItem>
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0068">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0130" xlate="true">偏置画矩�?</NameRef>
+            <NameRef UID="XLS_0130" xlate="true">偏置画矩�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_CF" />
             </MenuItem>
@@ -1379,7 +1379,7 @@
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0071">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0136" xlate="true">连续不等距偏�?</NameRef>
+            <NameRef UID="XLS_0136" xlate="true">连续不等距偏�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_DF" />
             </MenuItem>
@@ -1393,21 +1393,21 @@
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0073">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0140" xlate="true">连接线�??</NameRef>
+            <NameRef UID="XLS_0140" xlate="true">连接线�??</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_J" />
             </MenuItem>
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0074">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0142" xlate="true">�?�?交叉双线</NameRef>
+            <NameRef UID="XLS_0142" xlate="true">�?�?交叉双线</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_XC" />
             </MenuItem>
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0075">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0144" xlate="true">多线�?�?</NameRef>
+            <NameRef UID="XLS_0144" xlate="true">多线�?�?</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_CUT" />
             </MenuItem>
@@ -1442,7 +1442,7 @@
           </PopMenuItem>
           <PopMenuItem IsSeparator="false" hasDiesel="false" UID="PMIU_0080">
             <ModifiedRev MajorVersion="17" MinorVersion="1" UserVersion="1" />
-            <NameRef UID="XLS_0154" xlate="true">�?改图块内部图层、�?�色</NameRef>
+            <NameRef UID="XLS_0154" xlate="true">�?改图块内部图层、�?�色</NameRef>
             <MenuItem>
               <MacroRef MenuMacroID="ID_BKC" />
             </MenuItem>
