@@ -12,14 +12,6 @@
 
 (defun c:dse (/ olderr loop en ent obj typ se1 se2 pt)
 	(prompt "\nFishLISP, 6-1-99. Ver 1.0")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "dimse1" 0)
-		(setvar "dimse1" 0)
-		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setq loop t)
 	(while loop
 		(setq en (entsel "\nSelect dimension object: "))

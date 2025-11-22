@@ -187,8 +187,6 @@
 
 (defun c:wall (/ grdmd ucsf dist pt0 pt1 pt2 Segmnt lpt1 lpt2 lpt3 lpt4 rpt1 rpt2 rpt3 rpt4 lpt0_1 lpt0_2 rpt0_1 rpt0_2)
 	(princ "\nConvert Lines to Wall-lines. Start as C:Wall")
-	(setq *error* wall_err)
-	(fl_undo_begin)
 	(setq grdmd (getvar "gridmode"))
 	(setq ucsf (getvar "ucsfollow"))
 	(setvar "cmdecho" 0)
@@ -237,8 +235,6 @@
 	(setvar "expert" 0)
 	(setvar "gridmode" grdmd)
 	(setvar "ucsfollow" ucsf)
-	(fl_undo_end)
-	(setq *error* *pub_err*)
 	(setvar "cmdecho" 1)
 	(princ)
 )

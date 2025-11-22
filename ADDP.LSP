@@ -56,15 +56,7 @@
 
 ; C:mrgtxt	Merge strings to one
 (defun c:mrgt (/ txt0 ent0 str0 txt1 str1) 
-	(setq olderr *error*)
-	(defun *error* (s) 
-		(setvar "cmdecho" 0)
-		(fl_undo_end)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 
 	(setq MRG_TXT_KEEP (if MRG_TXT_KEEP MRG_TXT_KEEP "No"))
 	(setq HorT (if HorT HorT "Tail"))
@@ -91,7 +83,6 @@
 		)
 	)
 
-	(fl_undo_end)
 	(princ)
 )
 

@@ -6,7 +6,6 @@
 ;				用vl-sort的function比較法
 
 (defun c:xc (/ ss_lines ss_amt n en_line list_lines ent_line pt1_line pt2_line list_int list_newpt m new_line)
-	(fl_undo_begin)
 	(prompt "\n选择多条交叉线: ")
 	(setq ss_lines (ssget '((0 . "line"))))
 	(if ss_lines (setq ss_amt (sslength ss_lines)))
@@ -39,8 +38,8 @@
 					)
 			list_int 	(vl-remove nil list_int)
 			list_int 	(append (list pt1_line pt2_line) list_int)
-			list_newpt 	(vl-sort list_int (function (lambda (x_ y_)(< (car x_) (car y_)))))
-			list_newpt 	(vl-sort list_newpt (function (lambda (x y)(< (cadr x_) (cadr y_)))))
+			list_newpt 	(vl-sort list_int (function (lambda (x_ y_) (< (car x_) (car y_)))))
+			list_newpt 	(vl-sort list_newpt (function (lambda (x y) (< (cadr x_) (cadr y_)))))
 	 	 	n (1+ n) 
 			m 0
 		)
@@ -56,7 +55,6 @@
 	)
 	(mapcar 'entdel list_lines)
 	(redraw)
-	(fl_undo_end)
 	(princ)
 ) 
 

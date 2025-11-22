@@ -2,15 +2,7 @@
 	(princ "\nFishLISP. 12/24/1997.")
 	(princ "\nChange direction of Doors. v2.1. ")
 
-	(setq odlerr *error*)
-	(defun *error* (s)
-		(setvar "osmode" (if os os 167))
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
-
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(setq ucsf (getvar "ucsfollow"))
 	(setvar "ucsfollow" 0)
 	(setvar "expert" 4)
@@ -76,7 +68,6 @@
 				(if (< undo_id 1)
 					(princ "\nCommand has been completely undone. ")
 					(progn
-						(fl_undo_end)
 						(cmd "undo" "")
 						(setq undo_id (1- undo_id))
 					)
@@ -90,9 +81,7 @@
 				(princ "\n1 was unknown Door type. ")
 			)
 			( t
-				(fl_undo_begin)
 				(ddr_check (car en))
-				(fl_undo_end)
 				(setq undo_id (1+ undo_id))
 			)
 		)
@@ -101,7 +90,6 @@
 	(cmd "ucs" "r" "$temp$")
 	(cmd "ucs" "d" "$temp$")
 	(setvar "ucsfollow" ucsf)
-	(fl_undo_end)
 	(setvar "expert" 0)
 	(setvar "cmdecho" 1)
 	(princ)

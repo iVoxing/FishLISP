@@ -24,15 +24,6 @@
 		(cmd "_zoom" sc_z)
 	)
 
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "regenmode" 1)
-		(setvar "cmdecho" 1)
-		;(setq *error* olderr olderr nil temperr nil)
-		;(setq set_sc nil vpt nil vpten nil vpt_h nil vpt_id nil vw_h nil psc nil sc_z nil)
-		(princ)
-	)
-
 	(setvar "cmdecho" 0)
 	(setvar "tilemode" 0)
 	(setvar "regenmode" 0)
@@ -70,12 +61,6 @@
 ; 1/15/98	v3.0	Judge the selection is dimension text or not while selecting.
 (defun c:dsc (/ olderr en loop en0 ent hi)
 	(princ "\nFishLISP. Version 3.0")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq *error* olderr olderr nil en nil loop nil en0 nil ent nil hi nil)
-		(princ)
-	)
-
 	(setq loop t)
 	(while loop
 		(setq en (nentsel "\nSelect a dimension text: "))
@@ -98,11 +83,6 @@
 
 (defun c:dg (/ olderr en loop en0 ent hi sc)
 	(princ "\nFishLISP. Version 1.0")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq *error* olderr olderr nil en nil loop nil en0 nil ent nil hi nil)
-		(princ)
-	)
 	(setq loop t)
 	(while loop
 		(setq en (nentsel "\nSelect a dimension text: "))

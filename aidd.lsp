@@ -5,33 +5,12 @@
 ; 2025-11-18	重新整理、测试
 ; 2005-09-29 v1.0 
 ;
-(setq olderr *error*)
-(defun *error* (s_) 
-	(princ "\n缺少文件 Function.lsp，程序不能运行！")
-	(setq *error* olderr
-		  olderr  nil
-	)
-	(princ)
-)
-
-(if fl_undo_begin 
-	nil
-	(if (findfile "function.lsp") 
-		(load "function.lsp")
-		(exit)
-	)
-)
-
-(setq *error* olderr
-	  olderr  nil
-)
-
 (defun c:aidd (/ ax_sca ax_rad id_lay cu_lay id_y_list ax_line_ss ax_x_list ax_y_list 
 			   ax_xpt1_list ax_xpt2_list ax_ypt1_list ax_ypt2_list ss_idx line_ent 
 			   line_pt1 line_pt2 ptxy x temp os_mod
 			  ) 
 	(fishlisp "aidd" "1.0")
-	(fl_undo_begin) ; 用户图层设置
+	; 用户图层设置
 	(setq id_lay "Paxinum"
 		  ax_lay "Paxis"
 	)
@@ -141,7 +120,6 @@
 	(setvar "cmdecho" 1)
 	(setvar "clayer" cu_lay)
 	(if dy_mod (setvar "dynmode" dy_mod))
-	(fl_undo_end)
 	(princ)
 )
 (princ "FishLISP C:AIDD ")

@@ -1,6 +1,5 @@
 (defun c:dwgn (/ str pt h)
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(setq str (strcat (getvar "dwgprefix") (getvar "dwgname")))
 	(if (setq pt (getpoint "\nInsert point: "))
 		(if (setq h (getreal "\nText height: "))
@@ -10,7 +9,6 @@
 			)
 		)
 	)
-	(fl_undo_end)
 	(princ)
 )
 

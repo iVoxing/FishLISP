@@ -509,12 +509,10 @@
 )
 
 (defun c:r ()
-	(fl_undo_begin)
 	(setvar "cmdecho" 0)
 	(cmd "zoom" "1x" "zoom" "p")
 	(cmd "redrawall")
 	(setvar "cmdecho" 1)
-	(fl_undo_end)
 	(princ)
 )
 
@@ -535,7 +533,6 @@
 )
 
 (defun c:rb (/ pt0 os lay_f_str lay_l_str)
-	(fl_undo_begin)
 	(if (setq pt0 (getpoint "\nNew point for base: "))
 		(progn
 			; save layer F/T L/U state
@@ -562,7 +559,6 @@
 			(cmd "layer" "l" lay_l_str "")
 		)
 	)
-	(fl_undo_end)
 	(princ)
 )
 
@@ -747,24 +743,20 @@
 (defun c:x () (cmd "_zoom" "p") (princ))
 
 (defun c:xd (/ ss)
-	(fl_undo_begin)
 	(prompt "\nSelect Intert Object(s): ")
 	(setq ss (ssget))
 	(setvar "cmdecho" 0)
 	(if ss (cmd "xclip" ss "" "d"))
 	(setvar "cmdecho" 1)
-	(fl_undo_end)
 	(princ)
 )
 
 (defun c:xg (/ ss)
-	(fl_undo_begin)
 	(prompt "\nSelect Intert Object(s): ")
 	(setq ss (ssget))
 	(setvar "cmdecho" 0)
 	(if ss (cmd "xclip" ss "" "p"))
 	(setvar "cmdecho" 1)
-	(fl_undo_end)
 	(princ)
 )
 

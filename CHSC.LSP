@@ -6,7 +6,7 @@
 		(setq f_list (list (cons 0 (car f_list_)) (cons 2 en_name)))
 		(setq f_list (list (cons 0 f_list_)))
 	)
-	(cmd "_select" ORI_SS "" "")
+	(cmd "_select" ORI_SS "")
 	(ssget "p" f_list)
 )
 

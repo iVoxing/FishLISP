@@ -3,15 +3,15 @@
 ; Align Text to Line object
 ; History:
 ;	2025-11-15	rewrite function, tested ok
-; 	2005-9-26 v1.0 
+; 	2005-09-26 v1.0 
 
 (defun c:atl (/ l_obj l_ent l_pt1 l_pt2 l_ang t_ang t_obj t_ent)
 	(prompt "\n[FishLISP] Align text to line. C:ATL ")
-	(setq l_obj (entsel "\nSelect Line: "))
+	(setq l_obj (car (entsel "\nSelect Line: ")))
 	(setq loop t)
 	(if l_obj
 		(while loop
-			(setq t_obj (entsel "\nSelec Text: "))
+			(setq t_obj (car (entsel "\nSelec Text: ")))
 			(if t_obj
 				(align_txt_2_line t_obj l_obj)
 				(setq loop nil)
@@ -23,12 +23,12 @@
 
 (defun align_txt_2_line (text_obj_ line_obj_)
 	(setq 
-		l_ent (entget (car line_obj_))
+		l_ent (entget line_obj_)
 		l_ang (angle (cdr (assoc 10 l_ent)) (cdr (assoc 11 l_ent)))
-		t_ent (entget (car text_obj_))
+		t_ent (entget text_obj_)
 		t_ang (cdr (assoc 50 t_ent))
 	)
-	(if t_ang
+	(if (and l_ang t_ang)
 		(entmod (subst (cons 50 l_ang) (assoc 50 t_ent) t_ent))
 	)
 )

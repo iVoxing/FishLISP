@@ -1,13 +1,8 @@
-(setq olderr *error*)
-(defun *error* (s)
-	(setq *error* olderr olderr nil)
-)
 
 (defun c:cut (/ del_list bnd_ss bnd_am cut_ss cut_id cut_en cut_ent cut_pt1 cut_pt2
 				bnd_id intlist bnd_en bnd_ent bnd_pt1 bnd_pt2 int bnd_id intidx)
 	(fishlisp "CUT" "3.0")
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(setq del_list (list))
 	(princ "\nÑ¡Ôñ¼ôÇĞÏß£º")
 	(if (setq bnd_ss (ssget '((0 . "line"))))
@@ -70,7 +65,6 @@
 	)
 	(if del_list (foreach itm del_list (entdel itm)))
 	(setvar "cmdecho" 0)
-	(fl_undo_end)
 	(princ)
 )
 

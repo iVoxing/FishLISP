@@ -9,13 +9,6 @@
 			\nExtend or trim lines, v4.3, start as C:ET"
 	)
 
-	(setq olderr *error*)
-	(defun *error* (s)
-		(if osmd (setvar "osmode" osmd))
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
-
 	(defun et_et ()
 		(repeat cnt
 			(setq 
@@ -94,7 +87,6 @@
 	(setvar "ucsfollow" ucsflo)
 	(setvar "osmode" osmd)
 	(setvar "cmdecho" 1)
-	(setq *error* olderr)
 	(princ)
 )
 

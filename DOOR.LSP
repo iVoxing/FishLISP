@@ -77,16 +77,7 @@
 )
 
 (defun c:door (/ olderr ucsf op_ss )
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "cmdecho" 0)
-		(fl_undo_end)
-		(setq *error* olderr)
-		(princ)
-	)
-
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(setq ucsf (getvar "ucsfollow"))
 	(setvar "ucsfollow" 0)
 	(setvar "expert" 4)
@@ -104,7 +95,6 @@
 	(cmd "ucs" "r" "$temp$")
 	(cmd "ucs" "d" "$temp$")
 	(setvar "ucsfollow" ucsf)
-	(fl_undo_end)
 	(setvar "expert" 0)
 	(setvar "cmdecho" 1)
 

@@ -54,10 +54,6 @@
 ; 获得XREF图层
 ; 2024-12-11 tested
 (defun list_xref_layers (b_name / la_list la la_name) ; -> 包含 xref 图块的所有图层的列表
-	(defun *error* (msg)
-		(princ "\nlist_xref_layers function error:\t")
-		(princ msg)
-	)
 	(setq la_list (list))
 	(setq la (tblnext "layer" t))
 	(while la

@@ -1,10 +1,4 @@
 (defun c:ltl (/ olderr ss amt idx len t_len pt1 pt2)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq oderr nil ss nil amt nil idx nil len nil t_len nil pt1 nil pt2 nil)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setq ss (ssget '((0 . "line"))))
 	(if ss
 		(setq 
@@ -32,12 +26,6 @@
 )
 
 (defun c:bta (/ olderr lay ss amt idx en t_area t_peri)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq oderr nil ss nil amt nil idx nil t_area nil lay nil t_peri nil)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setvar "cmdecho" 0)
 	(while (not lay)
 		(setq bta_lay (if bta_lay bta_lay "0"))

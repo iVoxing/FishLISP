@@ -10,17 +10,16 @@
 ; 	2002-07-25 v1.1 FIXED:		Unexpected result if 1st point is not lower-left point.
 ; 	2002-06-18 v1.0 Original	1 dimension array only.
 
+(defun err (s_)
+	(if plwd (setvar "plinewid" plwd))
+	(*error* s_)
+	(princ)
+)
+
+(setq *error* err)
+
 (defun c:aw (/ olderr cg_wid cg_x_a cg_y_a pt1 pt2 n m x_wid y_wid cg_hfw x1 x2 x3 x4 y1 y2 y3 y4 os list_x list_y plwd)
-	(setq olderr *error*)
-	(defun *error* (s)
-		;(alert s)
-		(if os (setvar "osmode" os))
-		(if plwd (setvar "plinewid" plwd))
-		(fl_undo_end)
-		(setq *error* olderr)
-		(princ)
-	)
-	(fl_undo_begin)
+
 	(princ "\nFISHLISP C:AW v2.1.")
 	(setq aw_cg_wid (if aw_cg_wid aw_cg_wid 50.0))
 	(setq aw_cg_x_a (if aw_cg_x_a aw_cg_x_a 2))
@@ -78,7 +77,6 @@
 		)
 		(setq pt1 (if aw_cnt (getpoint "\n¾ØÐÎ½Çµã£º") nil))
 	)
-	(fl_undo_end)
 	(princ)
 )
 

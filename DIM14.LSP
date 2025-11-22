@@ -17,7 +17,9 @@
 
 (defun dim_fish (dim_cmd_ / cl cc clt cts pt1)
 	(setq olderr *error*)
-	(defun *error* (s)
+	(defun *error* (s_)
+		(setq *error* olderr)
+		(*error* s_)
 		(setvar "cecolor" (if cc cc "BYLAYER"))
 		(if cl (setvar "clayer" cl))
 		(setvar "celtype" (if clt clt "BYLAYER"))
@@ -25,7 +27,6 @@
 		(setvar "osmode" (if os os 167))
 		(setvar "blipmode" (if blip blip 1))
 		(setvar "dimse1" 0)
-		(setq *error* olderr olderr nil)
 		(princ)
 	)
 	(setq 

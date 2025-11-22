@@ -1,19 +1,11 @@
-(setq olderr *error*)
-(defun *error* (s)
-	(princ "loading abort!\nRequired .PAT file not found. ")
-	(setq *error* olderr olderr nil)
-	(princ)
-)
 (foreach pat (list "t0510.pat" "t1010.pat" "t0520.pat")
 	(if (findfile pat)
 		nil
 		(exit)
 	)
 )
-(setq *error* odlerr olderr nil)
 
 (defun drw_brick (pat_ sc_ an_ / cl os hpt pt)
-	(fl_undo_begin)
 	(setq 
 		cl (getvar "clayer")
 		os (getvar "osmode")
@@ -34,12 +26,11 @@
 			(cmd "ucs" "m" pt "")
 			(cmd "bhatch")
 			(while (= (getvar "cmdnames") "BHATCH")
-				cmd pause)
+				(cmd pause)
 			)
 		)
 	)
 	(setvar "clayer" cl)
-	(fl_undo_end)
 )
 
 (defun c:bh () (drw_brick "t0520,o" 1 0) (princ))

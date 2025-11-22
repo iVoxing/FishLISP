@@ -2,18 +2,6 @@
 ; 1998-02-20	v1.0
 
 (defun c:atxt (/ olderr ss ent amt idx a ang) 
-	(setq olderr *error*)
-	(defun *error* (s) 
-		(if (= s "Function cancelled") 
-			(princ (strcat "\nC:ATXT error: " s))
-		)
-		(setq *error* (if olderr 
-						  olderr
-						  *pub_err*
-					  )
-		)
-		(princ)
-	)
 	(princ "\nFishLISP. Align text/block entities horizontal. ")
 	(if atxt_ang 
 		nil

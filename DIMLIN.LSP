@@ -2,36 +2,13 @@
 ; 增加错误自陷；
 ; 改进界面。
 
-(setq olderr *error*)
-(defun *error* (s)
-	(setq *error* olderr olderr nil)
-	(princ "Loading ABORT! \nA required FUNCTION.LSP not found in search path. ")
-	(princ)
-)
-
 (if (findfile "function.lsp")
 	(load "function")
 	(exit)
 )
 
-(setq *error* olderr olderr nil)
-
 (defun c:dimlin (/ ss amnt pt_base pt_ext olderr)
 	(fishlisp "DIMLIN" "v2.0")
-	(fl_undo_begin)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(if _csset (csrestore))
-		(if oo (setvar "orthomode" oo oo nil))
-		(if os (setvar "osmode" os os nil))
-		(if cl (setvar "clayer" cl cl nil))
-		(if ucsf (setvar "ucsfollow" ucsf ucsf nil))
-		(setq *error* (if olderr olderr *pub_err*))
-		(setvar "ucsicon" 1)
-		(setvar "blipmode" 1)
-		(fl_undo_end)
-		(princ)
-	)
 	(cssave)
 	(prompt "\nSelect lines to dim: ")
 	(setq ss (ssget '((0 . "line"))))
@@ -43,7 +20,6 @@
 	(if pt_ext (dimlin))
 	(csrestore)
 	(setq *error* olderr olderr nil)
-	(fl_undo_end)
 	(princ)
 )
 

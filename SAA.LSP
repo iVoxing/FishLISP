@@ -4,11 +4,6 @@
 
 (defun c:saa (/ olderr sa0 sa1 sa_a k loop)
 	(princ "\nChange snap angle in a curtain value. Start as C:SAA.")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setq sa0 (getvar "snapang"))
 	(setq sa_ang (if sa_ang sa_ang (/ pi 12.0)))
 	(setq sa_anp (if sa_anp sa_anp sa0))

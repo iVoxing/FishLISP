@@ -90,13 +90,6 @@
 )
 
 (defun c:fft (/ str ss z_sc ent olderr)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "highlight" 1)
-		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(prompt "\nFishLISP, Dec 23 1996.")
 	(prompt "\nFind text, ver 3.0, start as C:FFT")
 	(setvar "highlight" 0)

@@ -17,7 +17,7 @@
 			(setq pt1 (cdr (assoc 10 ent_l))
 				pt2 (cdr (assoc 11 ent_l))
 			)
-	 )
+	 	)
 	)
 	(if enm_l (entdel enm_l))
 	(if pt2 (setq ss (ssget "f" (list pt1 pt2))))

@@ -4,23 +4,8 @@
 ; History:
 ; 2005-09-28 v0.9 
 ;
-(setq olderr *error*)
-(defun *error* (s)
-	(princ "\n缺少文件Function.lsp，程序不能运行！")
-	(setq *error* olderr olderr nil)
-	(princ)
-)
-(if fl_undo_begin
-	nil
-	(if (findfile "function.lsp")
-		(load "function.lsp")
-		(exit)
-	)
-)
-(setq *error* olderr olderr nil)
 
 (defun c:dl ()
-	(fl_undo_begin)
 	;<<用户图层设置
 	(setq id_lay "Paxinum"
 				lay "Paxis"
@@ -118,7 +103,6 @@
 	)
 	(setvar "cmdecho" 1)
 	(setvar "clayer" cu_lay)
-	(fl_undo_end)
 	(princ)
 )
 (princ "FishLISP C:AIDD ")

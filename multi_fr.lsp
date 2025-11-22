@@ -2,33 +2,7 @@
 ; Multiple fillet
 ; 2020-11-18 v1.0
 
-(set 'cmd (if (type command-s) command-s command))
-
-(defun fl_undo_begin (/ cmdstat) 
-	(setq olderr *error*)
-	(defun *error* (s)
-		(if cmdstat (setvar "cmdecho" cmdstat))
-		(setq *error* olderr olderr nil)
-		(gc)
-	)
-	(setq cmdstat (getvar "cmdecho"))
-	(setvar "cmdecho" 0)
-	(if (fl_check_ver 12) 
-		(cmd "undo" "group")
-		(cmd "undo" "begin")
-	)
-)
-
-(defun fl_undo_end (/ cmdstat) 
-	(setq cmdstat (if cmdstat cmdstat (getvar "cmdecho")))
-	(setvar "cmdecho" 0)
-	(cmd "undo" "end")
-	(setvar "cmdecho" cmdstat)
-	(gc)
-)
-
 (defun c:mfr (/ loop k old_rad new_rad line_ss point_list join_list n line_ent c pt ss)
-	(fl_undo_begin)
 	(setq loop 1)
 	(while loop
 		(setq old_rad (getvar "filletrad"))
@@ -81,7 +55,6 @@
 		)
 		(princ "\nNo line Selected.")
 	)
-	(fl_undo_end)
 	(princ)
 )
 

@@ -3,19 +3,6 @@
 
 (defun c:scaxi (/ olderr osm dims0 dims1 axi_ss axi_amt axi_idx en ent sc pt0 c1 c2 ss0 lin_en lin_ent pt1 pt2 ex)
 	(prompt "\nFishLISP. 5-28-1998. Ver 2.0")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "cmdecho" 0)
-		(csrestore)
-		(fl_undo_end)
-		(setvar "expert" ex)
-		(setvar "osmode" osm)
-		(setvar "blipmode" 1)
-		(setvar "highlight" 1)
-		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 
 	(setq dims0 (getvar "dimscale"))
 	(initget 6)
@@ -58,12 +45,10 @@
 	)
 
 	(csrestore)
-	(fl_undo_end)
 	(setvar "cmdecho" 1)
 	(setvar "blipmode" 1)
 	(setvar "highlight" 1)
 	(setvar "osmode" osm)
-	(setq *error* olderr)
 	(princ)
 )
 

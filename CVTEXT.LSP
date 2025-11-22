@@ -2,13 +2,6 @@
 
 (defun c:txtout (/ ss amt idx f ent0 ent txt newtxt pz cha)
 	(princ "\nFishLISP, 6-4-1998. Ver 1.0.")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(if f (close f))
-		(setq ss nil amt nil idx nil f nil ent0 nil ent nil)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setq ss (ssget '((0 . "text"))))
 	(if ss
 		(setq amt (sslength ss) idx 0 f (open (strcat (getvar "dwgprefix") (getvar "dwgname") ".lsp") "w"))

@@ -2,19 +2,6 @@
 
 (defun c:cva (/ c_ss c_amt c_idx ss_del c_en c_ent c_cen c_rad pt1 pt2 t_ss t_en scl att axi cl os)
 	(prompt "\nFishLISP. V2.0 9-9-1998")
-	(setq olderr *error*)
-	(defun *error* (s)
-		(if cl (setvar "clayer" cl))
-		(if os (setvar "osmode" os))
-		(setvar "cmdecho" 0)
-		(fl_undo_end)
-		(setq *error* olderr olderr nil)
-		(cond
-			((= s "Function cancelled"))
-			(t (princ s))
-		)
-		(princ)
-	)
 
 	(setvar "cmdecho" 0)
 	(setq cl (getvar "clayer"))
@@ -24,7 +11,6 @@
 		(cmd "layer" "m" "paxinum" "c" "w" "paxinum" "")
 	)
 	(setvar "osmode" 0)
-	(fl_undo_begin)
 
 	(setq 
 		c_ss (ssget '((0 . "circle")))
@@ -61,8 +47,6 @@
 		(setq c_idx (1+ c_idx))
 	)
 	(if ss_del (cmd "erase" ss_del ""))
-
-	(fl_undo_end)
 
 	(setvar "clayer" cl)
 	(setvar "osmode" os)

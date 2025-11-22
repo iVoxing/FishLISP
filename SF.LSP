@@ -5,18 +5,7 @@
 ;
 
 (defun c:sf (/ ss amt lay_list idx lay_name key lay_all str)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setq ss nil amt nil lay_list nil idx nil lay_name nil key nil lay_all nil str nil)
-		(setvar "cmdecho" 0)
-		(fl_undo_end)
-		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
-
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 
 	(if snf_lay
 		(progn
@@ -75,10 +64,6 @@
 		)
 	)
 
-	(setvar "cmdecho" 0)
-	(fl_undo_end)
-	(setvar "cmdecho" 1)
-	(setq *error* olderr)
 	(princ)
 )
 

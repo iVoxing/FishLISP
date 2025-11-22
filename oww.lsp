@@ -23,7 +23,6 @@
 			((not en0) (setq loop nil))
 			((/= enttyp "LINE") (princ "\n1 was not line. "))
 			(t
-				(fl_undo_begin)
 				(setq 
 					en0pt1 (cdr (assoc 10 ent))
 					en0pt2 (cdr (assoc 11 ent))
@@ -90,7 +89,6 @@
 					(entmod ent1)
 					(entupd en1)
 				)
-				(fl_undo_end)
 			)
 		)
 	)

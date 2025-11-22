@@ -6,17 +6,6 @@
 ;		3. It's too slow double offsetting lines.
 
 
-; ====== Loading time file check
-;
-(setq olderr *error*)
-(defun *error* (s)
-	(if ai_beep (ai_beep))
-	(princ "\nFunction.lsp not found in search path.\nApplication abort. ")
-	(setq *error* olderr olderr nil)
-	(princ)
-)
-(if (findfile "function.lsp") (setq *error* olderr olderr nil) (exit))
-
 ; ====== Loading time layer check
 ;
 (setvar "cmdecho" 0)
@@ -239,7 +228,6 @@
 
 	(setq grdmd (getvar "gridmode"))
 	(setq ucsf (getvar "ucsfollow"))
-	(fl_undo_begin)
 	(setvar "cmdecho" 0)
 	(setvar "gridmode" 0)
 	(setvar "ucsfollow" 0)
@@ -260,7 +248,6 @@
 	(setvar "ucsicon" 1)
 	(setvar "gridmode" grdmd)
 	(setvar "ucsfollow" ucsf)
-	(fl_undo_end)
 	(setvar "cmdecho" 1)
 	(setvar "highlight" 1)
 

@@ -89,7 +89,6 @@
 			((/= typ0 "LINE") (princ "\n1 was not Line. "))
 			(t
 				(setvar "cmdecho" 0)
-				(fl_undo_begin)
 				(princ "\nSide to offset? ")
 				(cmd "offset" dist en0 pause "")
 				(entdel (car en0))
@@ -109,7 +108,6 @@
 						(mv_l 11 10 11 pt2 pt1 pt4)
 					)
 				)
-				(fl_undo_end)
 			)
 		)
 	)

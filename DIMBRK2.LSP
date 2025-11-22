@@ -41,7 +41,6 @@
 
 (defun c:dimbrk (/ lin_ss lin_amt lin_idx lin_en)
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(prompt "\nSelect line to break dimension: ")
 	(setq lin_ss (ssget '((0 . "line"))))
 	(if lin_ss
@@ -57,7 +56,6 @@
 		 	)
 		)
 	) 
-	(fl_undo_end)
 	(redraw)
 	(setvar "cmdecho" 1)
 	(princ)

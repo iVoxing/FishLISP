@@ -2,13 +2,6 @@
 ; 2001-07-25 v1.1 修正了一个在AutoCAD2000中的一个字符大小写敏感问题
 ; 2022-09-21 v1.2 结构优化，未测试
 
-(setq olderr *error*)
-
-(defun *error* (s)
-	(setq *error* olderr)
-	(princ)
-)
-
 (setq 
 	dr_list (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8")
 	dr_miss_list (list)
@@ -30,8 +23,6 @@
 	)
 )
 
-(setq *error* olderr olderr nil)
-
 (defun c:rsdr (/ olderr ucsf os undo_id en mod_lin dr_sz)
 	(princ "\nFishLISP. 1998-07-16. ")
 	(princ "\nResize Doors. v1.2. ")
@@ -49,19 +40,7 @@
 		)
 		dr_list
 	)
-
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "cmdecho" 0)
-		(fl_undo_end)
-		(setvar "osmode" os)
-		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
-
 	(setvar "cmdecho" 0)
-	(fl_undo_begin)
 	(setq ucsf (getvar "ucsfollow"))
 	(setvar "ucsfollow" 0)
 	(setvar "expert" 4)
@@ -233,7 +212,6 @@
 				(if (< undo_id 1)
 					(princ "\nCommand has been completely undone. ")
 					(progn
-						(fl_undo_end)
 						(cmd "undo" "")
 						(setq undo_id (1- undo_id))
 					)
@@ -247,25 +225,19 @@
 				(princ "\n1 was unknown Door type. ")
 			)
 			(t
-				(fl_undo_end)
-				(fl_undo_begin)
 				(dr_sz (car en))
-				(fl_undo_end)
 				(setq undo_id (1+ undo_id))
 			)
 		)
 	)
 
-	(fl_undo_begin)
 	(setvar "cmdecho" 0)
 	(cmd "ucs" "r" "$temp$")
 	(cmd "ucs" "d" "$temp$")
 	(setvar "ucsfollow" ucsf)
-	(fl_undo_end)
 	(setvar "expert" 0)
 	(setvar "osmode" os)
 	(setvar "cmdecho" 1)
-	(setq *error* olderr)
 	(princ)
 )
 

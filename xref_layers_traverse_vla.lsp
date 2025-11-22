@@ -117,12 +117,6 @@
 )
 
 (defun c:xlt (/ block_name layer_list) 
-	(defun *error* (msg)
-		(command "undo" "back")
-		(setvar "cmdecho" 1)
-		(princ "\nError: ")
-		(princ msg)
-	)
 	(setvar "cmdecho" 0)
 	(command "undo" "mark")
 	(setq block_name (select_xref))

@@ -1,12 +1,6 @@
 ; 标出LINE的方向
 
 (defun c:ldir (/ loop en ent pt1 pt2 ang ang1 ang2 dis pt3 pt4 lay clr blip)
-	(setq olderr *error*)
-	(defun *error* (s)
-		(setvar "blipmode" (if blip blip 1))
-		(setq *error* olderr olderr nil)
-		(princ)
-	)
 	(setq blip (getvar "blipmode"))
 	(setvar "blipmode" 0)
 	(setq loop t)

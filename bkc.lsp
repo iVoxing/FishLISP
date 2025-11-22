@@ -6,7 +6,9 @@
 
 (defun c:bkc (/ olderr bkc_alias bk en ent cnt) 
 	(setq olderr *error*)
-	(defun *error* (s) 
+	(defun *error* (s_) 
+		(setq *error* olderr)
+		(*error* s_)
 		(cmd "regen")
 		(princ)
 	)
