@@ -20,7 +20,7 @@
 			(setq loop nil)
 		)
 	)
-	(setq line_ss (ssget '((0 . "line"))))
+	(setq line_ss (ssget '((0 . "LINE"))))
 	(if line_ss
 		(progn
 			(setq
@@ -42,10 +42,10 @@
 			(if join_list
 				(mapcar
 					'(lambda (pt_ / ss)
-						(setq ss (ssget "x" (list '(-4 . "<or")
-							'(-4 . "<and") '(0 . "line") (cons 10 pt_) '(-4 . "and>")
-							'(-4 . "<and") '(0 . "line") (cons 11 pt_) '(-4 . "and>")
-						'(-4 . "or>"))))
+						(setq ss (ssget "x" (list '(-4 . "<OR")
+							'(-4 . "<AND") '(0 . "LINE") (cons 10 pt_) '(-4 . "AND>")
+							'(-4 . "<AND") '(0 . "LINE") (cons 11 pt_) '(-4 . "AND>")
+						'(-4 . "OR>"))))
 						(cmd "_.fillet" (ssname ss 0) (ssname ss 1))
 					)
 					join_list

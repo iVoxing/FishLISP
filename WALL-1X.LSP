@@ -63,7 +63,7 @@
 		(regapp "FL_WALL")
 		(entmod (append ent (list wb_xdt)))
 
-		(setq ss_pt1 (ssdel en (ssget "x" (list (cons -4 "<or") (cons 10 pt1) (cons 11 pt1) (cons -4 "or>") '(8 . "wall-base")))))
+		(setq ss_pt1 (ssdel en (ssget "x" (list (cons -4 "<OR") (cons 10 pt1) (cons 11 pt1) (cons -4 "OR>") '(8 . "wall-base")))))
 		(if (> (sslength ss_pt1) 0)
 		(progn
 			(setq 
@@ -127,13 +127,13 @@
 		)
 		)
 
-		(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 pt3) (cons 11 pt4) wl_xdt))
+		(entmake (list '(0 . "LINE") (cons 8 FLLT_WALL) (cons 10 pt3) (cons 11 pt4) wl_xdt))
 		(setq ss_tmp (ssget "f" (list pt3 pt4) (list (cons 8 FLLT_WALL))))
 		(setvar "cmdecho" 0)
 		(cmd "_.select" ss_xc ss_tmp "")
 		(setq ss_xc (ssget "p"))
 		(setq ss_xc (ssadd (entlast) ss_xc))
-		(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 pt5) (cons 11 pt6) wl_xdt))
+		(entmake (list '(0 . "LINE") (cons 8 FLLT_WALL) (cons 10 pt5) (cons 11 pt6) wl_xdt))
 		(setq ss_tmp (ssget "f" (list pt5 pt6) (list (cons 8 FLLT_WALL))))
 		(cmd "_.select" ss_xc ss_tmp "")
 		(setq ss_xc (ssget "p"))
@@ -240,7 +240,7 @@
 	)
 
 	(princ "\nSelect Lines to convert: ")
-	(setq ss (ssget '((0 . "line") (-4 . "<not") (8 . "wall*") (-4 . "not>"))))
+	(setq ss (ssget '((0 . "LINE") (-4 . "<NOT") (8 . "wall*") (-4 . "NOT>"))))
 	(setvar "highlight" 0)
 	(if ss (l2w_ol ss))
 

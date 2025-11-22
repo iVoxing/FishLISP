@@ -128,7 +128,7 @@
 
 (defun drw_line (lpt1_ lpt2_ / lay)
 	(if (= kwd "Section") (setq lay FLLT_WALL) (setq lay "0"))
-	(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
+	(entmake (list '(0 . "LINE") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
 )
 
 (princ "Start as C:FST")

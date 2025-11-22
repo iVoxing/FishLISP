@@ -20,7 +20,7 @@
 	(setq lcab:snap mysnap)
 	;收集line图元
 	(prompt "\n选择图元：")
-	(setq line_ss (ssget '((0 . "line, lwployline"))))
+	(setq line_ss (ssget '((0 . "LINE, LWPLOYLINE"))))
 	(if line_ss
 		(progn
 			(setq 

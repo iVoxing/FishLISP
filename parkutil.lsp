@@ -5,7 +5,7 @@
 ; 是否加入文字高度调整？
 
 (defun c:pkrid (/ park_ss idx en att_ent park_amt)
-	(if (setq park_ss (ssget "x" '((0 . "insert")(2 . "park*"))))
+	(if (setq park_ss (ssget "x" '((0 . "INSERT")(2 . "park*"))))
 		(progn
 		(setq idx 0)
 		(repeat (setq park_amt (sslength park_ss))
@@ -26,7 +26,7 @@
 
 (defun c:wrid (/ id_ss id_cor id_amt idx id_fnd pt0 id_pt id_txt id_lay id_hig)
 	(setq 
-		id_ss (ssget "x" '((0 . "text")(8 . "park")))
+		id_ss (ssget "x" '((0 . "TEXT")(8 . "park")))
 		id_cor t
 	)
 	(if id_ss
@@ -67,7 +67,7 @@
 					id_lay "park"
 					id_hig (* 4.5 (getvar "dimscale"))
 				)
-				(entmake (list '(0 . "text") (cons 8 "park") (cons 10 id_pt) (cons 11 id_pt) (cons 1 id_txt) (cons 40 id_hig) (cons 72 1) (cons 73 2)))
+				(entmake (list '(0 . "TEXT") (cons 8 "park") (cons 10 id_pt) (cons 11 id_pt) (cons 1 id_txt) (cons 40 id_hig) (cons 72 1) (cons 73 2)))
 				(setq 
 					id (1+ id)
 					id_pt (getpoint pt0 "\n编号点：")

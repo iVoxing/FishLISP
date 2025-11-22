@@ -81,7 +81,7 @@
 			((listp pt)
 				(setq a (strcat (rtos (/ (getvar "area") wa_ufa) 2 wa_pre) wa_psf))
 				(entmake (list
-					'(0 . "text") (cons 1 a) (cons 8 txt_layer) (cons 10 pt)
+					'(0 . "TEXT") (cons 1 a) (cons 8 txt_layer) (cons 10 pt)
 					(cons 40 (* 3.0 wa_dfa (getvar "dimscale")))
 				))
 			)

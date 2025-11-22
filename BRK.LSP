@@ -21,7 +21,7 @@
 	)
 	(if enm_l (entdel enm_l))
 	(if pt2 (setq ss (ssget "f" (list pt1 pt2))))
-	(if ss (setq ss (ssget "p" '((0 . "line")))))
+	(if ss (setq ss (ssget "p" '((0 . "LINE")))))
 	(if ss (setq ssl (sslength ss) idx 0))
 	(if enm_l (entdel enm_l))
 	(repeat ssl
@@ -34,7 +34,7 @@
 			lay (cdr (assoc 8 ent))
 		)
 		(if int (entmod (subst (cons 11 int) (assoc 11 ent) ent)) (setq ssl_m (1- ssl)))
-		(if int (entmake (list '(0 . "line") (cons 8 lay) (cons 10 int) (cons 11 pt4))))
+		(if int (entmake (list '(0 . "LINE") (cons 8 lay) (cons 10 int) (cons 11 pt4))))
 		(setq idx (1+ idx))
 	)
 	(cmd "_undo" "end")

@@ -27,7 +27,7 @@
 	(setvar "cmdecho" 0)
 	(getpt)
 	(princ "\nSelect text objects: ")
-	(setq ss (ssget '((0 . "text"))))
+	(setq ss (ssget '((0 . "TEXT"))))
 	(if ss (setq pt0 (getpt)))
 	(if pt0
 		(setq

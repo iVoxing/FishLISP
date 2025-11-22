@@ -14,7 +14,7 @@
 	(setvar "CMDECHO" 0)
 	(setvar "BLIPMODE" 0)
 	(setvar "osmode" 0)
-	(setq ss (ssget '((0 . "insert") (2 . "axi*"))))
+	(setq ss (ssget '((0 . "INSERT") (2 . "axi*"))))
 	(if ss 
 		(setq ssl (sslength ss) n 0)
 		(setq ssl 0)

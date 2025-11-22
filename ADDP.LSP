@@ -19,7 +19,7 @@
 		)
 	)
 	(setq 
-		ss (ssget '((0 . "text")))
+		ss (ssget '((0 . "TEXT")))
 		idx 0
 	)
 	(if ss 
@@ -95,7 +95,7 @@
 		(cmd "layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
 	)
 	(setq
-		ss (ssget '((0 . "text")))
+		ss (ssget '((0 . "TEXT")))
 		idx 0
 		n_plus 0
 	)

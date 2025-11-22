@@ -1,9 +1,9 @@
 (defun c:wchk (/ a b c d ss)
 	(setvar "cmdecho" 0)
 	(setq 
-		a (ssget "x" '((0 . "line") (8 . "wall,door,window")))
+		a (ssget "x" '((0 . "LINE") (8 . "wall,door,window")))
 		b (ssget "x" '((8 . "wall,door,window")(-3 ("FL_WALL"))))
-		c (ssget "x" '((0 . "line") (8 . "wall-base")))
+		c (ssget "x" '((0 . "LINE") (8 . "wall-base")))
 	)
 	(cmd "select" a c "r" b "")
 	(grclear)
@@ -26,7 +26,7 @@
 	(if ent (setq xdt (cadr (assoc -3 ent))))
 	(if xdt
 		(setq 
-			ss (ssget (list '(0 . "line") (cons 8 FLLT_WALL)))
+			ss (ssget (list '(0 . "LINE") (cons 8 FLLT_WALL)))
 			xdt (list -3 (subst '(1000 . "Wall_line") (nth 3 xdt) xdt))
 		)
 	)
@@ -59,7 +59,7 @@
 			(setq xdt (list -3 (subst '(1000 . "Wall_line") (nth 3 xdt) xdt)))
 			(while (setq pt1 (getpoint "\nFrom point: "))
 				(if pt1 (setq pt2 (getpoint pt1 "\nTo point: ")))
-				(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 pt1) (cons 11 pt2) xdt))
+				(entmake (list '(0 . "LINE") (cons 8 FLLT_WALL) (cons 10 pt1) (cons 11 pt2) xdt))
 			)
 		)
 	)
@@ -75,7 +75,7 @@
 	(if pt2 (setq dist (getint "\nWall width: ")))
 	(if dist
 		(progn
-			(setq ent (entmake (list '(0 . "line") '(8 . "wall-base") (cons 10 pt1) (cons 11 pt2))))
+			(setq ent (entmake (list '(0 . "LINE") '(8 . "wall-base") (cons 10 pt1) (cons 11 pt2))))
 			(setq wb_xdt (list -3 (list (strcat "FISH_WALL_" (cdr (assoc 5 (entget (entlast)))))
 										(cons 1000 "Wall_base")
 										(cons 1002 "{")

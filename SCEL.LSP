@@ -4,7 +4,7 @@
 	(initget 6)
 	(setq dims (getreal (strcat "\nDimscale: <" (rtos (getvar "dimscale")) "> ")))
 	(setq dims (if dims dims (getvar "dimscale")))
-	(setq el_ss (ssget '((0 . "insert")(2 . "EL??,EL??,SY1,SY2,SY3,SY4,DIM_BG,DIM_RL,ZBR,ZBL,AL,AR"))))
+	(setq el_ss (ssget '((0 . "INSERT")(2 . "EL??,EL??,SY1,SY2,SY3,SY4,DIM_BG,DIM_RL,ZBR,ZBL,AL,AR"))))
 	(setq 
 		el_amt (if el_ss (sslength el_ss) 0)
 		idx 0

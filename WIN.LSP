@@ -58,7 +58,7 @@
 ;----------------------------------------------------------------
 
 	(defun make_line (pt_start pt_end)
-		(entmake (list '(0 . "line") '(8 . "window") (cons 10 pt_start) (cons 11 pt_end)))
+		(entmake (list '(0 . "LINE") '(8 . "window") (cons 10 pt_start) (cons 11 pt_end)))
 	)
 
 	(if (inters pt1 pt3 pt2 pt4)
@@ -70,7 +70,7 @@
 
 (defun c:win (/ op_ss)
 	(prompt "\nSelect frame line to draw:")
-	(setq op_ss (ssget (list (cons 8 FLLT_WALL) '(0 . "line"))))
+	(setq op_ss (ssget (list (cons 8 FLLT_WALL) '(0 . "LINE"))))
 	(if (= (sslength op_ss) 2)
 		(in_win op_ss)
 		(princ "\nSelect error.")

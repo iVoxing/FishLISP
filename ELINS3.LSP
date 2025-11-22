@@ -138,7 +138,7 @@
 
 (defun el_move (/ ss rpt pt1 pt2 ang dis val count en_el ent_el pt_el en_att ent_att pt_att attr)
 	(prompt "\nSelect ELevation-Insert(s) to edit: ")
-	(setq ss (ssget '((0 . "insert") (2 . "el??"))))
+	(setq ss (ssget '((0 . "INSERT") (2 . "el??"))))
 	(if ss
 		(progn
 			(setq
@@ -177,7 +177,7 @@
 
 (defun el_array (/ ss os cl rpt idx row dis en_el ent_el pt_el0 bkname ele_0 times pt_el1 attr1)
 	(prompt "\nSelect EL-Block(s) to edit: ")
-	(setq ss (ssget '((0 . "insert") (2 . "el??"))))
+	(setq ss (ssget '((0 . "INSERT") (2 . "el??"))))
 	(if ss
 		(progn
 			(setq

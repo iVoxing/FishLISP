@@ -12,7 +12,7 @@
 
 (defun get_renew (pt_ / en ent pt1 pt2 npt)
 	(setq 
-		en (ssname (ssget "x" (list (cons 8 FLLT_WALL) '(-4 . "<or") (cons 10 pt_) (cons 11 pt_) '(-4 . "or>"))) 0)
+		en (ssname (ssget "x" (list (cons 8 FLLT_WALL) '(-4 . "<OR") (cons 10 pt_) (cons 11 pt_) '(-4 . "OR>"))) 0)
 		ent (entget en)
 		pt1 (cdr (assoc 10 ent))
 		pt2 (cdr (assoc 11 ent))
@@ -72,7 +72,7 @@
                     (mapcar 'entdel del_list)
 					(mapcar 
 						'(lambda (n_)
-							(entmake (list '(0 . "line") (cons 8 FLLT_WALL) (cons 10 (nth n_ newpt_list)) (cons 11 (nth (+ n_ 2) newpt_list))))
+							(entmake (list '(0 . "LINE") (cons 8 FLLT_WALL) (cons 10 (nth n_ newpt_list)) (cons 11 (nth (+ n_ 2) newpt_list))))
 						)
 						'(0 1)
 					)

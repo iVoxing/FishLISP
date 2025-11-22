@@ -70,7 +70,7 @@
 
 	(defun drw_line (lpt1_ lpt2_ / lay)
 		(if (= f_st_seg "Section") (setq lay FLLT_WALL) (setq lay "0"))
-		(entmake (list '(0 . "line") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
+		(entmake (list '(0 . "LINE") (cons 8 lay) (cons 10 (trans lpt1_ 1 0)) (cons 11 (trans lpt2_ 1 0))))
 	)
 
 	(defun drw_st (/ a90 pt0 pt1 pt2 pt3 pt4 pt5 pt6 pt7 pt8 pt9 pt10)

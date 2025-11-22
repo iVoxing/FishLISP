@@ -13,7 +13,7 @@
 	(setvar "osmode" 0)
 
 	(setq 
-		c_ss (ssget '((0 . "circle")))
+		c_ss (ssget '((0 . "CIRCLE")))
 		c_amt (if c_ss (sslength c_ss) 0)
 		c_idx 0
 		ss_del (ssadd)
@@ -28,7 +28,7 @@
 			pt1 	(polar c_cen (* 1.25 pi) c_rad)
 			pt2 	(polar c_cen (* 0.25 pi) c_rad)
 			t_ss 	(ssget "c" pt1 pt2)
-			t_ss 	(ssget "p" '((0 . "text")))
+			t_ss 	(ssget "p" '((0 . "TEXT")))
 		)
 		(if t_ss
 			(progn

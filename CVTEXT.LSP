@@ -2,7 +2,7 @@
 
 (defun c:txtout (/ ss amt idx f ent0 ent txt newtxt pz cha)
 	(princ "\nFishLISP, 6-4-1998. Ver 1.0.")
-	(setq ss (ssget '((0 . "text"))))
+	(setq ss (ssget '((0 . "TEXT"))))
 	(if ss
 		(setq amt (sslength ss) idx 0 f (open (strcat (getvar "dwgprefix") (getvar "dwgname") ".lsp") "w"))
 		(setq amt 0)

@@ -21,7 +21,7 @@
 	(fishlisp "DIMLIN" "v3.0")
 	(cssave)
 	(prompt "\n选取要标注的LINE：")
-	(setq ss (ssget '((0 . "line"))))
+	(setq ss (ssget '((0 . "LINE"))))
 	(if ss (setq amnt (sslength ss)))
 	(if (> amnt 1)
 		(setq pt_base (getpoint "\n标注基线位置："))

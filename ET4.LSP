@@ -71,7 +71,7 @@
 	(if (and ss (not (setq int_bf (inters b_pt1 b_pt2 f_pt1 f_pt2))))
 		(progn
 			(setq 
-				ss(ssget "p" '((0 . "line")))
+				ss(ssget "p" '((0 . "LINE")))
 				cnt (sslength ss)
 				n	0
 				bdnil

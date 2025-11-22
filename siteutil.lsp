@@ -83,9 +83,9 @@
 		dimpt2 (polar pt_ (- ang_ (/ pi 2)) pt_ofs)
 		label_ss (ssadd)
 	)
-	(entmake (list '(0 . "text") (cons 1 label1_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt1) (cons 40 dim_h) (cons 50 ang_)))
+	(entmake (list '(0 . "TEXT") (cons 1 label1_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt1) (cons 40 dim_h) (cons 50 ang_)))
 	(setq label_ss (ssadd (entlast) label_ss))
-	(entmake (list '(0 . "text") (cons 1 label2_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt2) (cons 40 dim_h) (cons 50 ang_)))
+	(entmake (list '(0 . "TEXT") (cons 1 label2_) (cons 62 7) (cons 72 4) (cons 8 lay_) (cons 10 dimpt1) (cons 11 dimpt2) (cons 40 dim_h) (cons 50 ang_)))
 	(setq label_ss (ssadd (entlast) label_ss))
 	(rotate_labels label_ss pt_)
 )
@@ -123,7 +123,7 @@
 
 (defun c:gr (/ bk_ss bk_en1 bk_en2 bk_in1 bk_in2 bk_lay dis ang mid_pt at_en1 at_en2 att1 att2 hig gra gra_t dis_t)
 	(set_insunits)
-	(setq bk_ss (ssget '((0 . "insert") (2 . "elur,elul,eldr,eldl,dim_bg,dim_rl"))))
+	(setq bk_ss (ssget '((0 . "INSERT") (2 . "elur,elul,eldr,eldl,dim_bg,dim_rl"))))
 	(if (and bk_ss (< (sslength bk_ss) 2))
 		(setq bk_ss nil)
 	)
@@ -199,7 +199,7 @@
 
 (defun c:gm (/ bk_ss bk_en1 bk_en2 bk_in1 bk_in2 bk_lay at_en1 at_en2 h1 h2 hd dis0 newpt dis1 attr)
 	(set_insunits)
-	(setq bk_ss (ssget '((0 . "insert") (2 . "dim_bg,dim_rl"))))
+	(setq bk_ss (ssget '((0 . "INSERT") (2 . "dim_bg,dim_rl"))))
 	(if (< (sslength bk_ss) 2) (setq bk_ss nil))
 	(if (not bk_ss) (exit))
   
@@ -226,7 +226,7 @@
 
 (defun c:gx (/ bk_ss bk_en1 bk_en2 bk_in1 bk_in2 bk_lay at_en1 at_en2 h1 h2 hd dis0 newpt newhd newdis dis1 attr)
 	(set_insunits)
-	(setq bk_ss (ssget '((0 . "insert") (2 . "dim_bg,dim_rl"))))
+	(setq bk_ss (ssget '((0 . "INSERT") (2 . "dim_bg,dim_rl"))))
 	(if (< (sslength bk_ss) 2) (setq bk_ss nil))
 	(if (not bk_ss) (exit))
 	(setq 

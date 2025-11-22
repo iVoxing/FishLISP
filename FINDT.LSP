@@ -100,7 +100,7 @@
 	(ft_get)
 	(setq ft_dft_str or_str)
 	(setq str (if ft_cas (strcase or_str) OR_STR))
-	(setq ss (ssget "X" (list '(0 . "text") (cons 1 str))))
+	(setq ss (ssget "X" (list '(0 . "TEXT") (cons 1 str))))
 	(setvar "highlight" 1)
 	(if ss (findt ss) (princ "Text not found."))
 	(princ)

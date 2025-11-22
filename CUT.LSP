@@ -5,11 +5,11 @@
 	(setvar "cmdecho" 0)
 	(setq del_list (list))
 	(princ "\n选择剪切线：")
-	(if (setq bnd_ss (ssget '((0 . "line"))))
+	(if (setq bnd_ss (ssget '((0 . "LINE"))))
 		(if (> (setq bnd_am (sslength bnd_ss)) 1)
 			(progn
 				(princ "\n选择将被剪切的线：")
-				(if (setq cut_ss (ssget '((0 . "line"))))
+				(if (setq cut_ss (ssget '((0 . "LINE"))))
 					(progn
 						(setq
 							cut_am (sslength cut_ss)

@@ -10,7 +10,7 @@
 	(setvar "cmdecho" 0)
 	(cmd "zoom" "1x")
 	(setvar "cmdecho" 1)
-	(setq ss (ssget '((0 . "text,insert"))))
+	(setq ss (ssget '((0 . "TEXT,INSERT"))))
 	(if ss 
 		(setq amt (sslength ss)
 			  idx 0

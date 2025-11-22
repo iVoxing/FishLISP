@@ -98,7 +98,7 @@
 					pt3 (cdr (assoc 10 ent1))
 					pt4 (cdr (assoc 11 ent1))
 					ss0 (ssget "f" (list pt1 pt2))
-					ss0 (ssget "p" (list '(0 . "line") (cons 8 lay0)))
+					ss0 (ssget "p" (list '(0 . "LINE") (cons 8 lay0)))
 				)
 				(if ss0
 					(progn

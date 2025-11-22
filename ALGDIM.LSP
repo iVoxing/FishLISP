@@ -3,7 +3,7 @@
 	(setq k (getkword "\n?/<Select Dimension objects>: "))
 	(if (= k "?") (algdimhlp))
 	(setq 
-		ss (ssget '((0 . "dimension") (-4 . "<or") (70 . 0) (70 . 1) (70 . 32) (70 . 33) (70 . 160) (70 . 161) (-4 . "or>")))
+		ss (ssget '((0 . "DIMENSION"") (-4 . "<OR") (70 . 0) (70 . 1) (70 . 32) (70 . 33) (70 . 160) (70 . 161) (-4 . "OR>")))
 		idx 0
 	)
 	(if ss

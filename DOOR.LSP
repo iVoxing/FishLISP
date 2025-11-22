@@ -85,7 +85,7 @@
 	(cmd "ucs" "w")
 
 	(prompt "\nSelect frame line to draw:")
-	(setq op_ss (ssget (list (cons 8 (strcat FLLT_WALL "," FLLT_DOOR "," FLLT_COL)) '(0 . "line"))))
+	(setq op_ss (ssget (list (cons 8 (strcat FLLT_WALL "," FLLT_DOOR "," FLLT_COL)) '(0 . "LINE"))))
 	(if (= (sslength op_ss) 2)
 		(in_door op_ss)
 		(princ "\nSelect error.")

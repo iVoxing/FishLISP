@@ -1,7 +1,7 @@
 ; 交叉连接两条LINE的端点
 
 (defun make_line (pt1_ pt2_)
-	(entmake (list '(0 . "line") (cons 10 pt1_) (cons 11 pt2_)))
+	(entmake (list '(0 . "LINE") (cons 10 pt1_) (cons 11 pt2_)))
 )
 
 (defun c:llx (/ olderr l1 l2 ent1 ent2 pt1_1 pt1_2 pt2_1 pt2_2) 

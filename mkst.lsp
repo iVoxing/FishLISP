@@ -1,7 +1,7 @@
 ;	2004-8-16
 
 (defun make_line (pt1_ pt2_)
-	(entmake (list '(0 . "line") '(8 . "0") (cons 10 pt1_) (cons 11 pt2_)))
+	(entmake (list '(0 . "LINE") '(8 . "0") (cons 10 pt1_) (cons 11 pt2_)))
 )
 
 (defun c:mkst ()

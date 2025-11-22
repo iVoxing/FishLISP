@@ -17,7 +17,7 @@
 (defun c:dimlin2 (/ )
 	(cssave)
 	(prompt "\nSelect lines to dim: ")
-	(setq ss (ssget '((0 . "line"))))
+	(setq ss (ssget '((0 . "LINE"))))
 	(if ss (setq amnt (sslength ss)))
 	(if (> amnt 1) (setq pt_base (getpoint "\n±ê×¢µã£º")))
 	(if pt_base (dimlin))

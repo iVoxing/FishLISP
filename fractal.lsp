@@ -15,7 +15,7 @@
 )
 
 (defun make_line (pt1_ pt2_)
-	(entmake (list '(0 . "line") (cons 10 pt1_) (cons 11 pt2_)))
+	(entmake (list '(0 . "LINE") (cons 10 pt1_) (cons 11 pt2_)))
 	(entlast)
 )
 

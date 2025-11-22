@@ -9,7 +9,7 @@
 	(setq dims1 (getreal (strcat "\nDimscale: <" (rtos dims0) "> ")))
 	(setq dims1 (if dims1 dims1 dims0))
 
-	(setq axi_ss (ssget '((0 . "insert") (2 . "axi,axi0"))))
+	(setq axi_ss (ssget '((0 . "INSERT") (2 . "axi,axi0"))))
 	(setq axi_amt (if axi_ss (sslength axi_ss) 0) axi_idx 0)
 	(setq osm (getvar "osmode"))
 	(setvar "highlight" 0)
@@ -29,7 +29,7 @@
 			c2 (polar pt0 (* pi 1.75) (* sc 8.0))
 		)
 		(setq ss0 (ssget "c" c1 c2))
-		(if ss0 (setq ss0 (ssget "p" '((0 . "line") (8 . "paxinum,paxis")))))
+		(if ss0 (setq ss0 (ssget "p" '((0 . "LINE") (8 . "paxinum,paxis")))))
 		(if ss0
 			(setq 
 				lin_en (ssname ss0 0)

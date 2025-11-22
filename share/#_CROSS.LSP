@@ -8,7 +8,7 @@
 
 (defun c:xc (/ ss_lines ss_amt n en_line list_lines ent_line pt1_line pt2_line list_int xpt1 xpt2 list_newpt m new_line)
 	(prompt "\n选择多条交叉线: ")
-	(setq ss_lines (ssget '((0 . "line"))))
+	(setq ss_lines (ssget '((0 . "LINE"))))
 	(if ss_lines (setq ss_amt (sslength ss_lines)))
 	(setq n 0 list_lines (list))
 	(repeat ss_amt

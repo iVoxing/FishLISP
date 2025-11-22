@@ -11,7 +11,7 @@
 	(fishlisp "DIMLIN" "v2.0")
 	(cssave)
 	(prompt "\nSelect lines to dim: ")
-	(setq ss (ssget '((0 . "line"))))
+	(setq ss (ssget '((0 . "LINE"))))
 	(if ss (setq amnt (sslength ss)))
 	(if (> amnt 1)
 		(setq pt_base (getpoint "\nLocation of base line: "))

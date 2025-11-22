@@ -15,7 +15,7 @@
 	(setvar "ucsfollow" 0)
 	(cmd "_.ucs" "w")
 	(setq cl (getvar "clayer"))
-	(setq ss (ssget '((0 . "line"))))
+	(setq ss (ssget '((0 . "LINE"))))
 	(setq ssl (sslength ss))
 	(setq count 0)
 	(setq lay (cdr (assoc 8 (entget (ssname ss 0)))))

@@ -66,7 +66,7 @@
 
 (defun c:dimuni (/ ss)
 	(prompt "\nSelect dimensions to edit: ")
-	(setq ss (ssget '((0 . "dimension"))))
+	(setq ss (ssget '((0 . "DIMENSION""))))
 	(if ss (dim_uni ss))
 	(princ)
 )

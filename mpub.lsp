@@ -1,6 +1,6 @@
 (defun c:mpub (\ mpub_s mpub_l mpub_pt1 mpub_pt2 n mpub_nam)
 	(if (tblsearch "layer" "FL_MPUB")
-		(if (setq mpub_s (ssget "x" '((0 . "line")(8 . "FL_MPUB"))))
+		(if (setq mpub_s (ssget "x" '((0 . "LINE")(8 . "FL_MPUB"))))
 			(progn
 				(setq mpub_a (sslength mpub_s) n 0)
 				(repeat mpub_a

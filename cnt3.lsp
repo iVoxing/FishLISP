@@ -9,7 +9,7 @@
 		)
 	)
 	(if (= typ "TEXT")
-		(setq ss (ssget "x" (list '(0 . "text") (cons 8 lay))))
+		(setq ss (ssget "x" (list '(0 . "TEXT") (cons 8 lay))))
 	)
 	(if ss
 		(progn

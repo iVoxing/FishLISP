@@ -1,5 +1,5 @@
 (defun makeline (xpt1 xpt2)
-	(entmake (list '(0 . "line") (cons 8 FLLT_WINDOW) (cons 10 xpt1) (cons 11 xpt2)))
+	(entmake (list '(0 . "LINE") (cons 8 FLLT_WINDOW) (cons 10 xpt1) (cons 11 xpt2)))
 )
 
 (defun in_win (op_ss / l1 l2 pt1 pt2 pt3 pt4 ang len0 len1 len2)
@@ -24,7 +24,7 @@
 
 (defun c:win (/ op_ss)
 	(prompt "\nSelect frame line to draw:")
-	(setq op_ss (ssget (list (cons 8 FLLT_WALL) '(0 . "line"))))
+	(setq op_ss (ssget (list (cons 8 FLLT_WALL) '(0 . "LINE"))))
 	(if (= (sslength op_ss) 2)
 		(in_win op_ss)
 		(princ "\nSelect error.")

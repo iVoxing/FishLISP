@@ -104,7 +104,7 @@
 ) 
 
 (defun draw_line (pt1_ pt2_ lay_ xdt_ / ent)
-	(entmake (list '(0 . "line") (cons 8 lay_) (cons 10 pt1_) (cons 11 pt2_)))
+	(entmake (list '(0 . "LINE") (cons 8 lay_) (cons 10 pt1_) (cons 11 pt2_)))
 	(setq ent (entget (entlast)))
 	(if xdt_
 		nil 

@@ -1,5 +1,5 @@
 (defun c:ltl (/ olderr ss amt idx len t_len pt1 pt2)
-	(setq ss (ssget '((0 . "line"))))
+	(setq ss (ssget '((0 . "LINE"))))
 	(if ss
 		(setq 
 			amt (sslength ss)
@@ -40,7 +40,7 @@
 		)
 	)
 	(setq bta_lay lay)
-	(setq ss (ssget (list (cons 8 lay) '(0 . "lwpolyline,region") '(70 . 1))))
+	(setq ss (ssget (list (cons 8 lay) '(0 . "LWPOLYLINE,REGION") '(70 . 1))))
 	(if ss (setq amt (sslength ss) idx 0) (setq amt 0))
 	(setq t_area 0.0 t_peri 0.0)
 	(repeat amt

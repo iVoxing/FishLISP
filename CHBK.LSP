@@ -31,7 +31,7 @@
 				(setq en_picked (entsel "\nPick an insert to get name: "))
 				(progn
 					(prompt (strcat "\nSelect [" ins_name "] to change: "))
-					(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
+					(setq ins_ss (ssget (list '(0 . "INSERT") (cons 2 ins_name))))
 					(if ins_ss nil (princ "\nInsert not found."))
 				)
 			)
@@ -39,7 +39,7 @@
 				(progn
 					(setq ins_name (cdr (assoc 2 (entget (car en_picked)))))
 					(prompt (strcat "\nSelect [" ins_name "] to change: "))
-					(setq ins_ss (ssget (list '(0 . "insert") (cons 2 ins_name))))
+					(setq ins_ss (ssget (list '(0 . "INSERT") (cons 2 ins_name))))
 				)
 			)
 			(if ins_ss 
