@@ -45,7 +45,7 @@
 		sslen (sslength ss)
 		count 0
 	)
-	(princ "\nProcessing ...... ")
+	(princ "\nProcessing... ")
 	(repeat sslen
 		(setq 
 			ssn (ssname ss count)

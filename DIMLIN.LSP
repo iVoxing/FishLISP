@@ -8,7 +8,6 @@
 )
 
 (defun c:dimlin (/ ss amnt pt_base pt_ext olderr)
-	(fishlisp "DIMLIN" "v2.0")
 	(cssave)
 	(prompt "\nSelect lines to dim: ")
 	(setq ss (ssget '((0 . "LINE"))))

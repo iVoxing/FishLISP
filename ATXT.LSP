@@ -19,7 +19,7 @@
 	)
 	(if ss 
 		(progn 
-			(setq a (getreal (strcat "\nAngle: <"  (rtos (/ (* 180.0 atxt_ang) pi)) "> "))
+			(setq a (getreal (strcat "\nAngle: <"  (rtos (/ (* 180.0 atxt_ang) pi)) "> ")))
 			(if a 
 				(setq ang (/ (* pi a) 180.0))
 				(setq ang atxt_ang)

@@ -4,15 +4,25 @@
 	(if (>= (read (substr (getvar "acadver") 1 2)) v_) t nil)
 )
 
-(defun *global-error* (s_)
-  (prompt (strcat "\n** : " s_ " **"))
-  (cmd "_UNDO" "_1")
-  (setvar "osmode" (if os os 175))
-  (setvar "cmdecho" 1)
-  (princ)
+;设置UNDO起点
+(defun fl_undo_begin (/ cmdstat) 
+	(setq cmdstat (getvar "cmdecho"))
+	(setvar "cmdecho" 0)
+	(if (fl_check_ver 16) 
+		(cmd "undo" "group")
+		(cmd "undo" "begin")
+	)
+	(setvar "cmdecho" cmdstat)
 )
 
-(setq *error* *global-error*)
+;设置UNDO终点
+;在命令结束和ERROR处理时，均可使用
+(defun fl_undo_end (/ cmdstat) 
+	(setq cmdstat (getvar "cmdecho"))
+	(setvar "cmdecho" 0)
+	(cmd "undo" "end")
+	(setvar "cmdecho" cmdstat)
+)
 
 
 ;获取Pline顶点列表

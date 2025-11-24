@@ -6,13 +6,13 @@
 ; V1.1	
 ; V1.0	1996-12-23
 
-(defun findt (ss / idx cnt key bsd)
+(defun findt (ss_ / idx cnt key bsd)
 	(setvar "cmdecho" 0)
 	(setq idx 0)
-	(setq cnt (sslength ss))
+	(setq cnt (sslength ss_))
 	(while (< idx cnt)
 		(setq
-			text_en (ssname ss idx)
+			text_en (ssname ss_ idx)
 			ent (entget text_en)
 			pt0 (cdr (assoc 10 ent))
 			str (cdr (assoc 1 ent))
@@ -27,7 +27,7 @@
 
 (defun getkey ()
 	(initget "Next Continue Zoom Replace Exit")
-	(setq key (getpoint "\n[Continue/Zoom height/Replace/Exit]<Next>: "))
+	(setq key (getpoint "\n[Continue/Zoom height/Replace/Exit]: <Next>"))
 	(setq key (if key key "Next"))
 	(cond
 		((listp key)
@@ -69,8 +69,7 @@
 
 (defun ft_rp (/ n_str)
 	(setq ft_new_str (if ft_new_str ft_new_str ""))
-	(princ (strcat "\nNew String: <" ft_new_str ">"))
-	(setq n_str (getstring 1))
+	(setq n_str (getstring 1 (strcat "\nNew String: <" ft_new_str ">")))
 	(if (= n_str "") (setq n_str ft_new_str))
 	(if (= n_str "")
 		(ft_rp)
@@ -107,8 +106,7 @@
 )
 
 (defun ft_get ()
-	(princ (strcat "\nText to search: <" ft_dft_str "> "))
-	(setq or_str (getstring 1))
+	(setq or_str (getstring 1 (strcat "\nText to search: <" ft_dft_str "> ")(strcat "\nText to search: <" ft_dft_str "> ")))
 	(if (= or_str "") (setq or_str ft_dft_str))
 	(if (= or_str "") (ft_get))
 )

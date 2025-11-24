@@ -18,7 +18,6 @@
 (setq *error* olderr olderr nil)
 
 (defun c:dl (/ ss amnt pt_base pt_ext olderr)
-	(fishlisp "DIMLIN" "v3.0")
 	(cssave)
 	(prompt "\n选取要标注的LINE：")
 	(setq ss (ssget '((0 . "LINE"))))

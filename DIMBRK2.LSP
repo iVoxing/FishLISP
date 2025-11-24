@@ -3,7 +3,7 @@
 		lin_ent (entget lin_en_)
 		lin_pt1 (cdr (assoc 10 lin_ent))
 		lin_pt2 (cdr (assoc 11 lin_ent))
-		dim_ss (ssget "f" (list lin_pt1 lin_pt2) '((0 . "DIMENSION"")))
+		dim_ss (ssget "f" (list lin_pt1 lin_pt2) '((0 . "DIMENSION")))
 		os (getvar "osmode")
 		oo (getvar "orthomode")
 		cl (getvar "clayer")

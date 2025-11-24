@@ -1,3 +1,24 @@
+(defun *pub_err* (s_)
+	(prompt (strcat "\n** : " s_ " **"))
+	(if os (setvar "osmode" os))
+	(if cl (setvar "clayer" cl))
+	(if oo (setvar "orthomode" oo))
+	(setvar "cmdecho" 0)
+	(cmd "_.undo" "end")
+	(setvar "cmdecho" 1)
+	(setvar "highlight" 1)
+	(setvar "blipmode" 0)
+	(setvar "regenmode" 1)
+	(redraw)
+	(cond
+		((= s_ "Function cancelled"))
+		(t (princ s_))
+	)
+	(princ)
+)
+
+(setq *error* *pub_err*)
+
 (foreach file '("function" "fllt")
 	(if (findfile (strcat file ".lsp"))
 		(load file)
@@ -15,8 +36,8 @@
 )
 
 (mapcar ; reinit some system vars to zero
-	'(lambda (var)
-		(if (zerop (getvar var)) nil (setvar var 0))
+	'(lambda (var_)
+		(if (zerop (getvar var_)) nil (setvar var_ 0))
 	)
 	'("psltscale" "xloadctl" "filletrad" "mirrtext" "blipmode" "ucsvp")
 )
@@ -32,26 +53,6 @@
 	(setvar "cmdecho" 1)
 	(princ)
 )
-
-(defun *pub_err* (s)
-	(if os (setvar "osmode" os))
-	(if cl (setvar "clayer" cl))
-	(if oo (setvar "orthomode" oo))
-	(setvar "cmdecho" 0)
-	(cmd "_.undo" "end")
-	(setvar "cmdecho" 1)
-	(setvar "highlight" 1)
-	(setvar "blipmode" 0)
-	(setvar "regenmode" 1)
-	(redraw)
-	(cond
-		((= s "Function cancelled"))
-		(t (princ s))
-	)
-	(princ)
-)
-
-(setq *error* *pub_err*)
 
 (defun csrestore (/ ex uf)
 	(if _csset
@@ -83,10 +84,6 @@
 	(setvar "ucsfollow" uf)
 	(setvar "cmdecho" 1)
 	(setq _csset t)
-)
-
-(defun fishlisp (fun vers)
-	(prompt (strcat "\nFishLISP: " (strcase fun) " " vers))
 )
 
 (defun c:+* () (cmd "layer" "on" "*" "") (princ))
@@ -227,12 +224,12 @@
 	(princ)
 )
 
-(defun c:dxff (/ en x)
+(defun c:dxff (/ en)
 	(if (setq en (entsel))
 		(mapcar 
-			'(lambda (x)
+			'(lambda (x_)
 				(princ "\n")
-				(princ x)
+				(princ x_)
 			)
 			(entget (car en))
 		)
@@ -256,10 +253,9 @@
 
 (defun c:f (/ ff_rad olderr)
 	(setq olderr *error*)
-	(defun *error* (s)
+	(defun *error* (s_)
 		(if ff_rad (setvar "filletrad" ff_rad))
 		(setq *error* olderr)
-		(setq olderr nil ff_rad nil)
 		(princ)
 	)
 	(setq ff_rad (getvar "filletrad"))
@@ -318,13 +314,11 @@
 )
 
 (defun c:ld (/ lderr oer na1 na)
-	(defun lderr (s)
-		(if (/= s "Function cancelled")
-			(princ (strcat "\nError:" s))
+	(defun lderr (s_)
+		(if (/= s_ "Function cancelled")
+			(princ (strcat "\nError:" s_))
 		)
 		(setq ld_na na1 na1 nil)
-		(if ai_beep (ai_beep))
-		(setq *error* oer oer nil lderr nil)
 		(princ)
 	)
 	(setq oer *error* *error* lderr)
@@ -332,7 +326,10 @@
 		nil
 		(setq ld_na "Fish")
 	)
-	(setq na1 ld_na na (getstring (strcat "\nAutoLISP application source to load: <" ld_na "> ")))
+	(setq
+		na1 ld_na
+		na (getstring (strcat "\nAutoLISP application source to load: <" ld_na "> "))
+	)
 	(if (= na "")
 		(setq na ld_na)
 	)
@@ -349,7 +346,7 @@
 )
 
 (defun c:ldr (/ cl olderr)
-	(defun *error* (s)
+	(defun *error* (s_)
 		(setvar "clayer" (if cl cl "0"))
 		(setq *error* olderr olderr nil)
 		(princ)
@@ -471,8 +468,8 @@
 	(princ)
 )
 
-(defun fl_xline (mtd / olderr cla)
-	(defun *error* (s)
+(defun fl_xline (mtd_ / olderr cla)
+	(defun *error* (s_)
 		(if cla (setvar"clayer" cla))
 		(setq cla nil *error* (if olderr olderr) olderr nil)
 	)
@@ -481,7 +478,7 @@
 	(if (= qxset_lay 1)
 		(setvar "clayer" "DEFPOINTS")
 	)
-	(cmd "xline" mtd)
+	(cmd "xline" mtd_)
 	(while (= (getvar "cmdnames") "XLINE")
 		(cmd pause)
 	)
@@ -647,8 +644,10 @@
 			(strcat
 				"标注比例：$(getvar,dimscale)  "
 				"线型比例：$(getvar,ltscale)  "
-				"UCS跟随: $(if,$(=,$(getvar,ucsfollow),1),否,是)  "
-				"组选择：$(if,$(=,$(getvar,pickstyle),1),是,否)  "
+				;"UCS跟随: $(if,$(=,$(getvar,ucsfollow),1),否,是)  "
+				;"组选择：$(if,$(=,$(getvar,pickstyle),1),是,否)  "
+				"UCS跟随: $(getvar,ucsfollow)  "
+				"组选择：$(getvar,pickstyle)  "
 			)
 		)
 		(setvar "modemacro" "")

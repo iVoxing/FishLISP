@@ -32,7 +32,7 @@
 		(cmd "_.pspace")
 	)
 	(cmd "_insert" "chsptemp" pt1 "" "" "")
-	(if c:ze (c:ze) (cmd "zoom" "e"))
+	(cmd "_zoom" "e")
 	(setq pt1 (cdr (assoc 10 (entget (entlast)))))
 	(cmd "_move" "l" "" pt1)
 	(setvar "cmdecho" 1)

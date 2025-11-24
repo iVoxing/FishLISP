@@ -91,11 +91,11 @@
 )
 
 ;Ë«ÏòÆ«ÒÆ SNSJ 2004.3.8
-(defun ptlay (x y)
-	(if y
+(defun ptlay (x_ y_)
+	(if y_
 		(vla-put-layer
-			(car (vlax-safearray->list (vlax-variant-value x)))
-			y
+			(car (vlax-safearray->list (vlax-variant-value x_)))
+			y_
 		)
 	)
 )
@@ -125,7 +125,7 @@
 		)
 		(2of_option)
 	)
-	(setq ss (ssget '((0 . "Arc,Circle,Ellipse,*Line"))))
+	(setq ss (ssget '((0 . "ARC,CIRCLE,ELLIPSE,*LINE"))))
 	(if ss
 		(progn
 			(vlax-for obj 

@@ -9,16 +9,16 @@
 	(cmd "ucs" "s""$temp$")
 	(cmd "ucs" "w")
 
-	(defun ddr_check (en / bkname bkins bksc bkang dw_xdt bklist clay)
+	(defun ddr_check (en_ / bkname bkins bksc bkang dw_xdt bklist clay)
 		(setq 
-			ent 	(entget en)
+			ent 	(entget en_)
 			bkname	(strcase (cdr (assoc 2 ent)))
 			bkins	(cdr (assoc 10 ent))
 			bksc	(cdr (assoc 41 ent))
 			bkang	(/ (* (cdr (assoc 50 ent)) 180.0) pi)
-			dw_xdt(assoc -3 (entget en '("FL_WALL")))
+			dw_xdt(assoc -3 (entget en_ '("FL_WALL")))
 		)
-		(entdel en)
+		(entdel en_)
 		(setq clay (getvar "clayer"))
 		(setvar "clayer" FLLT_DOOR)
 		(cond

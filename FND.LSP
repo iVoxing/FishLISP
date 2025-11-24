@@ -9,7 +9,6 @@
 		(setq *error* olderr olderr nil)
 		(princ)
 	)
-	(setq *error* nil)
 	(if (and fnd_rad (zerop fnd_rad))
 		(setq fnd_rad nil)
 	)
