@@ -180,7 +180,7 @@
 )
 
 (defun c:rsdr (/ olderr ucsf os undo_id en loop)
-	(setq *error* *pub_err*)
+	(setq *error* *pub_error*)
 	(princ "\nResize Doors.")
 	(setvar "cmdecho" 0)
 	(mapcar 'check_dr (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8"))

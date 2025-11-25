@@ -1,5 +1,4 @@
-(defun *pub_err* (s_)
-	(prompt (strcat "\n** : " s_ " **"))
+(defun *pub_error* (s_)
 	(if os (setvar "osmode" os))
 	(if cl (setvar "clayer" cl))
 	(if oo (setvar "orthomode" oo))
@@ -10,14 +9,11 @@
 	(setvar "blipmode" 0)
 	(setvar "regenmode" 1)
 	(redraw)
-	(cond
-		((= s_ "Function cancelled"))
-		(t (princ s_))
-	)
+	(prompt (strcat "\n** : " s_ " **"))
 	(princ)
 )
 
-(setq *error* *pub_err*)
+(setq *error* *pub_error*)
 
 (foreach file '("function" "fllt")
 	(if (findfile (strcat file ".lsp"))
@@ -244,7 +240,7 @@
 			(princ "\n*error* function canceled.")
 		)
 		(progn
-			(setq *error* *pub_err*)
+			(setq *error* *pub_error*)
 			(princ "\n*error* function defuned.")
 		)
 	)

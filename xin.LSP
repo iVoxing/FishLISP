@@ -1,4 +1,4 @@
-;3/15/04	1.1	修改直接输入图块名称无效的错误。
+; 2004-03-15	1.1	修改直接输入图块名称无效的错误。
 
 (defun c:xin (/ blk_name pth_name blk_exis ins_name blk_enti blk_type)
 	(setq blk_name (getstring "\n图块名称[选择图块]："))
@@ -28,10 +28,10 @@
 		((and blk_exis pth_name)
 			(setq ins_name (strcat blk_name "=" pth_name))
 		)
-		(blk_exis
+		( blk_exis
 			(alert "没有找到同名的外部图块")
 		)
-		(pth_name
+		( pth_name
 			(alert "没有该内部图块")
 		)
 		(t

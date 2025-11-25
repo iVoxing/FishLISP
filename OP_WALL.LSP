@@ -101,7 +101,7 @@
 		(fl_undo_end)
 		(cmd "_undo" "")
 		(setvar "cmdecho" 1)
-		(setq *error* *pub_err*)
+		(setq *error* *pub_error*)
 		(princ (strcat "\n** " s_ " ** "))
 		(princ)
 	)

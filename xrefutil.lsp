@@ -33,9 +33,9 @@
 	xname ; retuen value
 )
 
-(defun xref_cmd (cmdname)
+(defun xref_cmd (cmd_name_)
 	(setvar "cmdecho" 0)
-	(cmd "xref" cmdname)
+	(cmd "xref" cmd_name_)
 	(setvar "cmdecho" 1)
 	cmd (get_xref_name))
 )
