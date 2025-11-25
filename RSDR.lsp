@@ -2,14 +2,6 @@
 ; 2001-07-25 v1.1	修正了一个在AutoCAD2000中的一个字符大小写敏感问题
 ; 1998-07-16 v1.0	改变门的尺寸
 
-(setq olderr *error*)
-
-(defun *error* (s)
-	(setq *error* olderr)
-	(princ)
-)
-
-
 (setq dr_list (list))
 (foreach itm (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8")
 	(if (findfile (strcat itm ".DWG"))
@@ -22,8 +14,6 @@
 		(exit)
 	)
 )
-
-(setq *error* olderr olderr nil)
 
 (defun mod_line (flag_ pt_ dist_ / ss_pt idx new_pt ent1)
 	(cmd "select" ss0 "")
@@ -51,7 +41,9 @@
 	)
 )
 
-(defun dr_sz (en_ / ent bkname bkins bksc bkang new_sc f_pt1 f_pt2 ss_cap cap1 cap2 pt1 pt2 pt3 pt4 dst ss0 en_kpt)
+(defun resize_dr (en_ / ent bkname bkins bksc bkang new_sc f_pt1 f_pt2 ss_cap cap1 cap2 pt1 pt2 pt3 pt4 dst ss0 en_kpt)
+	(setvar "cmdecho" 0)
+	(cmd "_undo" "_mark")
 	(setq 
 		ent 	(entget en_)
 		bkname 	(strcase (cdr (assoc 2 ent)))
@@ -188,6 +180,7 @@
 )
 
 (defun c:rsdr (/ olderr ucsf os undo_id en loop)
+	(setq *error* *pub_err*)
 	(princ "\nResize Doors.")
 	(setvar "cmdecho" 0)
 	(mapcar 'check_dr (list "DR1" "DR2" "DR3" "DR4" "DR5" "DR6" "DR7" "DR8"))
@@ -210,23 +203,28 @@
 			(progn
 				(initget "Undo")
 				(setq en (entsel "\n[Undo]<Pick a Door>: "))
-				(cond
-					((= en "Undo")
-						(cmd "undo" "")
-						(setq undo_id (1- undo_id))
-					)
-					((not en) (setq loop nil))
-					((/= (cdr (assoc 0 (entget (car en)))) "INSERT")
-						(princ "\n1 was not an Insert. ")
-					)
-					((/= (strcase (substr (cdr (assoc 2 (entget (car en)))) 1 2)) "DR")
-						(princ "\n1 was not DR insert. ")
-					)
-					(t
-						(dr_sz (car en))
-						(setq undo_id (1+ undo_id))
-					)
-				)
+			)
+		)
+		(setq enn (car en)
+			ent (entget enn)
+		)
+		(cond
+			((not en)
+				(setq loop nil)
+			)
+			((= en "Undo")
+				(cmd "undo" "")
+				(setq undo_id (1- undo_id))
+			)
+			((/= (cdr (assoc 0 ent)) "INSERT")
+				(princ "\n1 was not an Insert. ")
+			)
+			((/= (strcase (substr (cdr (assoc 2 ent)) 1 2)) "DR")
+				(princ "\n1 was not DR insert. ")
+			)
+			(t
+				(resize_dr enn)
+				(setq undo_id (1+ undo_id))
 			)
 		)
 	)

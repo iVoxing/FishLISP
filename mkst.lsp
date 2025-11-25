@@ -1,8 +1,5 @@
-;	2004-8-16
-
-(defun make_line (pt1_ pt2_)
-	(entmake (list '(0 . "LINE") '(8 . "0") (cons 10 pt1_) (cons 11 pt2_)))
-)
+; 2025-11-25	optimization
+; 2004-08-16
 
 (defun c:mkst ()
 	(if (setq st_num (getint "\nÌ¤²½Êı£º"))
@@ -31,10 +28,10 @@
 						(cons 2 stbkname) 
 						'(10 0.0 0.0 0.0)
 					))
-					(make_line (list 0.0 0.0 0.0) (list 0.0 st_hig 0.0))
+					(fl_make_line (list 0.0 0.0 0.0) (list 0.0 st_hig 0.0))
 					(setq idx 1)
 					(repeat (1- st_num)
-						(mapcar 'make_line
+						(mapcar 'fl_make_line
 							(list (list (1- idx) (* st_hig idx) 0.0) (list idx (* st_hig idx) 0.0))
 							(list (list idx (* st_hig idx) 0.0) (list (1+ idx) (* st_hig (1+ idx)) 0.0))
 						)

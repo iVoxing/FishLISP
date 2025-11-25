@@ -2,6 +2,7 @@
 ; C:AW
 ; Draw an array of rectangles inside one.
 ; History:
+;	2025-11-25					rewrited, tested ok
 ;	2020-11-09 v3.0 NEW:		New method, NOT READY
 ; 	2003-09-04 v2.1	IMPROVE:	More convenient option.
 ; 					NEW:		Continuous mode ON/OFF.
@@ -10,119 +11,90 @@
 ; 	2002-07-25 v1.1 FIXED:		Unexpected result if 1st point is not lower-left point.
 ; 	2002-06-18 v1.0 Original	1 dimension array only.
 
-(defun err (s_)
-	(if plwd (setvar "plinewid" plwd))
-	(*error* s_)
-	(princ)
-)
-
-(setq *error* err)
-
-(defun c:aw (/ olderr cg_wid cg_x_a cg_y_a pt1 pt2 n m x_wid y_wid cg_hfw x1 x2 x3 x4 y1 y2 y3 y4 os list_x list_y plwd)
-	(princ "\nFISHLISP C:AW v3.0.")
-	(setq aw_cg_wid (if aw_cg_wid aw_cg_wid 50.0))
-	(setq aw_cg_x_a (if aw_cg_x_a aw_cg_x_a 2))
-	(setq aw_cg_y_a (if aw_cg_y_a aw_cg_y_a 2))
+(defun c:aw (/ PT1 pt2)
+	(setq *error* *pub_err*)
+	(setq AW_CG_WID (if AW_CG_WID AW_CG_WID 50.0))
+	(setq AW_CG_X_A (if AW_CG_X_A AW_CG_X_A 2))
+	(setq AW_CG_Y_A (if AW_CG_Y_A AW_CG_Y_A 2))
 	(aw_opt)
-	(setq cg_wid aw_cg_wid)
-	(setq cg_x_a aw_cg_x_a)
-	(setq cg_y_a aw_cg_y_a)
+	(while PT1
+		(setq pt2 (getpoint PT1 "\n矩形对角点："))
+		(if pt2
+			(draw_rects PT1 pt2)
+		)
+		(setq PT1 (if AW_CONTINUE (getpoint "\n矩形角点：") nil))
+	)
 	(princ)
 )
 
-(defun get_rct_list (pt1_ pt2_)
-	(setq
-		rct_list (list)
-		h_n = 1
-		v_n = 1
-	)
-	;; 这样好像也没啥区别。。。
-	(repeat v_amt
-		(repeat h_amt
+(defun draw_rects (pt1_ pt2_ / v_n h_n o1x o1y o2x o2y rct_wid rct_hei rx_min rx_max ry_min ry_max pt_a pt_b pt_c pt_d)
+	(setq v_n 1)
+	(while (<= v_n AW_CG_Y_A)
+		(setq h_n 1)
+		(while (<= h_n AW_CG_X_A)
 			(setq
-				o1x = (car pt1_)	o1y = (cadr pt1_)
-				o2x = (car pt2_)	o2y = (cadr pt2_)
-				rct_width 	= (/ (abs (- o1x o2x)) h_n)
-				rct_height	= (/ (abs (- o1y o2y)) v_n)
-				x_ad = (+ o1x w (* (- h_n 1) (+ w rct_width)))
-				x_bc = (+ o1x (* h_n (+ w rct_width)))
-				y_ab = (+ o1y w (* (- v_n 1) (+ w rct_height)))
-				y_cd = (+ o1y (* v_n (+ w rct_height)))
-				pt_a = (list x_ad y_ab 0.0)
-				pt_b = (list x_bc y_ab 0,0)
-				pt_c = (list x_bc y_cd 0,0)
-				pt_d = (list x_ad y_cd 0,0)
+				o1x (apply 'min (list (car pt1_) (car pt2_)))
+				o1y (apply 'min (list (cadr pt1_) (cadr pt2_)))
+				o2x (apply 'max (list (car pt1_) (car pt2_)))
+				o2y (apply 'max (list (cadr pt1_) (cadr pt2_)))
+
+				rct_wid (- (/ (- o2x o1x AW_CG_WID) AW_CG_X_A) AW_CG_WID)
+				rct_hei	(- (/ (- o2y o1y AW_CG_WID) AW_CG_Y_A) AW_CG_WID)
+
+				rx_min (+ o1x AW_CG_WID (* (1- h_n) (+ rct_wid AW_CG_WID)))
+				ry_min (+ o1y AW_CG_WID (* (1- v_n) (+ rct_hei AW_CG_WID)))
+				rx_max (+ o1x (* h_n (+ rct_wid AW_CG_WID)))
+				ry_max (+ o1y (* v_n (+ rct_hei AW_CG_WID)))
+
+				pt_a (list rx_min ry_min 0.0)
+				pt_b (list rx_max ry_min 0.0)
+				pt_c (list rx_max ry_max 0.0)
+				pt_d (list rx_min ry_max 0.0)
 			)
-			(setq h_n = (1+ h_n))
+
+			(fl_make_pline (list pt_a pt_b pt_c pt_d) 1)
+			(setq h_n (1+ h_n))
 		)
-		(setq v_n = (1+ v_n))
-	)
-	(append rct_list (list (list pt_a pt_b pt_c pt_d)))
-	rct_list
-)
-
-(defun draw_rct ()
-	(foreach rct rct_list
-		pl_by_emk (rct)
+		(setq v_n (1+ v_n))
 	)
 )
 
-; command, rct as 4 points list, 
-(defun pl_by_cmd (rct_)
-	(foreach var '("cmdecho" "osmode" "plinewid")
-		(setvar var 0)
-	)
-	(cmd "pline")
-	(apply 'cmd rct_)
-	(cmd "c")
-)
-
-; entmake
-(defun pl_by_emk (rct_)
-	; group code 70: 1 = close, 0 = open
-	(entmake '((0 . "POLYLINE") (66 . 1) (70 . 1)))
-	(foreach pt rct_
-		(entmake (list (cons 0 "VERTEX") (cons 10 pt)))
-	)
-	(entmake '((0 . "SEQEND")))
-)
-
-(defun aw_opt ()
+(defun aw_opt (/ cg_wid cg_x_a cg_y_a)
 	(princ 
 		(strcat 
 			"\n选项:[格间宽度 W："
-			(rtos aw_cg_wid)
+			(rtos AW_CG_WID)
 			"，横向分格 X："
-			(rtos aw_cg_x_a)
+			(rtos AW_CG_X_A)
 			"，纵向分格 Y："
-			(rtos aw_cg_y_a)
+			(rtos AW_CG_Y_A)
 			"，连续模式 C："
-			(if aw_cnt "ON]" "OFF]")
+			(if AW_CONTINUE "ON]" "OFF]")
 		)
 	)
 	(initget "W X Y C")
-	(setq pt1 (getpoint "\n[W X Y C 更改选项]矩形角点："))
+	(setq PT1 (getpoint "\n[W X Y C 更改选项]矩形角点："))
 	(cond 
-		((= pt1 "W")
-			(setq cg_wid (getreal (strcat "\n格间宽度 W：<" aw_cg_wid ">")))
-			(setq cg_wid (if cg_wid cg_wid aw_cg_wid))
-			(setq aw_cg_wid cg_wid)
+		((= PT1 "W")
+			(setq cg_wid (getreal (strcat "\n格间宽度 W：<" (rtos AW_CG_WID) ">")))
+			(setq cg_wid (if cg_wid cg_wid AW_CG_WID))
+			(setq AW_CG_WID cg_wid)
 			(aw_opt)
 		)
-		((= pt1 "X")
-			(setq cg_x_a (getint (strcat "\n横向分格 X：<" aw_cg_x_a ">")))
-			(setq cg_x_a (if cg_x_a cg_x_a aw_cg_x_a))
-			(setq aw_cg_x_a cg_x_a)
+		((= PT1 "X")
+			(setq cg_x_a (getint (strcat "\n横向分格 X：<" (rtos AW_CG_X_A) ">")))
+			(setq cg_x_a (if cg_x_a cg_x_a AW_CG_X_A))
+			(setq AW_CG_X_A cg_x_a)
 			(aw_opt)
 		)
-		((= pt1 "Y")
-			(setq cg_y_a (getint (strcat "\n纵向分格 Y：<" aw_cg_y_a ">")))
-			(setq cg_y_a (if cg_y_a cg_y_a aw_cg_y_a))
-			(setq aw_cg_y_a cg_y_a)
+		((= PT1 "Y")
+			(setq cg_y_a (getint (strcat "\n纵向分格 Y：<" (rtos AW_CG_Y_A) ">")))
+			(setq cg_y_a (if cg_y_a cg_y_a AW_CG_Y_A))
+			(setq AW_CG_Y_A cg_y_a)
 			(aw_opt)
 		)
-		((= pt1 "C")
-			(setq aw_cnt (not aw_cnt))
+		((= PT1 "C")
+			(setq AW_CONTINUE (not AW_CONTINUE))
 			(aw_opt)
 		)
 		(t)

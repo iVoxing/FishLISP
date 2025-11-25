@@ -172,6 +172,12 @@
 		(entmake (list (cons 0 "VERTEX") (cons 10 vtx) (cons 40 wid) (cons 41 wid)))
 	)
 	(entmake '((0 . "SEQEND")))
+	(entlast)
+)
+
+(defun fl_make_line (pt1_ pt2_)
+	(entmake (list '(0 . "LINE") (cons 10 (trans pt1_ 1 0)) (cons 11 (trans pt2_ 1 0))))
+	(entlast)
 )
 
 (princ)

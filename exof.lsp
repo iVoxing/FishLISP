@@ -1,4 +1,5 @@
-; 2025-11-21	optimization
+;
+; 2025-11-21	optimization, tested ok
 
 (defun c:exof (/ pt1 pt2 dis0 dis1 dis2 ang1_posi ang1_nega ang1right pta ptb ptc ptd pw)
 	(setq pt1 (getpoint "\nFirst point: "))
@@ -12,9 +13,9 @@
 				ang1_posi (angle pt1 pt2)
 				ang1_nega (angle pt2 pt1)
 				ang1right (+ ang1_posi (/ pi 2))
-				dis1 (getdist (strcat "\nExtend dist: <" exof_dis1 "> "))
+				dis1 (getdist (strcat "\nExtend dist: <" (rtos exof_dis1) "> "))
 				dis1 (if dis1 dis1 exof_dis1)
-				dis2 (getdist (strcat "\nOffset dist: <" exof_dis2 "> "))
+				dis2 (getdist (strcat "\nOffset dist: <" (rtos exof_dis2) "> "))
 				dis2 (if dis2 dis2 exof_dis2)
 				pta (polar pt1 ang1_nega dis1)
 				ptb (polar pta ang1right dis2)
@@ -22,9 +23,8 @@
 				ptc (polar ptd ang1right dis2)
 				pw (getvar "plinewid")
 			)
-			(setvar "cmdecho" 0)
 			(setvar "plinewid" 0)
-			(cmd "pline" pta ptb ptc ptd "")
+			(fl_make_pline (list pta ptb ptc ptd) 0)
 			(setq exof_dis1 dis1 exof_dis2 dis2)
 			(setvar "plinewid" pw)
 		)
