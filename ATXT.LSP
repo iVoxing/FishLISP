@@ -32,7 +32,6 @@
 		(entmod (subst (cons 50 ang) (assoc 50 ent) ent))
 		(setq idx (1+ idx))
 	)
-	(setq *error* olderr)
 	(princ)
 )
 

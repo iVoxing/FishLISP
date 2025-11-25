@@ -1,4 +1,5 @@
 ; Draw 4 rectangles, use to set dimension base range
+; 2025-11-24	pure function, test ok
 ; 2025-11-18	a little optimization
 ; 2025-11-12 	rewrite with foreach, tested ok
 
@@ -19,9 +20,6 @@
 		miny (cadr pt2)
 		maxy (cadr pt1)
 	)
-	(setq os (getvar "osmode"))
-	(setvar "osmode" 0)
-	(setvar "cmdecho" 0)
   
 	(foreach n (list 0 1 2 3)
 		(setq
@@ -31,11 +29,9 @@
 			pt3 (list (+ maxx n_dis) (+ maxy n_dis))
 			pt4 (list (- minx n_dis) (+ maxy n_dis))
         )
-		(cmd "pline" pt1 pt2 pt3 pt4 "c")
+		(fl_make_pline (list pt1 pt2 pt3 pt4) 1)
     )
 
-  	(setvar "cmdecho" 1)
-	(setvar "osmode" os)
 	(princ)
 )
 

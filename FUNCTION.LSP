@@ -163,4 +163,15 @@
 	(if (= lay_str "") nil lay_str)
 )
 
+; group code 70: 1|0 -> close|open
+(defun fl_make_pline (vtx_list_ close_ / wid)
+	(setq wid (getvar "plinewid"))
+	(entmake (list '(0 . "POLYLINE") '(66 . 1) (cons 70 close_)))
+	(foreach vtx vtx_list_
+		(setq vtx (trans vtx 1 0))
+		(entmake (list (cons 0 "VERTEX") (cons 10 vtx) (cons 40 wid) (cons 41 wid)))
+	)
+	(entmake '((0 . "SEQEND")))
+)
+
 (princ)
