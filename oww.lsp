@@ -5,7 +5,7 @@
 ; yy-mm-dd v#.# ???
 (defun c:oww (/ dist loop en0 ent enttyp en0pt0 en0pt1 en0pt2 en0ang ss dirpt0 x0 y0 x2 y2 x3 y3 dirang newpt1 newpt2 idx en1 ent1 ent1ty)
 	(setq OFWL_DIST (if OFWL_DIST OFWL_DIST 0.0))
-	(setq dist (getdist (strcat "\nOffset distance: <" OFWL_DIST "> ")))
+	(setq dist (getdist (strcat "\nOffset distance: <" (rtos OFWL_DIST) "> ")))
 	(setq dist (if dist dist OFWL_DIST))
 	(setq OFWL_DIST dist)
 

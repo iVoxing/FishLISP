@@ -31,7 +31,7 @@
 (defun C:ELADD (/ ss n en att attadd attv oldvlu newvlu)
 	(princ "\nChange attribute of EL-blocks.")
 	(setq EL_DELTA (if EL_DELTA EL_DELTA 0.0))
-	(setq attadd (getreal (strcat "\nDelta value: <" EL_DELTA "> ")))
+	(setq attadd (getreal (strcat "\nDelta value: <" (rtos EL_DELTA) "> ")))
 	(setq attadd (if attadd attadd EL_DELTA))
 	(setq EL_DELTA attadd)
 	(setq 

@@ -1,6 +1,7 @@
 ; FL-LT
 ; FishLISP Layer Templates
 
+(setq FLLT_AREA 	"面积")
 (setq FLLT_AXIS 	"轴线")
 (setq FLLT_AXNM 	"轴号")
 (setq FLLT_COL		"结构柱")

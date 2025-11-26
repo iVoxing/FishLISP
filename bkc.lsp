@@ -2,18 +2,20 @@
 ; C:BKC
 ; Change layer(s), color(s) of entities within a block.
 ; History:
-; 2003-08-15 v1.0 original version.
+; 2025-11-26		optimization, test ok
+; 2003-08-15 v1.0	original version.
 
-(defun c:bkc (/ olderr bkc_alias bk en ent cnt) 
-	(setq olderr *error*)
+(defun c:bkc (/ bkc_alias bk en ent amt) 
 	(defun *error* (s_) 
-		(setq *error* olderr)
-		(*error* s_)
+		(setvar "cmdecho" 0)
 		(cmd "regen")
+		(setvar "cmdecho" 1)
+		(princ (strcat "\n** " s_ " **"))
+		(setq *error* *pub_error*)
 		(princ)
 	)
-	(setq bkc_layer (if bkc_layer bkc_layer "0"))
-	(setq bkc_color (if bkc_color bkc_color 0))
+	(setq BKC_LAYER (if BKC_LAYER BKC_LAYER "0"))
+	(setq BKC_COLOR (if BKC_COLOR BKC_COLOR 0))
 	(setq bkc_color_list (list 
 			"ByBlock" 
 			"Red"
@@ -25,61 +27,60 @@
 			"White"
 	))
 	(setq bkc_alias (cond 
-		((< bkc_color 8) (nth bkc_color bkc_color_list))
-		((= bkc_color 256) "ByLayer")
-		(t (rtos bkc_color 2 0))
+		((< BKC_COLOR 8) (nth BKC_COLOR bkc_color_list))
+		((= BKC_COLOR 256) "ByLayer")
+		(t (rtos BKC_COLOR 2 0))
 	))
-	(princ "\nFISHLISP: BKC v1.0. Little Fish Studio. 2003-08-15")
-	(princ (strcat "\nTarget Layer: " bkc_layer ", target Color: " bkc_alias))
-	(while (setq bk (getbk)) 
+	(princ (strcat "\nTarget Layer: " BKC_LAYER ", target Color: " bkc_alias))
+	(while (setq bk (get_block))
 		(setq en (cdr (assoc -2 (tblsearch "block" bk))))
-		(setq cnt 0)
+		(setq amt 0)
 		(while en 
 			(setq ent (entget en))
-			(setq ent (subst (cons 8 bkc_layer) (assoc 8 ent) ent))
+			(setq ent (subst (cons 8 BKC_LAYER) (assoc 8 ent) ent))
 			(if (assoc 62 ent) 
-				(setq ent (subst (cons 62 bkc_color) (assoc 62 ent) ent))
-				(if (= bkc_color 256) 
+				(setq ent (subst (cons 62 BKC_COLOR) (assoc 62 ent) ent))
+				(if (= BKC_COLOR 256) 
 					nil
-					(setq ent (append ent (list (cons 62 bkc_color))))
+					(setq ent (append ent (list (cons 62 BKC_COLOR))))
 				)
 			)
 			(entmod ent)
-			(setq cnt (1+ cnt))
+			(setq amt (1+ amt))
 			(setq en (entnext en))
 		)
-		(princ (strcat "\n" (rtos cnt 2 0) " entitie(s) in Block " bk " changed. Regen required. "))
+		(princ (strcat "\n" (rtos amt 2 0) " entitie(s) in Block " bk " changed. Regen required. "))
 	)
 	(princ "\n")
 	(cmd "regen")
-	(setq *error* olderr)
+	(setq *error* *pub_error*)
 	(princ)
 )
 
-(defun getbk (/ bk_en bl bc bk_name) 
+(defun get_block (/ bk_en bl bc bk_name) 
 	(initget "laYer Color")
 	(setq bk_en (entsel "\n[laYer/Color] Select INSERT to edit: "))
 	(cond 
 		((= bk_en "laYer")
-			(princ (strcat "\nTarget Layer: <" bkc_layer "> "))
+			(princ (strcat "\nTarget Layer: <" BKC_LAYER "> "))
 			(setq bl (getstring t))
 			(setq bl (cond 
-				((= bl "") bkc_layer)
+				((= bl "") BKC_LAYER)
 				((not (tblsearch "layer" bl))
 					(princ "\nLayer not found. ")
-					bkc_layer
+					BKC_LAYER
 				)
 				(t bl)
 			))
-			(setq bkc_layer bl)
-			(getbk)
+			(setq BKC_LAYER bl)
+			(get_block)
 		)
 		((= bk_en "Color")
 			(initget "byBlock byLayer Red Yellow Green Cyan BLue Magenta White")
 			(setq bc (getint (strcat "\nTarget Color: <" bkc_alias "> ")))
 			(setq bcc (member bc bkc_color_list))
 			(setq bc (cond 
-				((not bc) bkc_color)
+				((not bc) BKC_COLOR)
 				(bcc
 					(- 8 (length bcc))
 				)
@@ -89,16 +90,16 @@
 						bc
 						(progn 
 							(princ "\nInvalid color index ignored! ")
-							bkc_color
+							BKC_COLOR
 						)
 					)
 				)
 			)
 			)
-			(setq bkc_color bc)
-			(getbk)
+			(setq BKC_COLOR bc)
+			(get_block)
 		)
-		((listp bk_en)
+		( bk_en
 			(setq bk_ent (entget (car bk_en)))
 			(setq bk_name (if (= "INSERT" (cdr (assoc 0 bk_ent))) (cdr (assoc 2 bk_ent))))
 			bk_name

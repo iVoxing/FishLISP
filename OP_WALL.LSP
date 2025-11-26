@@ -137,6 +137,7 @@
 	(setvar "expert" 0)
 	(setvar "cmdecho" 1)
 	(fl_undo_end)
+	(setq *error* *pub_error*)
 	(princ)
 )
 

@@ -12,7 +12,6 @@
 ; 	2002-06-18 v1.0 Original	1 dimension array only.
 
 (defun c:aw (/ PT1 pt2)
-	(setq *error* *pub_error*)
 	(setq AW_CG_WID (if AW_CG_WID AW_CG_WID 50.0))
 	(setq AW_CG_X_A (if AW_CG_X_A AW_CG_X_A 2))
 	(setq AW_CG_Y_A (if AW_CG_Y_A AW_CG_Y_A 2))

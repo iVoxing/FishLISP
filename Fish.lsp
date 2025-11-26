@@ -233,25 +233,10 @@
 	(princ)
 )
 
-(defun c:err () 
-	(if *error* 
-		(progn
-			(setq *error* nil)
-			(princ "\n*error* function canceled.")
-		)
-		(progn
-			(setq *error* *pub_error*)
-			(princ "\n*error* function defuned.")
-		)
-	)
-	(princ)
-) 
-
-(defun c:f (/ ff_rad olderr)
-	(setq olderr *error*)
+(defun c:f (/ ff_rad)
 	(defun *error* (s_)
 		(if ff_rad (setvar "filletrad" ff_rad))
-		(setq *error* olderr)
+		(setq *error* *pub_error*)
 		(princ)
 	)
 	(setq ff_rad (getvar "filletrad"))
@@ -261,7 +246,7 @@
 		(cmd pause)
 	)
 	(setvar "filletrad" ff_rad)
-	(setq *error* olderr)
+	(setq *error* *pub_error*)
 	(princ)
 )
 
@@ -446,11 +431,11 @@
 
 (defun c:pgp () (startapp "notepad" (findfile "acad.pgp")) (princ))
 
-(defun c:pl0 (/ olderr pw)
-	(setq olderr *error*)
+(defun c:pl0 (/ pw)
 	(defun *error* (s)
 		(if pw (setvar "plinewid" pw))
-		(setq *error* olderr olderr nil)
+		(princ (strcat "** " s_ " **"))
+		(setq *error* *pub_error*)
 		(princ)
 	)
 	(setq pw (getvar "plinewid"))
@@ -460,7 +445,7 @@
 		(cmd pause)
 	)
 	(setvar "plinewid" pw)
-	(setq *error* olderr)
+	(setq *error* *pub_error*)
 	(princ)
 )
 

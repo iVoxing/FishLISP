@@ -7,11 +7,11 @@
 	(setq 
 		STAIR_HEIGHT (if STAIR_HEIGHT STAIR_HEIGHT 3000.0)
 		STEP_HEIGHT (if STEP_HEIGHT STEP_HEIGHT 150.0)
-		str_h (getreal (strcat "\nStair height: <" STAIR_HEIGHT ">"))
+		str_h (getreal (strcat "\nStair height: <" (rtos STAIR_HEIGHT) ">"))
 		str_h (if str_h str_h STAIR_HEIGHT)
 		STAIR_HEIGHT str_h
 
-		stp_h (getreal (strcat "\nStep height: <" STEP_HEIGHT ">"))
+		stp_h (getreal (strcat "\nStep height: <" (rtos STEP_HEIGHT) ">"))
 		stp_h (if stp_h stp_h STEP_HEIGHT)
 		STEP_HEIGHT stp_h
 
@@ -20,7 +20,7 @@
 		stp_w (fix (- 450.0 stp_h))
 		STEP_WIDTH stp_w
 		
-		stp_w (getreal (strcat "\nStep width: <" STEP_WIDTH ">:"))
+		stp_w (getreal (strcat "\nStep width: <" (rtos STEP_WIDTH) ">:"))
 		stp_w (if stp_w stp_w STEP_WIDTH)
 		STEP_WIDTH stp_w
 

@@ -18,18 +18,17 @@
 ; 					Unnamed block will be better to be modified;
 ; 					Find UCS by 2 points may be available.
 
-(setq olderr *error*)
-(defun *error* (s)
-	(princ "加载失败！\n未找到ZBL.DWG或ZBR.DWG。")
-	(setq *error* olderr olderr nil)
-	(princ)
-)
 (foreach item (list "zbl.dwg" "zbr.dwg")
-	(if (findfile item) nil (exit))
+	(if (findfile item)
+		nil
+		(progn
+			(princ "加载失败！\n未找到ZBL.DWG或ZBR.DWG。")
+			(exit)
+		)
+	)
 )
-(setq *error* odlerr olderr nil)
 
-(defun zb_opt ()
+(defun set_option ()
 	(princ (strcat 
 		"\n前缀："
 		(if (= zb_xpf ".") "无>" (strcat "\"" zb_xpf "\""))
@@ -50,52 +49,54 @@
 			(setq ypf (getstring 1 (strcat "\n前缀，或输入 . 取消：<" zb_ypf "> ")))
 			(if (= ypf "") (setq ypf zb_ypf))
 			(setq zb_ypf ypf)
-			(zb_opt)
+			(set_option)
 		)
 		((= pt0 "P")
-			(setq pcs (getint (strcat "\n精度：<" zb_pcs "> ")))
+			(setq pcs (getint (strcat "\n精度：<" (rtos zb_pcs) "> ")))
 			(setq pcs (if pcs pcs zb_pcs))
 			(setq zb_pcs pcs)
-			(zb_opt)
+			(set_option)
 		)
 		((= pt0 "CS")
 			(setq zb_wcs (not zb_wcs))
-			(zb_opt)
+			(set_option)
 		)
 	)
 )
 
-(defun c:zb (/ olderr sty wid oo pt0 pt0a pt1 pt2 pt3 pt4 pt5 x y dir sc hlfsc a90 a-90 ali tbox dis xpf ypf pcs thi insu v_fa)
-	(setvar "cmdecho" 0)
-	(princ "\nFishLISP. C:ZB Version 4.3.")
-	(defun set_insunits (/ insu dwgu)
-		(setq insu (getvar "insunits"))
-		(cond
-			((= insu 4)
-				(setq v_fa 0.001)
-			)
-			((= insu 5)
-				(setq v_fa 0.01)
-			)
-			((= insu 6)
-				(setq v_fa 1.0)
-			)
-			(t
-				(initget "H M")
-				(setq dwgu (getkword "\n指定本图单位：[H毫米/M米]"))
-				(cond
-					((= dwgu "H")
-						(setvar "insunits" 4)
-					)
-					((= dwgu "M")
-						(setvar "insunits" 6)
-					)
-					(t)
+(defun set_insunits (/ insu dwgu)
+	(setq insu (getvar "insunits"))
+	(cond
+		((= insu 4)
+			(setq v_fa 0.001)
+		)
+		((= insu 5)
+			(setq v_fa 0.01)
+		)
+		((= insu 6)
+			(setq v_fa 1.0)
+		)
+		(t
+			(initget "H M")
+			(setq dwgu (getkword "\n指定本图单位：[H毫米/M米]"))
+			(cond
+				((= dwgu "H")
+					(setvar "insunits" 4)
 				)
-				(set_insunits)
+				((= dwgu "M")
+					(setvar "insunits" 6)
+				)
+				(t)
 			)
+			(set_insunits)
 		)
 	)
+)
+
+
+(defun c:zb (/ olderr sty wid oo pt0 pt0a pt1 pt2 pt3 pt4 pt5 x y dir sc hlfsc a90 a-90 ali tbox dis xpf ypf pcs thi insu v_fa)
+	(setvar "cmdecho" 0)
+
 	(set_insunits)
 
 	(setq zb_xpf (if zb_xpf zb_xpf "X="))
@@ -103,7 +104,8 @@
 	(setq zb_pcs (if zb_pcs zb_pcs 3))
 	(setq oo (getvar "orthomode"))
 
-	(zb_opt)
+	(set_option)
+	
 	(setvar "orthomode" 0)
 	(if pt0
 		(setq 
@@ -126,7 +128,6 @@
 	)
 	(if oo (setvar "orthomode" oo))
 	(setvar "cmdecho" 1)
-	(setq *error* olderr)
 	(princ)
 )
 

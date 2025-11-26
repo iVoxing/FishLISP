@@ -32,7 +32,6 @@
 	(setvar "expert" 0)
 	(setq lpt0_1 nil segmnt nil)
 	(if ai_beep (ai_beep))
-	(setq *error* *pub_error*)
 	(redraw)
 	(princ)
 )

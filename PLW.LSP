@@ -17,7 +17,7 @@
 
 (defun plw_setwd (/ wd)
 	(setq PLW_WIDTH (if PLW_WIDTH PLW_WIDTH (getvar "plinewid")))
-	(setq wd (getreal (strcat "\nEnter the new width: <" PLW_WIDTH ">")))
+	(setq wd (getreal (strcat "\nEnter the new width: <" (rtos PLW_WIDTH) ">")))
 	(setq wd (if wd wd PLW_WIDTH))
 	(setq PLW_WIDTH wd)
 	wd
@@ -32,7 +32,8 @@
 		(cmd "ucs" "p")
 		(cmd "_undo" "end")
 		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
+		(princ (strcat "** " s_ " **"))
+		(setq *error* *pub_error*)
 		(princ)
 	)
 	(princ "\nChange lines Width.")
@@ -85,7 +86,7 @@
 	(cmd "_undo" "end")
 	(setvar "cmdecho" 1)
 	(princ " done.")
-
+	(setq *error* *pub_error*)
 	(princ)
 )
 

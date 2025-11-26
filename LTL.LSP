@@ -21,7 +21,6 @@
 	(princ
 		(strcat "\n" (rtos amt 2 0) " line(s) found. Total length=" (rtos t_len) ". ")
 	)
-	(setq *error* olderr)
 	(princ)
 )
 
@@ -59,7 +58,6 @@
 		(rtos (/ t_peri 1000.0) 2 3) "M. "
 	))
 	(setvar "cmdecho" 1)
-	(setq *error* olderr)
 	(princ)
 )
 

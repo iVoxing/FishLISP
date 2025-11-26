@@ -24,7 +24,7 @@
 
 	;设置校准精度，即模数，缺省10
 	(setq LCA:SNAP (if LCA:SNAP LCA:SNAP 10))
-	(setq mysnap (getint (strcat "\n设置校准精度：<" LCA:SNAP "> ")))
+	(setq mysnap (getint (strcat "\n设置校准精度：<" (rtos LCA:SNAP) "> ")))
 	(setq mysnap (if mysnap mysnap LCA:SNAP))
 	(setq LCA:SNAP mysnap)
 

@@ -1,17 +1,13 @@
 ; Suppresses display of extension line
 ; ==============================================================
-; Version	Date	Description
+; Ver	Date		Description
 ; --------------------------------------------------------------
-; 1.0		6-1-99	Pick the demension object to hide the
-;			nearest extension line.
-; next	wait	Keep the origenal extension line setting?
-;			One-Step-Undo?
-; ==============================================================
-; Please visit my HomePage: orca.163.net
-; orca.533.net
+;		2025-11-26	daily
+; 1.0	1999-06-01	Pick the demension object to hide the nearest extension line.
+;					
+
 
 (defun c:dse (/ olderr loop en ent obj typ se1 se2 pt)
-	(prompt "\nFishLISP, 6-1-99. Ver 1.0")
 	(setq loop t)
 	(while loop
 		(setq en (entsel "\nSelect dimension object: "))
@@ -43,9 +39,8 @@
 			(setq loop nil)
 		)
 	)
-	(setq *error* olderr)
 	(princ)
 )
 
-(princ "loaded. Start as C:DIMSE\nPlease visit my HomePage: orca@163.net\torca@zb169.net")
+(princ "loaded. Start as C:DSE")
 (princ)

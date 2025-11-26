@@ -1,12 +1,11 @@
 ; Fillet and Dim
 
 
-(defun c:fnd (/ olderr fr rad earc elarc earcl a1 a2 cen pt ang os)
-	(princ "\nFishLISP. ")
-	(setq olderr *error*)
-	(defun *error* (s)
+(defun c:fnd (/ fr rad earc elarc earcl a1 a2 cen pt ang os)
+	(defun *error* (s_)
 		(if fr (setvar "filletrad" fr))
-		(setq *error* olderr olderr nil)
+		(princ (strcat "** " s_ " **"))
+		(setq *error* *pub_error*)
 		(princ)
 	)
 	(if (and fnd_rad (zerop fnd_rad))
@@ -46,7 +45,7 @@
 	(cmd "dimradius" earcl "")
 	(setvar "osmode" os)
 	(setvar "filletrad" fr)
-	(setq *error* olderr)
+	(setq *error* *pub_error*)
 	(princ)
 )
 

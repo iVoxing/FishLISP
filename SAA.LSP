@@ -46,7 +46,6 @@
 	)
 	(princ "\nSnapang: ")
 	(princ (rem (/ (* (getvar "snapang") 180) pi) 90))
-	(setq *error* olderr)
 	(princ)
 )
 

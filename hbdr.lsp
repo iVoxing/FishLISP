@@ -53,7 +53,6 @@
 (cmd "._ucs" "_p")
 (cmd "._undo" "_E")
 (setvar "cmdecho" oldcmdecho)
-(setq *error* olderr)
 (princ)
 )
 (setq	olderr	*error*

@@ -37,11 +37,10 @@
 )
 
 
-(defun c:ow (/ olderr os hl dist loop en0 ent0 typ0 lay0 pt1 pt2 pt3 pt4 en1 ent1 ss0)
+(defun c:ow (/ os hl dist loop en0 ent0 typ0 lay0 pt1 pt2 pt3 pt4 en1 ent1 ss0)
 	(prompt "\nFishLISP. 7-17-1998. ")
 	(prompt "\nOffset and modify line. Ver 4.1. ")
-	(setq olderr *error*)
-	(defun *error* (s)
+	(defun *error* (s_)
 		(setvar "osmode" (if os os 167))
 		(setvar "cmdecho" 1)
 		(setvar "highlight" (if hl hl 1))
@@ -51,12 +50,13 @@
 		(cmd "ucs" "r" "ow_temp")
 		(cmd "ucs" "d" "ow_temp")
 		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
+		(princ (strcat "\** " s_ " **"))
+		(setq *error* *pub_error*)
 		(princ)
 	)
 
 	(setq ofwl_dist (if ofwl_dist ofwl_dist 0.0))
-	(setq dist (getdist (strcat "\nOffset distance: <" ofwl_dist "> ")))
+	(setq dist (getdist (strcat "\nOffset distance: <" (rtos ofwl_dist) "> ")))
 	(setq dist (if dist dist ofwl_dist))
 	(setq ofwl_dist dist)
 
@@ -119,7 +119,7 @@
 	(setvar "highlight" hl)
 	(setvar "ucsfollow" ucsf)
 	(setvar "expert" ept)
-	(setq *error* olderr)
+	(setq *error* *pub_error*)
 	(princ)
 )
 

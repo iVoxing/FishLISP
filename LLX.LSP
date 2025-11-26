@@ -5,11 +5,6 @@
 )
 
 (defun c:llx (/ olderr l1 l2 ent1 ent2 pt1_1 pt1_2 pt2_1 pt2_2) 
-	(setq olderr *error*)
-	(defun *error* (s) 
-		(setq *error* (if olderr olderr *pub_error*))
-		(princ)
-	)
 	(setq l1 (entsel "\nSelect line: "))
 	(if 
 		(and l1 
@@ -36,7 +31,6 @@
 		)
 		)
 	)
-	(setq *error* olderr)
 	(princ)
 )
 

@@ -16,10 +16,9 @@
 )
 
 (defun dim_fish (dim_cmd_ / cl cc clt cts pt1)
-	(setq olderr *error*)
 	(defun *error* (s_)
-		(setq *error* olderr)
-		(*error* s_)
+		(setq *error* *pub_error*)
+		(princ (strcat "\n** " s_ " **"))
 		(setvar "cecolor" (if cc cc "BYLAYER"))
 		(if cl (setvar "clayer" cl))
 		(setvar "celtype" (if clt clt "BYLAYER"))
@@ -68,6 +67,7 @@
 	(setvar "textstyle" cts)
 	(setvar "blipmode" blip)
 	(setvar "osmode" os)
+	(setq *error* *pub_error*)
 	(princ)
 )
 

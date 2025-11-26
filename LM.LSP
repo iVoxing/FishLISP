@@ -3,7 +3,6 @@
 ; 2001-03-15
 
 (defun c:lm (/ pt1 pt2 pt pt_x pt_y x_id y_id seg dist ds cl ucsf os pw)
-	(prompt "\nFishLISP. ")
 
 	(setq lm_seg (if lm_seg lm_seg 4))
 	(setq pt1 (getpoint "\nStart point: "))
@@ -53,7 +52,6 @@
 		)
 	)
 
-	(setq *error* olderr)
 	(princ)
 )
 

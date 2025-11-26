@@ -26,7 +26,6 @@
 		)
 	)
 	(setvar "blipmode" blip)
-	(setq *error* olderr)
 	(princ)
 )
 

@@ -18,7 +18,7 @@
 			(t)
 		)
 		(initget 128)
-		(setq sc_z (getreal (strcat "\nNew scale: 1/<" psc ">XP: ")))
+		(setq sc_z (getreal (strcat "\nNew scale: 1/<" (rtos psc 2 0) ">XP: ")))
 		(if (numberp sc_z) nil (setq sc_z psc))
 		(setq sc_z (strcat (rtos (/ 1.0 sc_z) 2 20) "xp"))
 		(cmd "_zoom" sc_z)
@@ -60,7 +60,6 @@
 
 ; 1/15/98	v3.0	Judge the selection is dimension text or not while selecting.
 (defun c:dsc (/ olderr en loop en0 ent hi)
-	(princ "\nFishLISP. Version 3.0")
 	(setq loop t)
 	(while loop
 		(setq en (nentsel "\nSelect a dimension text: "))
@@ -77,12 +76,10 @@
 		(if hi (princ (strcat "\nThe dimension scale is 1/" (rtos hi 2 1))))
 	)
 
-	(setq *error* olderr)
 	(princ)
 )
 
 (defun c:dg (/ olderr en loop en0 ent hi sc)
-	(princ "\nFishLISP. Version 1.0")
 	(setq loop t)
 	(while loop
 		(setq en (nentsel "\nSelect a dimension text: "))
@@ -104,8 +101,6 @@
 			)
 		)
 	)
-
-	(setq *error* olderr)
 	(princ)
 )
 

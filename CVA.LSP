@@ -1,15 +1,12 @@
-; 将离散的轴线号转换成Insert
+; 将离散的轴线号转换成Insert，临时工具
+; 2025-11-26	日常维护
+; 1998-09-09	
 
 (defun c:cva (/ c_ss c_amt c_idx ss_del c_en c_ent c_cen c_rad pt1 pt2 t_ss t_en scl att axi cl os)
-	(prompt "\nFishLISP. V2.0 9-9-1998")
-
 	(setvar "cmdecho" 0)
 	(setq cl (getvar "clayer"))
 	(setq os (getvar "osmode"))
-	(if (tblsearch "layer" "paxinum")
-		(setvar "clayer" "paxinum")
-		(cmd "layer" "m" "paxinum" "c" "w" "paxinum" "")
-	)
+	(setvar "clayer" FLLT_AXNM)
 	(setvar "osmode" 0)
 
 	(setq 
@@ -52,7 +49,6 @@
 	(setvar "osmode" os)
 	(setvar "cmdecho" 1)
 
-	(setq *error* olderr)
 	(princ)
 )
 
