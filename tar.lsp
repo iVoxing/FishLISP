@@ -9,7 +9,7 @@
 		(progn
 			(setq len (distance pt1 pt2))
 			(cmd "_.pline" pt1 "w" 0 (* 1.8 len) pt2)
-			(cmd "w" (* 0.4 len) (* 1.3 len) "a")
+			(cmd "_w" (* 0.4 len) (* 1.3 len) "a")
 			(princ "\n¼ýÍ·Î²²¿: ")
 			(cmd pause)
 			(if (= (getvar "cmdnames") "PLINE")

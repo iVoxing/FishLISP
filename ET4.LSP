@@ -52,7 +52,7 @@
 	(if (and 
 			ens
 			(= (setq bd (cdr (assoc 0 (setq line_ent (entget (car ens)))))) "LINE")
-		) 
+		)
 		(progn
 			(setq 
 				b_pt1 (cdr (assoc 10 line_ent))

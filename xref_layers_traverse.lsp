@@ -102,7 +102,7 @@
 	)
 )
 
-(defun c:xlt (/ block_name layer_list) 
+(defun c:xlt (/ block_name layer_list)
 	(defun *error* (msg)
 		(command "undo" "back")
 		(setvar "cmdecho" 1)

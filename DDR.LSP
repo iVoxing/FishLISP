@@ -1,96 +1,95 @@
-(defun c:ddr (/ olderr ucsf os undo_id en ddr_check reins_dr_1 reins_dr_2)
-	(princ "\nFishLISP. 12/24/1997.")
-	(princ "\nChange direction of Doors. v2.1. ")
+; Change direction of Door
+; 2025-11-27	New block system, base width is 1
+;				pure LISP
+; 1997-12-24
 
-	(setvar "cmdecho" 0)
-	(setq ucsf (getvar "ucsfollow"))
-	(setvar "ucsfollow" 0)
-	(setvar "expert" 4)
-	(cmd "ucs" "s""$temp$")
-	(cmd "ucs" "w")
-
-	(defun ddr_check (en_ / bkname bkins bksc bkang dw_xdt bklist clay)
-		(setq 
-			ent 	(entget en_)
-			bkname	(strcase (cdr (assoc 2 ent)))
-			bkins	(cdr (assoc 10 ent))
-			bksc	(cdr (assoc 41 ent))
-			bkang	(/ (* (cdr (assoc 50 ent)) 180.0) pi)
-			dw_xdt(assoc -3 (entget en_ '("FL_WALL")))
+(defun ddr_check (en_ / ent bkname bkins bksc bkang dw_xdt bklist clay)
+	(setq 
+		ent 	(entget en_)
+		bkname	(strcase (cdr (assoc 2 ent)))
+		bkins	(cdr (assoc 10 ent))
+		bksc	(cdr (assoc 41 ent))
+		bkang	(/ (* (cdr (assoc 50 ent)) 180.0) pi)
+	)
+	(setq clay (getvar "clayer"))
+	(setvar "clayer" FLLT_DOOR)
+	(cond
+		((member bkname (list "DR01" "DR02" "DR07" "DR08"))
+			(reins_dr_1 en_ bkname)
 		)
-		(entdel en_)
-		(setq clay (getvar "clayer"))
-		(setvar "clayer" FLLT_DOOR)
-		(cond
-			((member bkname (list "DR1" "DR2" "DR7" "DR8"))
-				(reins_dr_1)
+		((member bkname (setq bklist (list "DR03" "DR04" "DR05" "DR06")))
+			(reins_dr_2 en_ bkname)
+		)
+		(t 
+			(princ "\n1 was unknown Door type. ")
+		)
+	)
+	(setvar "clayer" clay)
+)
+
+(defun reins_dr_1 (en_ name_ / ent dr_new)
+	(setq ent (entget en_))
+	(cond
+		((= name_ "DR01") (setq dr_new "DR02"))
+		((= name_ "DR02") (setq dr_new "DR01"))
+		((= name_ "DR07") (setq dr_new "DR08"))
+		((= name_ "DR08") (setq dr_new "DR07"))
+	)
+	(entmod (subst (cons 2 dr_new) (assoc 2 ent) ent))
+)
+
+(defun reins_dr_2 (en_ name_ / ent as2 drlist)
+	(setq
+		ent (entget en_)
+		as2	(assoc 2 ent)
+		drlist (list en_)
+	)
+	(foreach dr_ bklist
+		(if (= dr_ name_)
+			nil
+			(progn
+				(entmake (subst (cons 2 dr_) as2 ent))
+				(setq drlist (append drlist (list (entlast))))
 			)
-			((member bkname (setq bklist (list "DR3" "DR4" "DR5" "DR6")))
-				(reins_dr_2)
-			)
-			( t (princ "\n1 was unknown Door type. "))
 		)
-		(setvar "clayer" clay)
 	)
-
-	(defun reins_dr_1 (/ dr_new)
-		(cond
-			((= bkname "DR1") (setq dr_new "DR2"))
-			((= bkname "DR2") (setq dr_new "DR1"))
-			((= bkname "DR7") (setq dr_new "DR8"))
-			((= bkname "DR8") (setq dr_new "DR7"))
-		)
-		(cmd "insert" dr_new bkins bksc bksc bkang)
-		(if dw_xdt (entmod (append (entget (entlast)) (list dw_xdt))))
+	(if (setq en_kpt (entsel "\n>>Pick the door to be kept: "))
+		(setq en_kpt (car en_kpt))
 	)
-
-	(defun reins_dr_2 (/ ss n en)
-		(setq ss (ssadd))
-		(foreach n bklist
-			(cmd "insert" n bkins bksc bksc bkang)
-			(if dw_xdt (entmod (append (entget (entlast)) (list dw_xdt))))
-			(setq ss (ssadd (entlast) ss))
-		)
-		(setq en (entsel "\n>>Pick the door to be kept: "))
-		(if en (cmd "erase" ss "r" (car en) ""))
-	)
-
-	(setq os (getvar "osmode"))
-	(setvar "osmode" 0)
-	(setvar "cmdecho" 0)
-	(setq undo_id 0)
-	(setq loop t)
-	(while loop
-		(initget "Undo")
-		(setq en (entsel "\n[Undo] <Pick a Door>: "))
-		(cond
-			((= en "Undo")
-				(if (< undo_id 1)
-					(princ "\nCommand has been completely undone. ")
-					(progn
-						(cmd "undo" "")
-						(setq undo_id (1- undo_id))
-					)
+	(if en_kpt
+		(mapcar
+			'(lambda (enn_)
+				(if (eq enn_ en_kpt)
+					nil
+					(entdel enn_)
 				)
 			)
-			((not en) (setq loop nil))
+			drlist
+		)
+	)
+)
+
+(defun c:ddr (/ en loop)
+	(setq *error* *pub_error*)
+	(setvar "cmdecho" 0)
+	(setq loop t)
+	(while loop
+		(setq en (entsel "\nPick a Door insert: "))
+		(cond
+			((not en)
+				(setq loop nil)
+			)
 			((/= (cdr (assoc 0 (entget (car en)))) "INSERT")
 				(princ "\n1 was not an Insert. ")
 			)
-			((/= (strcase (substr (cdr (assoc 2 (entget (car en)))) 1 2)) "DR")
+			((/= (strcase (substr (cdr (assoc 2 (entget (car en)))) 1 3)) "DR0")
 				(princ "\n1 was unknown Door type. ")
 			)
 			( t
 				(ddr_check (car en))
-				(setq undo_id (1+ undo_id))
 			)
 		)
 	)
-	(setvar "osmode" os)
-	(cmd "ucs" "r" "$temp$")
-	(cmd "ucs" "d" "$temp$")
-	(setvar "ucsfollow" ucsf)
-	(setvar "expert" 0)
 	(setvar "cmdecho" 1)
 	(princ)
 )

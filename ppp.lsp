@@ -12,7 +12,7 @@
 					line_pt2 (cdr (assoc 11 line_ent))
 					idx (1+ idx)
 				)
-				(cmd "plot" "y" "" "" "" "m" "l" "" "w" line_pt1 line_pt2 "f" "" "" "" "" "" "n" "n" "y")
+				(cmd "_plot" "y" "" "" "" "m" "l" "" "w" line_pt1 line_pt2 "f" "" "" "" "" "" "n" "n" "y")
 			)
 		)
 		(alert "没有预设打印范围")

@@ -34,7 +34,7 @@
 ; (regapp "fish_wd")
 ; )
 ; (setq wb (list -3 (list "FISH_WD" (cons 1000 "win_base"))))
-; (entmod (append ent (list wb))) 
+; (entmod (append ent (list wb)))
 ;----------------------------------------------------------------
 
 	(setvar "clayer" FLLT_WINDOW)

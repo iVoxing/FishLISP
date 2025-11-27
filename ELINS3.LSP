@@ -9,7 +9,7 @@
 (setvar "cmdecho" 0)
 (if (tblsearch "layer" FLLT_DIM0)
 	nil
-	(cmd "layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
+	(cmd "_layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
 )
 (setvar "cmdecho" 1)
 
@@ -54,7 +54,7 @@
 	(initget "Copy Move Array UL UR DL DR Plan Base")
 	(setq pt1 (getpoint 
 		(strcat "\nPlan mode/Base point/Copy/Move/Array/block:[" 
-				(strcase EL_SUFFIX) 
+				(strcase EL_SUFFIX)
 				"]/<insert point>: "
 		)
 	))
@@ -119,7 +119,7 @@
 		(if
 			(and
 				(= (cdr (assoc 0 (setq ent (entget en)))) "INSERT")
-				(= (substr (cdr (assoc 2 (entget en))) 1 2) "EL")	
+				(= (substr (cdr (assoc 2 (entget en))) 1 2) "EL")
 			)
 			(progn
 				(setq
@@ -279,7 +279,7 @@
 		)
 	)
 	(if (= (tblsearch "layer" FLLT_DIM0) nil)
-		(cmd "layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
+		(cmd "_layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
 	)
 	(setvar "attmode" 1)
 	(princ)

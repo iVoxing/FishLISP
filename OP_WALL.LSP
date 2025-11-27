@@ -111,15 +111,15 @@
 	(setq clay (getvar "clayer"))
 	(setvar "ucsfollow" 0)
 	(setvar "expert" 4)
-	(cmd "ucs" "s""$temp$")
-	(cmd "ucs" "w")
+	(cmd "_ucs" "s""$temp$")
+	(cmd "_ucs" "w")
 	(if (and
 			(setq en (entsel "\nPick a wall-line:"))
 			(= (setq ln (cdr (assoc 0 (setq ent1 (entget (car en)))))) "LINE")
 			(= (setq wl (strcase (cdr (assoc 8 ent1)))) FLLT_WALL)
 		)
 		(progn 
-			(op_wall) 
+			(op_wall)
 			(if op_ss (op_ins))
 		)
 		(cond
@@ -130,8 +130,8 @@
 	)
 
 	(setvar "cmdecho" 0)
-	(cmd "ucs" "r" "$temp$")
-	(cmd "ucs" "d" "$temp$")
+	(cmd "_ucs" "r" "$temp$")
+	(cmd "_ucs" "d" "$temp$")
 	(setvar "ucsfollow" ucsf)
 	(setvar "clayer" clay)
 	(setvar "expert" 0)

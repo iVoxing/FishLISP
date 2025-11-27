@@ -13,7 +13,7 @@
 
 (defun mv_l (ps1_ ps2_ ps3_ pt1_ pt2_ pt3_ / ss1 amt idx ent_l pt_4 pt_5 ang1 ang2 ang)
 	(setvar "cmdecho" 0)
-	(cmd "select" ss0 "")
+	(cmd "_select" ss0 "")
 	(setq ss1 (ssget "p" (list (cons ps1_ pt1_))))
 	(setq amt (if ss1 (sslength ss1) 0) idx 0)
 	(repeat amt
@@ -47,8 +47,8 @@
 		(if ucsf (setvar "ucsfollow" ucsf))
 		(if ept (setvar "expert" ept))
 		(setvar "cmdecho" 0)
-		(cmd "ucs" "r" "ow_temp")
-		(cmd "ucs" "d" "ow_temp")
+		(cmd "_ucs" "r" "ow_temp")
+		(cmd "_ucs" "d" "ow_temp")
 		(setvar "cmdecho" 1)
 		(princ (strcat "\** " s_ " **"))
 		(setq *error* *pub_error*)
@@ -69,8 +69,8 @@
 	(setvar "osmode" 0)
 	(setvar "cmdecho" 0)
 	(setvar "highlight" 1)
-	(cmd "ucs" "s" "ow_temp")
-	(cmd "ucs" "w")
+	(cmd "_ucs" "s" "ow_temp")
+	(cmd "_ucs" "w")
 
 	(setq loop t)
 	(while loop
@@ -90,7 +90,7 @@
 			(t
 				(setvar "cmdecho" 0)
 				(princ "\nSide to offset? ")
-				(cmd "offset" dist en0 pause "")
+				(cmd "_offset" dist en0 pause "")
 				(entdel (car en0))
 				(setq 
 					en1 (entlast)
@@ -113,8 +113,8 @@
 	)
 
 	(setvar "osmode" os)
-	(cmd "ucs" "r" "ow_temp")
-	(cmd "ucs" "d" "ow_temp")
+	(cmd "_ucs" "r" "ow_temp")
+	(cmd "_ucs" "d" "ow_temp")
 	(setvar "cmdecho" 1)
 	(setvar "highlight" hl)
 	(setvar "ucsfollow" ucsf)

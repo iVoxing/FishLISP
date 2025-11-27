@@ -40,7 +40,7 @@
 			list_int 	(append (list pt1_line pt2_line) list_int)
 			list_newpt 	(vl-sort list_int (function (lambda (x_ y_) (< (car x_) (car y_)))))
 			list_newpt 	(vl-sort list_newpt (function (lambda (x y) (< (cadr x_) (cadr y_)))))
-	 	 	n (1+ n) 
+	 	 	n (1+ n)
 			m 0
 		)
 		(repeat (/ (length list_newpt) 2)
@@ -56,7 +56,7 @@
 	(mapcar 'entdel list_lines)
 	(redraw)
 	(princ)
-) 
+)
 
 (princ "loaded. Start as C:XC ")
 (princ)

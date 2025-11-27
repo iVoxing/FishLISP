@@ -12,7 +12,7 @@
 	(mapcar 
 		'(lambda (var_)
 			(setvar (car var_) (cadr var_))
-		)	
+		)
 		var_list_
 	)
 )

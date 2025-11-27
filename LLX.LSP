@@ -4,7 +4,7 @@
 	(entmake (list '(0 . "LINE") (cons 10 pt1_) (cons 11 pt2_)))
 )
 
-(defun c:llx (/ olderr l1 l2 ent1 ent2 pt1_1 pt1_2 pt2_1 pt2_2) 
+(defun c:llx (/ olderr l1 l2 ent1 ent2 pt1_1 pt1_2 pt2_1 pt2_2)
 	(setq l1 (entsel "\nSelect line: "))
 	(if 
 		(and l1 
@@ -25,7 +25,7 @@
 			pt2_1 (cdr (assoc 10 ent2))
 			pt2_2 (cdr (assoc 11 ent2))
 		)
-		(if (inters pt1_1 pt2_1 pt1_2 pt2_2) 
+		(if (inters pt1_1 pt2_1 pt1_2 pt2_2)
 			(mapcar 'make_line (list pt1_1 pt1_2) (list pt2_1 pt2_2))
 			(mapcar 'make_line (list pt1_1 pt1_2) (list pt2_2 pt2_1))
 		)

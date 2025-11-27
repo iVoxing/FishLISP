@@ -20,7 +20,7 @@
 			ins_pt (cdr (assoc 10 el_ent))
 			ins_sc (abs (cdr (assoc 41 el_ent)))
 		)
-		(if (= ins_sc dims) nil (cmd "scale" el_en "" ins_pt "r" ins_sc dims))
+		(if (= ins_sc dims) nil (cmd "_scale" el_en "" ins_pt "r" ins_sc dims))
 		(setq idx (1+ idx))
 	)
 	(csrestore)

@@ -39,7 +39,7 @@
 				pt1 (list x1 y1)
 				pt2 (list x2 y1)
 			)
-			(cmd "dim1" "hor" pt1 pt2)
+			(cmd "_dim1" "hor" pt1 pt2)
 		)
 		((= horv (/ pi 2))
 			(setq
@@ -48,7 +48,7 @@
 				pt1 (list x1 y1)
 				pt2 (list x1 y2)
 			)
-			(cmd "dim1" "ver" pt1 pt2)
+			(cmd "_dim1" "ver" pt1 pt2)
 		)
 		(t)
 	)

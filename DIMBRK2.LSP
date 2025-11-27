@@ -17,8 +17,8 @@
 			(repeat dim_amt
 				(setq 
 					dim_ent (entget (ssname dim_ss dim_idx))
-					dim_pt0 (cdr (assoc 10 dim_ent)) 
-					dim_lay (cdr (assoc 8 dim_ent)) 
+					dim_pt0 (cdr (assoc 10 dim_ent))
+					dim_lay (cdr (assoc 8 dim_ent))
 					dim_pt1 (cdr (assoc 13 dim_ent))
 					dim_pt2 (cdr (assoc 14 dim_ent))
 					dim_hv (cdr (assoc 50 dim_ent))
@@ -55,7 +55,7 @@
 			 	(setq lin_idx (1+ lin_idx))
 		 	)
 		)
-	) 
+	)
 	(redraw)
 	(setvar "cmdecho" 1)
 	(princ)

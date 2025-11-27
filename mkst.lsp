@@ -25,7 +25,7 @@
 				(progn
 					(setq st_hig (/ 1.0 st_num))
 					(entmake (list 
-						(cons 2 stbkname) 
+						(cons 2 stbkname)
 						'(10 0.0 0.0 0.0)
 					))
 					(fl_make_line (list 0.0 0.0 0.0) (list 0.0 st_hig 0.0))
@@ -42,7 +42,7 @@
 						ins_wid (getreal "\nÌ¤¿í£º")
 						ins_hig (getreal "\nÌİ¶Î¸ß¶È£º")
 					)
-					(cmd "insert" stbkname "x" ins_wid "y" ins_hig "r" "0" pause)
+					(cmd "_insert" stbkname "x" ins_wid "y" ins_hig "r" "0" pause)
 				)
 			)
 		)

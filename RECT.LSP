@@ -27,9 +27,9 @@
 		)
 		(t)
 	)
-) 
+)
 
-(defun pline_box (/ wid pt1 pt2 pt3 pt4) 
+(defun pline_box (/ wid pt1 pt2 pt3 pt4)
 	(setq PL_WIDTH (if PL_WIDTH PL_WIDTH (getvar "plinewid")))
 	(initget "Line Width")
 	(setq pt1 (getpoint (strcat "\nLine mode/Width[" (rtos PL_WIDTH) "]: <first corner>")))
@@ -56,7 +56,7 @@
 		)
 		(t)
 	)
-) 
+)
 
 (defun c:rect ()
 	(if RECTL

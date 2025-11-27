@@ -7,7 +7,6 @@
 ; 2005-09-29 	v1.0 
 
 (fl_layer_check FLLT_AXIS "134")
-(fl_layer_check FLLT_AXNM "7")
 
 (defun get_id_ylist (list_ / id_list id_list_len n)
 	(setq 
@@ -32,7 +31,7 @@
 				)
 			)
 			(mapcar 
-				'(lambda (_ ex_) ex_) 
+				'(lambda (_ ex_) ex_)
 				list_ 
 				(append id_list ex_list)
 			)
@@ -41,27 +40,26 @@
 	)
 )
 
-(defun c:aidd (/ ax_sca ax_rad id_lay cu_lay id_y_list ax_line_ss ax_x_list ax_y_list 
+(defun c:aidd (/ ax_sca ax_rad ax_lay cu_lay id_y_list ax_line_ss ax_x_list ax_y_list 
 			   ax_xpt1_list ax_xpt2_list ax_ypt1_list ax_ypt2_list ss_idx line_ent 
 			   line_pt1 line_pt2 ptxy x temp os_mod
-			  ) 
+			  )
 	(fl_undo_begin)
 	; 用户图层设置
-	(setq id_lay FLLT_AXNM
-		  ax_lay FLLT_AXIS
-	)
-	(setq ax_sca (getvar "dimscale")
-		  os_mod (getvar "osmode")
-		  ax_rad (* ax_sca 4.0)
-		  cu_lay (getvar "clayer")
-		  dy_mod (if (fl_check_ver 15) (getvar "dynmode") nil)
+	(setq
+		ax_lay FLLT_AXIS
+		ax_sca (getvar "dimscale")
+		os_mod (getvar "osmode")
+		ax_rad (* ax_sca 4.0)
+		cu_lay (getvar "clayer")
+		dy_mod (if (fl_check_ver 15) (getvar "dynmode") nil)
 	)
 	(setvar "osmode" 0)
 	(setvar "cmdecho" 0)
-	(setvar "clayer" id_lay)
+	(setvar "clayer" ax_lay)
 	(if dy_mod (setvar "dynmode" 0))
 
-	(if (setq ax_line_ss (ssget (list '(0 . "LINE") (cons 8 ax_lay)))) 
+	(if (setq ax_line_ss (ssget (list '(0 . "LINE") (cons 8 ax_lay))))
 		(progn 
 			(setq ax_x_list    (list)
 				  ax_y_list    (list)
@@ -79,7 +77,7 @@
 				(cond
 					; 纵向
 					((equal (setq ptxy (car line_pt1)) (car line_pt2) 0.00001)
-					 	(if (member ptxy ax_x_list) 
+					 	(if (member ptxy ax_x_list)
 							nil
 							(setq 	ax_xpt1_list (append ax_xpt1_list (list line_pt1))
 									ax_xpt2_list (append ax_xpt2_list (list line_pt2))
@@ -89,7 +87,7 @@
 					)
 					; 横向
 					((equal (setq ptxy (cadr line_pt1)) (cadr line_pt2) 0.00001)
-						(if (member ptxy ax_y_list) 
+						(if (member ptxy ax_y_list)
 							nil
 							(setq 	ax_ypt1_list (append ax_ypt1_list (list line_pt1))
 									ax_ypt2_list (append ax_ypt2_list (list line_pt2))
@@ -113,9 +111,9 @@
 							   )
 			)
 			(mapcar 
-				'(lambda (pt1_ pt2_ ins_at_ / ins_bk) 
+				'(lambda (pt1_ pt2_ ins_at_ / ins_bk)
 						(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
-						(if (> (cadr pt1_) (cadr pt2_)) 
+						(if (> (cadr pt1_) (cadr pt2_))
 							(setq temp pt1_
 								pt1_  pt2_
 								pt2_  temp
@@ -124,17 +122,17 @@
 						)
 						(setq pt1_ (subst (- (cadr pt1_) ax_rad) (cadr pt1_) pt1_))
 						(setq pt2_ (subst (+ (cadr pt2_) ax_rad) (cadr pt2_) pt2_))
-						(cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
-						(cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
+						(cmd "_insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
+						(cmd "_insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
 					)
 				ax_xpt1_list
 				ax_xpt2_list
 				id_x_list
 			)
 			(mapcar 
-				'(lambda (pt1_ pt2_ ins_at_ / ins_bk) 
+				'(lambda (pt1_ pt2_ ins_at_ / ins_bk)
 					(setq ins_bk (if (> (strlen ins_at_) 1) "axi" "axi0"))
-					(if (> (car pt1_) (car pt2_)) 
+					(if (> (car pt1_) (car pt2_))
 						(setq temp pt1_
 							pt1_  pt2_
 							pt2_  temp
@@ -143,8 +141,8 @@
 					)
 					(setq pt1_ (subst (- (car pt1_) ax_rad) (car pt1_) pt1_))
 					(setq pt2_ (subst (+ (car pt2_) ax_rad) (car pt2_) pt2_))
-					(cmd "insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
-					(cmd "insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt1_ ax_sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt2_ ax_sca "" 0 ins_at_)
 				)
 				ax_ypt1_list
 				ax_ypt2_list

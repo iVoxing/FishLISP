@@ -1,7 +1,7 @@
+; add prefix or postfix to text en
 ; 2025-11-19	rewrite
 
-; add prefix or postfix to text en
-(defun c:fixt (/ ss idx txtent newstr k) 
+(defun c:fixt (/ ss idx txtent newstr k)
 	(setq 
 		FX_PRE (if FX_PRE FX_PRE "")
 		FX_POST (if FX_POST FX_POST "")
@@ -12,7 +12,7 @@
 		k (getkword "\n[Option]<Select text object>: ")
 		k (if k k "Select")
 	)
-	(if (= k "Option") 
+	(if (= k "Option")
 		(setq 
 			FX_PRE (getstring 1 "\nPrefix: ")
 			FX_POST (getstring 1 "\nPostfix: ")
@@ -23,7 +23,7 @@
 		idx 0
 	)
 	(if ss 
-		(repeat (sslength ss) 
+		(repeat (sslength ss)
 			(setq
 				txtent (entget (ssname ss idx))
 				newstr (strcat FX_PRE (cdr (assoc 1 txtent)) FX_POST)
@@ -35,11 +35,11 @@
 	(princ)
 )
 
-(defun mrgtsetup (/ k k1 k2) 
+(defun mrgtsetup (/ k k1 k2)
 	(princ (strcat "\nOption: Keep additional text: <" MRG_TXT_KEEP ">\tAdd to: <" HorT ">"))
 	(initget "Option")
 	(setq k (getkword "\nOption/<origenal text>: "))
-	(if (= k "Option") 
+	(if (= k "Option")
 		(progn 
 			(initget "Yes No")
 			(setq k1 (getkword (strcat "\nkeep additional text: <" MRG_TXT_KEEP "> ")))
@@ -55,7 +55,7 @@
 )
 
 ; C:mrgtxt	Merge strings to one
-(defun c:mrgt (/ txt0 ent0 str0 txt1 str1) 
+(defun c:mrgt (/ txt0 ent0 str0 txt1 str1)
 	(setvar "cmdecho" 0)
 
 	(setq MRG_TXT_KEEP (if MRG_TXT_KEEP MRG_TXT_KEEP "No"))
@@ -63,19 +63,19 @@
 
 	(mrgtsetup)
 
-	(if (setq txt0 (entsel)) 
+	(if (setq txt0 (entsel))
 		(progn 
 			(setq 
 				ent0 (entget (car txt0))
 				str0 (cdr (assoc 1 ent0))
 			)
-			(while (setq txt1 (entsel "\nAdditional text: <Exit>")) 
+			(while (setq txt1 (entsel "\nAdditional text: <Exit>"))
 				(setq str1 (cdr (assoc 1 (entget (car txt1)))))
-				(if (eq HorT "Head") 
+				(if (eq HorT "Head")
 					(setq str2 str0)
 					(setq str2 str1 str1 str0)
 				)
-				(if (= MRG_TXT_KEEP "No") 
+				(if (= MRG_TXT_KEEP "No")
 					(entdel (car txt1))
 				)
 				(entmod (subst (cons 1 (strcat str1 str2)) (assoc 1 ent0) ent0))
@@ -88,18 +88,18 @@
 
 ;* C:stradd	* Pick numbers to add together and write it
 ; 2025-11-19	rewrite, dtext height follow the first en
-(defun c:stradd (/ ss idx n_plus hei lay pt num cla) 
+(defun c:stradd (/ ss idx n_plus hei lay pt num cla)
 	(setvar "cmdecho" 0)
-	(if (tblsearch "layer" FLLT_DIM0) 
+	(if (tblsearch "layer" FLLT_DIM0)
 		nil
-		(cmd "layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
+		(cmd "_layer" "n" FLLT_DIM0 "c" "g" FLLT_DIM0 "")
 	)
 	(setq
 		ss (ssget '((0 . "TEXT")))
 		idx 0
 		n_plus 0
 	)
-	(repeat (sslength ss) 
+	(repeat (sslength ss)
 		(setq 
 			ent (entget (ssname ss idx))
 			num (read (cdr (assoc 1 ent)))
@@ -115,7 +115,7 @@
 		(progn
 			(setq cla (getvar "clayer"))
 			(setvar "clayer" lay)
-			(cmd "text" pt hei "0" n_plus)
+			(cmd "_text" pt hei "0" n_plus)
 			(setvar "clayer" cla)
 		)
 	)

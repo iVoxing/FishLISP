@@ -15,7 +15,7 @@
 	(setvar "orthomode" 0)
 	(setvar "ucsfollow" 0)
 
-	(cmd "ucs" "w")
+	(cmd "_ucs" "w")
 	(setq pt1 (getpoint "\nPick a point: "))
 	(if pt1 (setq pt2 (getpoint pt1 "\nPick a point: "))
 	(if pt2

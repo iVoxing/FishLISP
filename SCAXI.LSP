@@ -1,8 +1,7 @@
-; v1.1	ABS function added.
-; v2.0	可以运行于UCS, 有一些axi处理不正确。
+; 1998-05-28 v2.0	可以运行于UCS, 有一些axi处理不正确。
+; 			 v1.1	ABS function added.
 
 (defun c:scaxi (/ olderr osm dims0 dims1 axi_ss axi_amt axi_idx en ent sc pt0 c1 c2 ss0 lin_en lin_ent pt1 pt2 ex)
-	(prompt "\nFishLISP. 5-28-1998. Ver 2.0")
 
 	(setq dims0 (getvar "dimscale"))
 	(initget 6)
@@ -29,7 +28,7 @@
 			c2 (polar pt0 (* pi 1.75) (* sc 8.0))
 		)
 		(setq ss0 (ssget "c" c1 c2))
-		(if ss0 (setq ss0 (ssget "p" '((0 . "LINE") (8 . "paxinum,paxis")))))
+		(if ss0 (setq ss0 (ssget "p" '((0 . "LINE") (8 . "paxis")))))
 		(if ss0
 			(setq 
 				lin_en (ssname ss0 0)
@@ -40,7 +39,7 @@
 			)
 		)
 		(setvar "cmdecho" 0)
-		(cmd "scale" en "" pt0 "r" sc dims1)
+		(cmd "_scale" en "" pt0 "r" sc dims1)
 		(setq axi_idx (1+ axi_idx))
 	)
 

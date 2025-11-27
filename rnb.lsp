@@ -39,7 +39,7 @@
 							)
 						)
 						(setvar "cmdecho" 0)
-						(cmd "rename" "block" ena enn)
+						(cmd "_rename" "block" ena enn)
 						(setvar "cmdecho" 1)
 					)
 					(princ "\n对象不是图块。")

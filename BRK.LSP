@@ -8,7 +8,7 @@
 	(initget "Fence")
 	(setq en_l (entsel "\nPick a line to edit: "))
 	(cond 
-		((= en_l "Fence") 
+		((= en_l "Fence")
 			(setq pt1 (getpoint "\nStart point of fence line: "))
 			(initget 32)
 			(if pt1 (setq pt2 (getpoint pt1 "\nEnd point of fence line: ")))

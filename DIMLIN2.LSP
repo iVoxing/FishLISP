@@ -11,7 +11,7 @@
 
 (if (findfile "function.lsp")
 	(load "function")
-	(exit)
+	(exit (princ "\n Function module not found. "))
 )
 
 (defun c:dimlin2 (/ )
@@ -66,7 +66,7 @@
 		(setq idx (1+ idx))
 	)
 	(setq 
-		y_list (vl-sort y_list '<) 
+		y_list (vl-sort y_list '<)
 		idx 0
 		y_00 (nth 0 y_list)
 		pt01 (list x_00 y_00)

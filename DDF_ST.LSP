@@ -75,7 +75,7 @@
 
 	(defun drw_st (/ a90 pt0 pt1 pt2 pt3 pt4 pt5 pt6 pt7 pt8 pt9 pt10)
 		(setvar "cmdecho" 0)
-		(cmd "zoom" "1x")
+		(cmd "_zoom" "1x")
 		(setq 
 			pt0 (getpoint "\nStart point of stair: ")
 			pt1 pt0
@@ -114,7 +114,7 @@
 			pt9 (polar pt8 dir 200)
 			pt10 (polar pt9 a90 200)
 		)
-		(if (= f_st_seg "Section") 
+		(if (= f_st_seg "Section")
 			(progn
 				(drw_line pt4 pt5)
 				(drw_line pt5 pt6)

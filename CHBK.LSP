@@ -27,7 +27,7 @@
 		(progn
 			(setq CHBLK_NAME blkname)
 			(setq ins_name (getstring "\nInsert name: <Pick an insert>"))
-			(if (= ins_name "") 
+			(if (= ins_name "")
 				(setq en_picked (entsel "\nPick an insert to get name: "))
 				(progn
 					(prompt (strcat "\nSelect [" ins_name "] to change: "))
@@ -43,7 +43,7 @@
 				)
 			)
 			(if ins_ss 
-				(chblk blkname) 
+				(chblk blkname)
 				(princ "\nInsert not found.")
 			)
 		)

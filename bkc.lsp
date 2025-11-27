@@ -5,10 +5,10 @@
 ; 2025-11-26		optimization, test ok
 ; 2003-08-15 v1.0	original version.
 
-(defun c:bkc (/ bkc_alias bk en ent amt) 
-	(defun *error* (s_) 
+(defun c:bkc (/ bkc_alias bk en ent amt)
+	(defun *error* (s_)
 		(setvar "cmdecho" 0)
-		(cmd "regen")
+		(cmd "_regen")
 		(setvar "cmdecho" 1)
 		(princ (strcat "\n** " s_ " **"))
 		(setq *error* *pub_error*)
@@ -38,9 +38,9 @@
 		(while en 
 			(setq ent (entget en))
 			(setq ent (subst (cons 8 BKC_LAYER) (assoc 8 ent) ent))
-			(if (assoc 62 ent) 
+			(if (assoc 62 ent)
 				(setq ent (subst (cons 62 BKC_COLOR) (assoc 62 ent) ent))
-				(if (= BKC_COLOR 256) 
+				(if (= BKC_COLOR 256)
 					nil
 					(setq ent (append ent (list (cons 62 BKC_COLOR))))
 				)
@@ -52,12 +52,12 @@
 		(princ (strcat "\n" (rtos amt 2 0) " entitie(s) in Block " bk " changed. Regen required. "))
 	)
 	(princ "\n")
-	(cmd "regen")
+	(cmd "_regen")
 	(setq *error* *pub_error*)
 	(princ)
 )
 
-(defun get_block (/ bk_en bl bc bk_name) 
+(defun get_block (/ bk_en bl bc bk_name)
 	(initget "laYer Color")
 	(setq bk_en (entsel "\n[laYer/Color] Select INSERT to edit: "))
 	(cond 
@@ -86,7 +86,7 @@
 				)
 				((= bc "byLayer") 256)
 				(t
-					(if (>= 256 bc 0) 
+					(if (>= 256 bc 0)
 						bc
 						(progn 
 							(princ "\nInvalid color index ignored! ")

@@ -28,7 +28,7 @@
 							(setvar "dimse2" 1)
 						)
 						(setvar "cmdecho" 0)
-						(cmd "dim1" "up" (car en) "")
+						(cmd "_dim1" "up" (car en) "")
 						(setvar "cmdecho" 1)
 						(setvar "dimse1" 0)
 						(setvar "dimse2" 0)

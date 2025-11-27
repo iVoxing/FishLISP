@@ -43,7 +43,7 @@
 			((not en) (princ))
 			((/= lin "LINE") (princ "\n1 was not LINE."))
 			((>= lok 68) (princ "\n1 was on a locked layer."))
-		) 
+		)
 	)
 	(csrestore)
 	(setvar "blipmode" 1)

@@ -31,9 +31,9 @@
 				stramnt (length strlist)
 				idx 0
 			)
-			(princ (strcat "\n\n\n======= " (strcase lay) " =======\n")) 
+			(princ (strcat "\n\n\n======= " (strcase lay) " =======\n"))
 			(repeat stramnt
-				(cmd "select" ss "")
+				(cmd "_select" ss "")
 				(setq
 					str (nth idx strlist)
 					amt (rtos (sslength (ssget "p" (list (cons 1 str)))) 2 0)

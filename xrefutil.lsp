@@ -35,7 +35,7 @@
 
 (defun xref_cmd (cmd_name_)
 	(setvar "cmdecho" 0)
-	(cmd "xref" cmd_name_)
+	(cmd "_xref" cmd_name_)
 	(setvar "cmdecho" 1)
 	cmd (get_xref_name))
 )

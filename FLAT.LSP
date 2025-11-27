@@ -12,7 +12,7 @@
 (defun flt_els ()
 	(setq pt1 (list (car pt1) (cadr pt1) 0.0))
 	(entmod (subst (cons 10 pt1) (assoc 10 ent) ent))
-) 
+)
  
 (defun flt_ins (/ ssnn)
 	(setq pt1 (list (car pt1) (cadr pt1) 0.0))
@@ -23,7 +23,7 @@
 		typ (cdr (assoc 0 ent))
 		pt1 (cdr (assoc 10 ent))
 	)
-	(while (/= typ "SEQEND") 
+	(while (/= typ "SEQEND")
 		(if (= typ "ATTRIB")
 			 (flt_lin)
 			 (flt_els)

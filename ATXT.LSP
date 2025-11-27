@@ -1,14 +1,14 @@
 ; 1998-02-23	v2.0	Sepcify angle. Treat block.
 ; 1998-02-20	v1.0
 
-(defun c:atxt (/ olderr ss ent amt idx a ang) 
+(defun c:atxt (/ olderr ss ent amt idx a ang)
 	(princ "\nFishLISP. Align text/block entities horizontal. ")
 	(if atxt_ang 
 		nil
 		(setq atxt_ang 0.0)
 	)
 	(setvar "cmdecho" 0)
-	(cmd "zoom" "1x")
+	(cmd "_zoom" "1x")
 	(setvar "cmdecho" 1)
 	(setq ss (ssget '((0 . "TEXT,INSERT"))))
 	(if ss 

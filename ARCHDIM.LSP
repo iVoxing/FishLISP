@@ -6,13 +6,13 @@
 (foreach itm (list "TXT1.SHX" "HZTXT.SHX")
 	(if (findfile itm)
 		nil
-		(exit (strcat "\n" itm "没有找到，不能正确设置标注字体！"))
+		(exit (strcat "\n未找到 " itm "，不能正确设置标注字体"))
 	)
 )
 
 (setvar "expert" 5)
 (setvar "cmdecho" 0)
-(cmd	"style"
+(cmd	"_style"
 		"standard"
 		"txt1.shx,hztxt.shx"
 		"0"		;Height
@@ -27,7 +27,7 @@
 (defun save_dim_style (style_name_)
 	(set_base)
 	(setvar "cmdecho" 0)
-	(cmd "dimstyle" "save" style_name_)
+	(cmd "_dimstyle" "save" style_name_)
 	(setvar "cmdecho" 1)
 )
 
@@ -156,7 +156,7 @@
 (set_radial)
 (set_leader)
 
-(cmd "dimstyle" "restore" "ARCH")
+(cmd "_dimstyle" "restore" "ARCH")
 (setvar "cmdecho" 1)
 (setvar "expert" 0)
 

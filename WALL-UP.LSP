@@ -5,9 +5,9 @@
 		b (ssget "x" '((8 . "wall,door,window")(-3 ("FL_WALL"))))
 		c (ssget "x" '((0 . "LINE") (8 . "wall-base")))
 	)
-	(cmd "select" a c "r" b "")
+	(cmd "_select" a c "r" b "")
 	(grclear)
-	(cmd "select" "p" "")
+	(cmd "_select" "p" "")
 	(setq ss (ssget "p"))
 	(setq d (sslength c))
 	(setq d (if d d 0))
@@ -39,7 +39,7 @@
 
 (defun c:wup ()
 	(setvar "cmdecho" 0)
-	(cmd "zoom" "1x")
+	(cmd "_zoom" "1x")
 	(setvar "cmdecho" 1)
 	(setq wb_en (entsel "\nSelect a Wall-base line: "))
 	(if wb_en (wup (car wb_en)))
@@ -48,7 +48,7 @@
 
 (defun c:swl (/ en ent xdt pt1 pt2)
 	(setvar "cmdecho" 0)
-	(cmd "zoom" "1x")
+	(cmd "_zoom" "1x")
 	(setvar "cmdecho" 1)
 	(setq en (entsel "\nSelect a Wall-base line: "))
 	(if en (setq ent (entget (car en) '("FL_WALL"))))
@@ -68,7 +68,7 @@
 
 (defun c:swb (/ pt1 pt2 dist wb_xdt xdt ent)
 	(setvar "cmdecho" 0)
-	(cmd "zoom" "1x")
+	(cmd "_zoom" "1x")
 	(setvar "cmdecho" 1)
 	(setq pt1 (getpoint "\nFrom point: "))
 	(if pt1 (setq pt2 (getpoint pt1 "\nTo point: ")))

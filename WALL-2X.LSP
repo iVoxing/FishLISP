@@ -12,9 +12,9 @@
 	nil 
 	(cmd "_.layer" "n" "wall-base" "c" "r" "wall-base" "")
 )
-(if (tblsearch "layer" FLLT_WALL) 
+(if (tblsearch "layer" FLLT_WALL)
 	nil
-	(cmd "n" FLLT_WALL "c" "41" FLLT_WALL "")
+	(cmd "_n" FLLT_WALL "c" "41" FLLT_WALL "")
 )
 (setvar "cmdecho" 1)
 
@@ -68,14 +68,14 @@
 				pt2_2 (cdr (assoc 11 ent2))
 				int (inters pt1_1 pt1_2 pt2_1 pt2_2)
 			)
-			(if (member int (list pt1_1 pt1_2)) 
+			(if (member int (list pt1_1 pt1_2))
 				(setq int nil)
 			)
 			(if int 
 				(setq int_lst (append int_lst (list (car (trans int 0 1)))))
 			)
 			(setq m (1+ m))
-			(if (= m amt) 
+			(if (= m amt)
 				(setq m 0)
 			)
 		)
@@ -100,7 +100,7 @@
 	(cmd "_.erase" ss_xc_ "")
 	(redraw)
 	(cmd "_.ucs" "r" "xc_temp")
-) 
+)
 
 (defun draw_line (pt1_ pt2_ lay_ xdt_ / ent)
 	(entmake (list '(0 . "LINE") (cons 8 lay_) (cons 10 pt1_) (cons 11 pt2_)))
@@ -220,7 +220,7 @@
 				(setq pt1 nil)
 			)
 			((not pt2) (setq pt1 nil))
-			((listp pt2) 
+			((listp pt2)
 				(make_line pt1 pt2)
 				(setq pt1 pt2)
 			)

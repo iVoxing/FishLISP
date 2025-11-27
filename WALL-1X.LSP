@@ -17,7 +17,7 @@
 (if (tblsearch "layer" FLLT_WALL) nil
 	(cmd "_.layer" "n" FLLT_WALL "c" "41" FLLT_WALL "")
 )
-(cmd "layer" "off" "wall-base" "")
+(cmd "_layer" "off" "wall-base" "")
 (setvar "clayer" clay)
 (setq clay nil)
 
@@ -93,7 +93,7 @@
 				)
 			)
 		)
-		) 
+		)
 
 		(setq ss_pt2 (ssdel en (ssget "x" (list (cons -4 "<or") (cons 10 pt2) (cons 11 pt2) (cons -4 "or>") '(8 . "wall-base")))))
 		(if (> (sslength ss_pt2) 0)
@@ -157,7 +157,7 @@
 			(setq num (strlen (rtos amnt 2 0)))
 		)
 	)
-) 
+)
 
 (defun l2w_xc (ss_xc / amt en_lst int m ent1 ent2 en rpt pt1 pt2 pt1_1 pt1_2 pt2_1 pt2_2 amnt num l ent)
 	(setq 
@@ -219,7 +219,7 @@
 	)
 	(cmd "_.erase" ss_xc "")
 	(redraw)
-) 
+)
 
 (defun c:l2w (/ GorB grdmd ucsf dist ss)
 

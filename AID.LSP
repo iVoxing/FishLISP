@@ -3,8 +3,7 @@
 ;				
 (load "function.lsp")
 
-(fl_layer_check "PAXIS" "134")
-(fl_layer_check "PAXINUM" "7")
+(fl_layer_check FLLT_AXIS "134")
 
 (defun c:aid (/ loop en en_typ en_lay pickpt str msg)
 	(setq loop t)
@@ -59,23 +58,23 @@
   	)
 
    	(mapcar 'setvar
-		(list "attreq" "attdia" "blipmode" "osmode" "clayer" "cmdecho")
-		(list 1         0       0           0       "paxinum" 0)
+		(list "attreq"	"attdia"	"blipmode"	"osmode"	"cmdecho"	"clayer")
+		(list 1			0			0			0			0			FLLT_AXIS)
   	)
-	(cmd "insert" sym ins (if (= (getvar "insunits") 6) (* 1000 sc) sc) "" 0 (strcase id_str_))
+	(cmd "_insert" sym ins (if (= (getvar "insunits") 6) (* 1000 sc) sc) "" 0 (strcase id_str_))
   	(mapcar 'setvar var_list var_saved)
 	(setvar "blipmode" 1)
 )
 
 (defun cvtlin (/ kwd)
-	(if (= en_lay "PAXIS")
+	(if (= en_lay FLLT_AXIS)
 		nil
 		(progn
 			(initget "Yes No")
 			(setq kwd (getkword "\nConvert line to Axis? [<Yes>/No] "))
 			(setq kwd (if kwd kwd "Yes"))
 			(if (= kwd "Yes")
-				(entmod (subst (cons 8 "PAXIS") (assoc 8 ent) ent))
+				(entmod (subst (cons 8 FLLT_AXIS) (assoc 8 ent) ent))
 				(setq loop nil)
 	  		)
 		)

@@ -57,15 +57,15 @@
 			pt01 (cdr (assoc 10 ln0))
 			pt02 (cdr (assoc 11 ln0))
 		)
-		(cmd "offset" (if (zerop dis) "t" dis) pt0 pause "")
+		(cmd "_offset" (if (zerop dis) "t" dis) pt0 pause "")
 		(setq 
 			en1 (entlast)
 			ln1 (entget en1)
 			pt11 (cdr (assoc 10 ln1))
 			pt12 (cdr (assoc 11 ln1))
 		)
-		(cmd "line" pt01 pt11 "")
-		(cmd "line" pt02 pt12 "")
+		(cmd "_line" pt01 pt11 "")
+		(cmd "_line" pt02 pt12 "")
 		(if cf_mode
 			(princ "\nModule not ready :) ")
 		)

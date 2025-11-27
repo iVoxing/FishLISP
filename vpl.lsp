@@ -32,7 +32,7 @@
 				(setq cmdflg "on" msg "\nViewPort 缩放已被锁定。")
 			)
 			(setvar "cmdecho" 0)
-			(cmd "mview" "l" cmdflg "all" "")
+			(cmd "_mview" "l" cmdflg "all" "")
 			(setvar "cmdecho" 1)
 			(princ msg)
 		)

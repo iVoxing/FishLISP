@@ -4,7 +4,7 @@
 
 (if (findfile "function.lsp")
 	(load "function")
-	(exit)
+	(exit (princ "\n Function module not found. "))
 )
 
 (defun c:dimlin (/ ss amnt pt_base pt_ext olderr)

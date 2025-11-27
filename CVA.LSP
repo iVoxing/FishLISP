@@ -6,7 +6,7 @@
 	(setvar "cmdecho" 0)
 	(setq cl (getvar "clayer"))
 	(setq os (getvar "osmode"))
-	(setvar "clayer" FLLT_AXNM)
+	(setvar "clayer" FLLT_AXIS)
 	(setvar "osmode" 0)
 
 	(setq 
@@ -34,7 +34,7 @@
 					att (strcase (cdr (assoc 1 (entget t_en))))
 					axi (if (> (strlen att) 1) "axi" "axi0")
 				)
-				(cmd "insert" axi c_cen scl "" "0" att)
+				(cmd "_insert" axi c_cen scl "" "0" att)
 				(setq 
 					ss_del (ssadd c_en ss_del)
 					ss_del (ssadd t_en ss_del)
@@ -43,7 +43,7 @@
 		)
 		(setq c_idx (1+ c_idx))
 	)
-	(if ss_del (cmd "erase" ss_del ""))
+	(if ss_del (cmd "_erase" ss_del ""))
 
 	(setvar "clayer" cl)
 	(setvar "osmode" os)

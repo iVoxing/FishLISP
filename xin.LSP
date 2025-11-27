@@ -41,7 +41,7 @@
 	(if ins_name
 		(progn
 			(setvar "cmdecho" 0)
-			(cmd "insert" ins_name "0,0" "" "" "")
+			(cmd "_insert" ins_name "0,0" "" "" "")
 			(entdel (entlast))
 			(setvar "cmdecho" 1)
 			(alert (strcat "图块" (strcase blk_name) "已经更新！"))

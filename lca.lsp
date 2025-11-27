@@ -5,7 +5,7 @@
 (defun c:lca (/ ori_pt mysnap ent_obn ent_obl ent_ss ent_idx mod_idx)
 	(princ "\nFishLISP C:LCA v1.0 Line、Pline校准。")
 	(setvar "cmdecho" 0)
-	(cmd "undo" "begin")
+	(fl_undo_begin)
 
 	;设置原点，缺省0,0
 	(setq LCA:ORI_PT (if LCA:ORI_PT LCA:ORI_PT '(0.0 0.0 0.0)))
@@ -57,7 +57,7 @@
 									;替换顶点
 									(progn 
 										(setq mod_idx (1+ mod_idx))
-										(cons (car pl_itm) 
+										(cons (car pl_itm)
 											(mapcar 
 												'(lambda (ptx_ pt0_)
 													(setq ptx_ (+ ptx_ (* LCA:SNAP 0.5 (if (< ptx_ pt0_) -1 1))))
@@ -79,7 +79,7 @@
 			)
 		)
 	)
-	(cmd "undo" "end")
+	(fl_undo_end)
 	(setvar "cmdecho" 1)
 	(princ (strcat "\n" (rtos mod_idx 2 0) "个顶点已经校准。"))
 	(princ)

@@ -7,7 +7,7 @@
 (defun c:lca (/ ori_pt mysnap ent_obn ent_obl ent_ss ent_idx mod_idx)
 	(princ "\nFishLISP C:lca v2.0 对图元的10、11组码Z值填零。")
 	(setvar "cmdecho" 0)
-	(cmd "undo" "begin")
+	(fl_undo_begin)
 	(prompt "\n选择图元：")
 	(setq ent_ss (ssget))
 	(if ent_ss
@@ -46,7 +46,7 @@
 			)
 		)
 	)
-	(cmd "undo" "end")
+	(fl_undo_end)
 	(setvar "cmdecho" 1)
 	(princ)
 )

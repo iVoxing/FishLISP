@@ -140,9 +140,9 @@
 	)
 	(if es2
 		(progn
-			(cmd "fillet" es1 es2)
-			(cmd "erase" ss1 ss2 "")
-			(cmd "select" es1 es2 "")
+			(cmd "_fillet" es1 es2)
+			(cmd "_erase" ss1 ss2 "")
+			(cmd "_select" es1 es2 "")
 			(setq wb_ss (ssget "P"))
 			(setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget es1 '("FL_WALL")))))) 2.0))
 			(l2w_ol wb_ss)

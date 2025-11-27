@@ -1,7 +1,7 @@
 (defun c:xdata (/ app data)
 	(if #app nil (setq #app "ACAD"))
 	(setq app (getstring (strcat "\nApplication entry name <" #app ">:")))
-	(if (= app "") 
+	(if (= app "")
 		(setq app #app)
 	)
 	(if (tblsearch "appid" app)

@@ -44,7 +44,7 @@
 	(setq t_area 0.0 t_peri 0.0)
 	(repeat amt
 		(setq en (ssname ss idx))
-		(cmd "area" "object" en)
+		(cmd "_area" "object" en)
 		(setq t_area (+ t_area (getvar "area"))
 			t_peri (+ t_peri (getvar "perimeter"))
 		)

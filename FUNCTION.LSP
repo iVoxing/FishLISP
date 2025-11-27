@@ -5,31 +5,31 @@
 )
 
 ;设置UNDO起点
-(defun fl_undo_begin (/ cmdstat) 
+(defun fl_undo_begin (/ cmdstat)
 	(setq cmdstat (getvar "cmdecho"))
 	(setvar "cmdecho" 0)
-	(if (fl_check_ver 16) 
-		(cmd "undo" "group")
-		(cmd "undo" "begin")
+	(if (fl_check_ver 16)
+		(cmd "_undo" "group")
+		(cmd "_undo" "begin")
 	)
 	(setvar "cmdecho" cmdstat)
 )
 
 ;设置UNDO终点
 ;在命令结束和ERROR处理时，均可使用
-(defun fl_undo_end (/ cmdstat) 
+(defun fl_undo_end (/ cmdstat)
 	(setq cmdstat (getvar "cmdecho"))
 	(setvar "cmdecho" 0)
-	(cmd "undo" "end")
+	(cmd "_undo" "end")
 	(setvar "cmdecho" cmdstat)
 )
 
 
 ;获取Pline顶点列表
-(defun fl_get_plvtx (pl_en_ / vtx_list itm) 
+(defun fl_get_plvtx (pl_en_ / vtx_list itm)
 	(setq vtx_list (list))
 	(foreach itm (entget pl_en_)
-		(if (= (car itm) 10) 
+		(if (= (car itm) 10)
 			(setq vtx_list (append vtx_list (list (cdr itm))))
 		)
 	)
@@ -37,12 +37,12 @@
 )
 
 ;将选择集转换为实体列表
-(defun fl_ss_2_list (ss_ / objlist idx) 
+(defun fl_ss_2_list (ss_ / objlist idx)
 	(setq 
 		objlist (list)
 		idx 0
 	)
-	(repeat (sslength ss_) 
+	(repeat (sslength ss_)
 		(setq 
 			objlist (append objlist (list (ssname ss_ idx)))
 			idx (1+ idx)
@@ -55,7 +55,7 @@
 ; 参数：
 ; ssLine实体选择集
 ; code10列出起点，11列出终点，其他值或空则同时列出两点
-(defun fl_line2ptlist (ss_ code_) 
+(defun fl_line2ptlist (ss_ code_)
 	(cond 
 		((member code_ (list 10 11))
 		 	(mapcar 
@@ -72,11 +72,11 @@
 	)
 )
 
-(defun fl_bench_begin () 
+(defun fl_bench_begin ()
 	(setq fl_bench_tm1 (getvar "date"))
 )
 
-(defun fl_bench_end () 
+(defun fl_bench_end ()
 	(if fl_bench_tm1 
 		(progn 
 			(princ "\nTime: ")
@@ -88,11 +88,11 @@
 	)
 )
 
-(defun fl_layer_check (name_ color_) 
+(defun fl_layer_check (name_ color_)
 	(setvar "cmdecho" 0)
-	(if (tblsearch "Layer" name_) 
+	(if (tblsearch "Layer" name_)
 		nil
-		(cmd "layer" "new" name_ "color" color_ name_ "")
+		(cmd "_layer" "new" name_ "color" color_ name_ "")
 	)
 	(setvar "cmdecho" 1)
 )

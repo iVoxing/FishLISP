@@ -58,7 +58,7 @@
 	)
 	(if (= max_x min_x) (setq pt1 pt11 pt2 pt12))
 	(setvar "clayer" lay)
-	(cmd "erase" ss "" "line" pt1 pt2 "")
+	(cmd "_erase" ss "" "line" pt1 pt2 "")
 	(cmd "_.ucs" "p")
 	(setvar "cmdecho" 1)
 	(setvar "osmode" os)

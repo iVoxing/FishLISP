@@ -41,7 +41,7 @@ ID_VV[��ͼ���]^C^C^Pvv
  [--]
 ID_UE[ʵ��UCS������]^C^C^Pue 
 ID_UEF [ʵ��UCS����]^C^C^Puef 
-ID_UCSFO [$(if,$(getvar,ucsfollow),!.)UCS����]^P'_ucsfollow ^P$M=$(if,$(getvar,ucsfollow),0,1) 
+ID_UCSFO [$(if,$(getvar,ucsfollow),!.)UCS����]^P'_ucsfollow ^P$M=$(if,$(getvar,ucsfollow),0,1)
  [--]
 ID_SCSET [�ӿڱ���]^C^C^Pscset 
 ID_VPL [�ӿ���������]^C^C^Pvpl 

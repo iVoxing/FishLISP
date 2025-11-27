@@ -1,14 +1,12 @@
-;* C:CHSP	* Change objects to the other space
-;
+; C:CHSP		Change objects to the other space
+; 2025-11-27	optimization
+
 (defun c:chsp (/ ss pt1 MorC ss1)
 	(princ "\nChange objects to the other space. Version 2.0 . by Little Fish May 30 1996")
 	(setvar "cmdecho" 0)
 	(setvar "blipmode" 0)
 	(if (= (getvar "tilemode") 1)
-		(progn
-			(alert "You can't use this LISP Application\ntill Tilemode set to 0")
-			(exit)
-		)
+		(exit (princ "\nTilemode should be set to 0"))
 	)
 	(prompt "\nSelect objects to change space:")
 	(setq 

@@ -5,7 +5,7 @@
 		(if flg
 			(if c:ze
 				(c:ze)
-				(cmd "zoom" "e")
+				(cmd "_zoom" "e")
 			)
 		)
 		(setq 
@@ -27,17 +27,17 @@
 		(cond
 			((= k "Next") (redraw))
 			((= k "Restor")
-				(cmd "view" "r" vnm)
+				(cmd "_view" "r" vnm)
 				(setq loop nil)
 			)
 			((= k "Delete")
-				(cmd "view" "d" vnm)
+				(cmd "_view" "d" vnm)
 				(redraw)
 			)
 			((= k "renaMe")
 				(setq nnm (getstring (strcat "\nEnter new view name: <" vnm ">")))
 				(if (= nnm "") (setq nnm vnm))
-				(if (= nnm vnm) nil (cmd "rename" "vi" vnm nnm))
+				(if (= nnm vnm) nil (cmd "_rename" "vi" vnm nnm))
 				(redraw)
 			)
 			((= k "eXit")

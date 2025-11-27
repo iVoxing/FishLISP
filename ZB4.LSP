@@ -21,10 +21,7 @@
 (foreach item (list "zbl.dwg" "zbr.dwg")
 	(if (findfile item)
 		nil
-		(progn
-			(princ "º”‘ÿ ß∞‹£°\nŒ¥’“µΩZBL.DWGªÚZBR.DWG°£")
-			(exit)
-		)
+		(exit (princ (strcat "º”‘ÿ ß∞‹£°Œ¥’“µΩ" item)))
 	)
 )
 
@@ -123,7 +120,7 @@
 	(if pt1
 		(progn
 			(setq zb_sym (if (< (car pt0) (car pt1)) "zbr" "zbl"))
-			(cmd "leader" pt0 pt1 "f" "n" "" "" "b" zb_sym "s" (getvar "dimscale") pt1 "" y1 x1)
+			(cmd "_leader" pt0 pt1 "f" "n" "" "" "b" zb_sym "s" (getvar "dimscale") pt1 "" y1 x1)
 		)
 	)
 	(if oo (setvar "orthomode" oo))

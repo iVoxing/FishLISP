@@ -9,7 +9,7 @@
 	(setq amt (getint "\nHow many time to offset, or RETURN to apply a distance:"))
 	(if amt nil
 		(setq amt (fix (/ (getdist "\nFirst point:") dis0)))
-	) 
+	)
 	(while (setq ens (entsel))
 		(setq 
 			pt (cadr ens)
@@ -24,7 +24,7 @@
 	)
 	(setvar "offsetdist" dis0)
 	(setvar "osmode" os)
-	(setvar "cmdecho" 1) 
-	(princ) 
+	(setvar "cmdecho" 1)
+	(princ)
 )
 

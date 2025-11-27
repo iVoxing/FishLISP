@@ -87,7 +87,7 @@
 			(if exss
 				(progn
 					(cmd "_.wblock" exname (if (fl_check_ver 15) "") "0,0,0" exss "")
-					(cmd "oops")
+					(cmd "_oops")
 					(princ (strcat "\n" itm "\t-> " exdwg_name))
 					(setq expcnt (1+ expcnt))
 				)
@@ -175,7 +175,7 @@
 			(setq ucsf (getvar "ucsfollow"))
 			(setvar "ucsfollow" 0)
 			(cmd "_.ucs" "w")
-			(cmd "insert" (strcat "*" f_name) "0,0,0" "" "")
+			(cmd "_insert" (strcat "*" f_name) "0,0,0" "" "")
 			(setvar "ucsfollow" ucsf)
 			(setvar "cmdecho" 1)
 			(setq layerin_lay l_name)

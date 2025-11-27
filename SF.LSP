@@ -22,9 +22,9 @@
 	)
 	(if (= key "Delete")
 		(progn
-			(cmd "layer" "on" snf_lay "")
+			(cmd "_layer" "on" snf_lay "")
 			(setq ss_del (ssget "x" (list (cons 8 snf_lay))))
-			(cmd "erase" ss_del "")
+			(cmd "_erase" ss_del "")
 			(setq snf_lay nil)
 		)
 	)
@@ -58,7 +58,7 @@
 		(progn
 			(if snf_add (setq lay_all (strcat snf_lay "," lay_all)))
 			(setvar "cmdecho" 0)
-			(cmd "layer" key lay_all "")
+			(cmd "_layer" key lay_all "")
 			(setq snf_lay (if (= key "off") lay_all nil))
 			(setq snf_add nil)
 		)

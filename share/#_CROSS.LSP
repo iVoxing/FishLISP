@@ -53,7 +53,7 @@
 	(mapcar 'entdel list_lines);„h³ıÔ­ÓĞŒów
 	(redraw)
 	(princ)
-) 
+)
 
 (princ "loaded. Start as C:XC ")
 (princ)

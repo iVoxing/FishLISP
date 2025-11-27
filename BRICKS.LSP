@@ -1,7 +1,7 @@
 (foreach pat (list "t0510.pat" "t1010.pat" "t0520.pat")
 	(if (findfile pat)
 		nil
-		(exit)
+		(exit (strcat "\nÌî³äÎÄ¼ş " pat "Î´ÕÒµ½"))
 	)
 )
 
@@ -14,7 +14,7 @@
 	(setvar "osmode" 0)
 	(if (tblsearch "layer" "paint_t1")
 		(setvar "clayer" "paint_t1")
-		(cmd "layer" "m" "paint_t1" "c" "33" "paint_t1" "")
+		(cmd "_layer" "m" "paint_t1" "c" "33" "paint_t1" "")
 	)
 	(setvar "cmdecho" 1)
 	(setvar "hpname" pat_)
@@ -23,8 +23,8 @@
 	(setq pt (getpoint "\nBase point: "))
 	(if pt
 		(progn
-			(cmd "ucs" "m" pt "")
-			(cmd "bhatch")
+			(cmd "_ucs" "m" pt "")
+			(cmd "_bhatch")
 			(while (= (getvar "cmdnames") "BHATCH")
 				(cmd pause)
 			)

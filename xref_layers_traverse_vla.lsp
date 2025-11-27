@@ -116,7 +116,7 @@
 	)
 )
 
-(defun c:xlt (/ block_name layer_list) 
+(defun c:xlt (/ block_name layer_list)
 	(setvar "cmdecho" 0)
 	(command "undo" "mark")
 	(setq block_name (select_xref))

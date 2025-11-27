@@ -12,7 +12,7 @@
 
 (if (findfile "function.lsp")
 	(load "function")
-	(exit)
+	(exit (princ "\n Function module not found. "))
 )
 
 (setq *error* olderr olderr nil)

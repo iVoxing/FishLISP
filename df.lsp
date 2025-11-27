@@ -24,7 +24,7 @@
 			(setq pt1 (getpoint "\nSpecify point on side to offset: "))
 			(repeat (length df_list)
 				(setq dis (+ dis (nth idx df_list)))
-				(cmd "offset" dis et0 pt1 "")
+				(cmd "_offset" dis et0 pt1 "")
 				(setq idx (1+ idx))
 			)
 			(setq df_defaut df_list)

@@ -7,8 +7,8 @@
 
 (defun c:dl ()
 	;<<用户图层设置
-	(setq id_lay "Paxinum"
-				lay "Paxis"
+	(setq id_lay FLLT_AXIS
+				lay FLLT_AXIS
 	)
 	;用户图层设置>>
 	(setq 
@@ -77,8 +77,8 @@
 					)
 					(setq pt1_ (subst (- (cadr pt1_) rad) (cadr pt1_) pt1_))
 					(setq pt2_ (subst (+ (cadr pt2_) rad) (cadr pt2_) pt2_))
-					(cmd "insert" ins_bk pt1_ sca "" 0 ins_at_)
-					(cmd "insert" ins_bk pt2_ sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt1_ sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt2_ sca "" 0 ins_at_)
 				)
 				xpt1_list
 				xpt2_list
@@ -92,8 +92,8 @@
 					)
 					(setq pt1_ (subst (- (car pt1_) rad) (car pt1_) pt1_))
 					(setq pt2_ (subst (+ (car pt2_) rad) (car pt2_) pt2_))
-					(cmd "insert" ins_bk pt1_ sca "" 0 ins_at_)
-					(cmd "insert" ins_bk pt2_ sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt1_ sca "" 0 ins_at_)
+					(cmd "_insert" ins_bk pt2_ sca "" 0 ins_at_)
 				)
 				ypt1_list
 				ypt2_list

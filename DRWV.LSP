@@ -28,7 +28,7 @@
 		)
 		(if (= k "Vector")
 			(grvecs (list 1 pt1 pt2 1 pt2 pt3 1 pt3 pt4 1 pt4 pt1 1 pt1 pt3 1 pt2 pt4))
-			(cmd "pline" pt1 pt2 pt3 pt4 "c")
+			(cmd "_pline" pt1 pt2 pt3 pt4 "c")
 		)
 		(setq flg nil)
 	)

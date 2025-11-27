@@ -9,7 +9,7 @@
 
 (defun get_new_center (arc_en_ new_rad_ / ent old_cen hlf_ang cen_ang rad_dlt cen_dis)
 	(setq
-		ent (entget arc_en_) 
+		ent (entget arc_en_)
 		old_cen (cdr (assoc 10 ent))
 		sta_ang (cdr (assoc 50 ent))
 		hlf_ang (/ (- (cdr (assoc 51 ent)) sta_ang) 2.0)
@@ -23,12 +23,12 @@
 (defun get_attach_line (pt_)
 	(ssget "x" 
 		(list 
-			'(-4 . "<AND") 
-				'(0 . "LINE") 
-				'(-4 . "<OR")  
-					(cons 10 pt_) 
-					(cons 11 pt_) 
-				'(-4 . "OR>") 
+			'(-4 . "<AND")
+				'(0 . "LINE")
+				'(-4 . "<OR")
+					(cons 10 pt_)
+					(cons 11 pt_)
+				'(-4 . "OR>")
 			'(-4 . "AND>")
 		)
 	)

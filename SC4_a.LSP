@@ -48,7 +48,7 @@
 		(setq 
 			vptent (entget (ssname (ssget "x" (list '(0 . "VIEWPORT") (cons 69 (getvar "cvport")))) 0))
 			vpt_h (cdr (assoc 41 vptent))
-			temp (set_sc) 
+			temp (set_sc)
 			temp nil
 		)
 	)

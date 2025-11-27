@@ -139,7 +139,7 @@
 			(if of_e
 				(progn
 					(setvar "cmdecho" 0)
-					(cmd "erase" ss "")
+					(cmd "_erase" ss "")
 					(setvar "cmdecho" 1)
 				)
 			)
