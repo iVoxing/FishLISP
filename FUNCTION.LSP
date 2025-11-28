@@ -180,4 +180,34 @@
 	(entlast)
 )
 
+(defun fl_make_dim (pt1_ pt2_ pt3_ / rot50)
+	; 这就是 50 组码要填的弧度
+	(setq rot50 
+		(angle 
+			(trans '(0.0 0.0 0.0) 1 0)
+			(trans '(1.0 0.0 0.0) 1 0)
+		)
+	) 
+	(entmake 
+		(list 
+			'(0 . "DIMENSION")
+			; 匿名块先空，由系统回填
+			'(2 . "")
+			; 定义点（文字基点）		
+			(cons 10 (trans pt3_ 1 0))
+			; 文字位置
+			;'(11 50. 50. 0.) 	
+			; 延伸线 1 起点
+			(cons 13 (trans pt1_ 1 0))
+			; 延伸线 2 起点
+			(cons 14 (trans pt2_ 1 0))
+			; 类型：对齐线性
+			'(70 . 33)
+			; 样式名（必须已存在）
+			'(3 . "ARCH")
+			(cons 50 rot50)
+		)
+	)
+)
+
 (princ)

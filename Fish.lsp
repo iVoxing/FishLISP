@@ -556,18 +556,22 @@
 )
 
 (defun c:ssl (/ flt lay)
-	(setq lay (getstring "\nLayer name: "))
-	(if (= lay "") nil
+	(setq lay (getstring "\nLayer name: <Select from object>"))
+	(if (= lay "")
+		(setq en (entsel "\nSelect: "))
+	)
+	(if en
+		(setq lay (cdr (assoc 8 (entget (car en)))))
+	)
+	(if (= lay "")
+		nil
 		(progn
 			(setq lay (strcat "*" lay "*"))
 			(setq flt (ssget "x" (list (cons 8 lay))))
+	 		(cmd "_pselect" "p" "")
 		)
 	)
-;(if (and flt (/= 0 (getvar "cmdactive")))
-;flt
-;(princ)
-;)
-	 (cmd "_pselect" "p" "")
+	(princ)
 )
 
 

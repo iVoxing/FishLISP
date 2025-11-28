@@ -16,7 +16,8 @@
 	)
 	(setq BKC_LAYER (if BKC_LAYER BKC_LAYER "0"))
 	(setq BKC_COLOR (if BKC_COLOR BKC_COLOR 0))
-	(setq bkc_color_list (list 
+	(setq bkc_color_list
+		(list 
 			"ByBlock" 
 			"Red"
 			"Yellow"
@@ -25,12 +26,15 @@
 			"Blue"
 			"Magenta"
 			"White"
-	))
-	(setq bkc_alias (cond 
-		((< BKC_COLOR 8) (nth BKC_COLOR bkc_color_list))
-		((= BKC_COLOR 256) "ByLayer")
-		(t (rtos BKC_COLOR 2 0))
-	))
+		)
+	)
+	(setq bkc_alias
+		(cond 
+			((< BKC_COLOR 8) (nth BKC_COLOR bkc_color_list))
+			((= BKC_COLOR 256) "ByLayer")
+			(t (rtos BKC_COLOR 2 0))
+		)
+	)
 	(princ (strcat "\nTarget Layer: " BKC_LAYER ", target Color: " bkc_alias))
 	(while (setq bk (get_block))
 		(setq en (cdr (assoc -2 (tblsearch "block" bk))))
@@ -79,22 +83,17 @@
 			(initget "byBlock byLayer Red Yellow Green Cyan BLue Magenta White")
 			(setq bc (getint (strcat "\nTarget Color: <" bkc_alias "> ")))
 			(setq bcc (member bc bkc_color_list))
-			(setq bc (cond 
-				((not bc) BKC_COLOR)
-				(bcc
-					(- 8 (length bcc))
-				)
-				((= bc "byLayer") 256)
-				(t
-					(if (>= 256 bc 0)
-						bc
-						(progn 
-							(princ "\nInvalid color index ignored! ")
-							BKC_COLOR
-						)
+			(setq bc
+				(cond 
+					((not bc) BKC_COLOR)
+					( bcc (- 8 (length bcc)))
+					((= bc "byLayer") 256)
+					((>= 256 bc 0) bc);; not tested
+					(t 	
+						(princ "\nInvalid color index ignored! ")
+						BKC_COLOR
 					)
 				)
-			)
 			)
 			(setq BKC_COLOR bc)
 			(get_block)
