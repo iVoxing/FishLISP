@@ -81,16 +81,16 @@
 
 (defun c:wa (/ olderr a txt_layer insu)
 	(setvar "cmdecho" 0)
-	(cmd "_area" "0,0" "0,0" "")
+	(command "_area" "0,0" "0,0" "")
 	(setvar "cmdecho" 1)
-	(cmd "_area")
+	(command "_area")
 	; 2025-11-26
 	; 中望返回的不是 area 是 setvar
 	; autocad 未测试
 	(while (= (substr (getvar "cmdnames") 1 4) "AREA")
 		(princ "\n")
 		(princ (getvar "cmdnames"))
-		(cmd pause)
+		(command pause)
 	)
 	(if (zerop (getvar "area")) nil (wrt))
 	(princ)

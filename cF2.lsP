@@ -57,7 +57,7 @@
 			pt01 (cdr (assoc 10 ln0))
 			pt02 (cdr (assoc 11 ln0))
 		)
-		(cmd "_offset" (if (zerop dis) "t" dis) pt0 pause "")
+		(command "_offset" (if (zerop dis) "t" dis) pt0 pause "")
 		(setq 
 			en1 (entlast)
 			ln1 (entget en1)

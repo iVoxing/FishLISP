@@ -51,12 +51,12 @@
 	
 	(if (= dim_cmd_ "LEADER")
 		(progn
-			(cmd dim_cmd_ pause pause "" (getstring t))
+			(command dim_cmd_ pause pause "" (getstring t))
 		)
 		(progn
-			(cmd dim_cmd_)
+			(command dim_cmd_)
 			(while (= (getvar "cmdnames") dim_cmd_)
-				(cmd pause)
+				(command pause)
 			)
 		)
 	)

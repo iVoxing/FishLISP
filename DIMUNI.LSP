@@ -53,11 +53,11 @@
 		(t)
 	)
 	(if (= kw "Yes")
-		 (cmd pt0 "" "_erase" dim_ss_ "")
+		 (command pt0 "" "_erase" dim_ss_ "")
 		 (progn
 			(setvar "cmdecho" 1)
 			(princ "Dimension line location: ")
-			(cmd pause "")
+			(command pause "")
 		 )
 	)
 	(redraw)

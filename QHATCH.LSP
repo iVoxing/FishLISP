@@ -31,7 +31,7 @@
 	(setvar "cmddia" 0)
 	(setq en0 (entlast))
 	(princ "\nPick a point: ")
-	(cmd "_bpoly" pause "")
+	(command "_bpoly" pause "")
 	(setq en (entlast))
 	(if (= en en0) nil
 		(progn

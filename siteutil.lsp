@@ -94,7 +94,7 @@
 	(setq ot (getvar "orthomode"))
 	(setvar "orthomode" 1)
 	(setvar "cmdecho" 0)
-	(cmd "_rotate" ss_ "" pt_ pause)
+	(command "_rotate" ss_ "" pt_ pause)
 	(setvar "cmdecho" 1)
 	(setvar "orthomode" ot)
 )

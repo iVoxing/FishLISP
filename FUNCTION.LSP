@@ -1,4 +1,4 @@
-(set 'cmd (if (type command-s) command-s command))
+(set 'cmd (if (boundp command-s) command-s command))
 
 (defun fl_check_ver (v_)
 	(if (>= (read (substr (getvar "acadver") 1 2)) v_) t nil)

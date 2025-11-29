@@ -24,9 +24,9 @@
 	(if pt
 		(progn
 			(cmd "_ucs" "m" pt "")
-			(cmd "_bhatch")
+			(command "_bhatch")
 			(while (= (getvar "cmdnames") "BHATCH")
-				(cmd pause)
+				(command pause)
 			)
 		)
 	)

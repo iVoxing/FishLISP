@@ -26,9 +26,9 @@
 	(setq fnd_rad rad)
 	(setq fr (getvar "filletrad"))
 	(setvar "filletrad" rad)
-	(cmd "_Fillet")
+	(command "_Fillet")
 	(while (= (getvar "cmdnames") "FILLET")
-		cmd pause)
+		(command pause)
 	)
 	(setq
 		earc (entlast)

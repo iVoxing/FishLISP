@@ -1,3 +1,5 @@
+; 用 pline 或 vectors 画出已保存的 views
+
 (defun c:drwv (/ os pw flg loop pt0 pt1 pt2 pt3 pt4 vnm spc hei wid k)
 	(setvar "cmdecho" 0)
 	(setq os (getvar "osmode"))

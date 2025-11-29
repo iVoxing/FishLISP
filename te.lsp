@@ -12,7 +12,7 @@
 		)
 	)
 	(setq #te_default te_hi)
-	(cmd "_dtext" pause (* te_hi dmsc))
+	(command "_dtext" pause (* te_hi dmsc))
 )
 
 (defun c:te ()

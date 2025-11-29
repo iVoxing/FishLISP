@@ -21,8 +21,8 @@
 	(princ)
 )
 
-(defun wup (en / ent xdt ss rpt idx)
-	(setq ent (entget en '("FL_WALL")))
+(defun wup (en_ / ent xdt ss rpt idx)
+	(setq ent (entget en_ '("FL_WALL")))
 	(if ent (setq xdt (cadr (assoc -3 ent))))
 	(if xdt
 		(setq 

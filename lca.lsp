@@ -17,7 +17,7 @@
 		(entmod
 			(mapcar 
 				'(lambda (pl_itm_)
-					(if (member (car pl_itm_) (list 10 11))
+					(if (member (car pl_itm_) '(10 11))
 						(if (member 
 								(mapcar 
 									'(lambda (ptx_ pt0_) 

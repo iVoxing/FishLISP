@@ -90,7 +90,7 @@
 			(t
 				(setvar "cmdecho" 0)
 				(princ "\nSide to offset? ")
-				(cmd "_offset" dist en0 pause "")
+				(command "_offset" dist en0 pause "")
 				(entdel (car en0))
 				(setq 
 					en1 (entlast)

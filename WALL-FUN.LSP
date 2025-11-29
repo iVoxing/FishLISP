@@ -1,6 +1,7 @@
 ; Modification:
 ;	1. 12/24/97 Fillet function added, but doesnot work properly.
 ;
+;;; test
 
 
 (defun wall_query (/ es ent xdt)
@@ -20,60 +21,63 @@
 	)
 )
 
-(defun wall_pick (/ es ent wall_id ss ss0)
+(defun get_wall (/ es ent wall_id ss ss0)
 	(setq es (entsel "\nPick wall: "))
 	(if es
-		(progn
-			(setq ent (entget (car es) '("FL_WALL")))
-			(if (setq wall_id (cdr (cadadr (assoc -3 ent))))
-				(progn
-					(setq ss0 (ssget "x" '((-3 ("FL_WALL")))))
-					(setq rpt (sslength ss0) ss (ssadd) idx 0)
-					(repeat rpt
-						(setq en (ssname ss0 idx))
-						(if (= (cdr (cadadr (assoc -3 (entget en '("FL_WALL"))))) wall_id)
-							(setq ss (ssadd en ss))
-						)
-						(setq idx (1+ idx))
-					)
-				)
-				(alert "1 was not a registered wall. ")
-			)
+		(setq 
+			ent (entget (car es) '("FL_WALL"))
+			wall_id (cdr (cadadr (assoc -3 ent)))
 		)
 		(setq ss nil)
+	)
+	(if wall_id
+		(setq 
+			ss0 (ssget "x" '((-3 ("FL_WALL"))))
+			rpt (if ss0 (sslength ss0) 0)
+			ss (ssadd) 
+			idx 0
+		)
+		(alert "1 was not a registered wall. ")
+	)
+	(repeat rpt
+		(setq en (ssname ss0 idx))
+		(if (= (cdr (cadadr (assoc -3 (entget en '("FL_WALL"))))) wall_id)
+			(setq ss (ssadd en ss))
+		)
+		(setq idx (1+ idx))
 	)
 	ss
 )
  
-(defun wall_hlt (ss / idx)
+(defun wall_highlight (ss_ / idx)
 	(setq idx 0)
-	(repeat (sslength ss)
-		(redraw (ssname ss idx) 3)
+	(repeat (sslength ss_)
+		(redraw (ssname ss_ idx) 3)
 		(setq idx (1+ idx))
 	)
 )
 
-(defun wall_del_si (/ ss)
-	(while (setq ss (wall_pick))
+(defun wall_del_single (/ ss)
+	(while (setq ss (get_wall))
 		(cmd "_.erase" ss "")
 	)
 	(call_updt)
 )
 
-(defun wall_mov (/ ss)
+(defun wall_move (/ ss)
 	(setq ss (ssadd))
-	(while (setq ss0 (wall_pick))
+	(while (setq ss0 (get_wall))
 		(cmd "_.select" ss ss0 "")
 		(setq ss (ssget "p"))
-		(wall_hlt ss)
+		(wall_highlight ss)
 	)
 	(if ss
 		(progn
-			(cmd "_.move" ss "")
+			(command "_.move" ss "")
 			(princ "\nBase point or displacement: ")
-			cmd pause)
+			(command pause)
 			(princ "\nSecond point of displacement: ")
-			(cmd pause)
+			(command pause)
 		)
 	)
 	(call_updt)
@@ -83,21 +87,21 @@
 	(initget "Yes No")
 	(setq kwd (getkword "\nUpdate Walls? <Yes>"))
 	(setq kwd (if kwd kwd "Yes"))
-	(if (= kwd "Yes") (wall_updt))
+	(if (= kwd "Yes") (wall_update))
 )
 
 (defun wall_del_ss (/ ss)
 	(setq ss (ssadd))
-	(while (setq ss0 (wall_pick))
+	(while (setq ss0 (get_wall))
 		(cmd "_.select" ss ss0 "")
 		(setq ss (ssget "p"))
-		(wall_hlt ss)
+		(wall_highlight ss)
 	)
 	(if ss (cmd "_.erase" ss ""))
 	(call_updt)
 )
 
-(defun wall_flt (/ es1 ent1 wall_id1 ss1 es2 ent2 wall_id2 ss2 dist)
+(defun wall_fillet (/ es1 ent1 wall_id1 ss1 es2 ent2 wall_id2 ss2 dist)
 	(setq es1 (entsel "\nPick wall: "))
 	(if es1
 		(progn
@@ -105,7 +109,7 @@
 			(if (setq wall_id1 (caadr (assoc -3 ent1)))
 				(progn
 					(setq ss1 (ssget "x" (list (list -3 (list wall_id1)))))
-					(wall_hlt ss1)
+					(wall_highlight ss1)
 					(setq 
 						es1 (handent (substr wall_id1 11))
 						ss1 (ssdel es1 ss1)
@@ -125,7 +129,7 @@
 			(if (setq wall_id2 (caadr (assoc -3 ent2)))
 				(progn
 					(setq ss2 (ssget "x" (list (list -3 (list wall_id2)))))
-					(wall_hlt ss2)
+					(wall_highlight ss2)
 					(setq 
 						es2 (handent (substr wall_id2 11))
 						ss2 (ssdel es2 ss2)
@@ -150,12 +154,12 @@
 	)
 )
 
-(defun wall_updt (/ dist)
+(defun wall_update (/ dist)
 	(setq ss (ssadd))
-	(while (setq ss0 (wall_pick))
+	(while (setq ss0 (get_wall))
 		(cmd "_.select" ss ss0 "")
 		(setq ss (ssget "p"))
-		(wall_hlt ss)
+		(wall_highlight ss)
 	)
 	(setvar "highlight" 0)
 	(setq wb_ss (ssget "p" '((8 . "wall-base"))))
@@ -165,9 +169,9 @@
 	(if wb_ss (setq dist (/ (cdr (assoc 1041 (cdadr (assoc -3 (entget (ssname wb_ss 0) '("FL_WALL")))))) 2.0)))
 	(if wb_ss (l2w_ol wb_ss))
 	(setvar "highlight" 1)
-	)
+)
 
-	(defun c:mdw (/ k)
+(defun c:mdw (/ k)
 	(setq mdw_key (if mdw_key mdw_key "Query"))
 	(princ "\nModify or query walls.")
 	(initget "Erase Move Update Query Width Fillet")
@@ -176,10 +180,10 @@
 	(setq mdw_key k)
 	(setvar "cmdecho" 0)
 	(cond
-		((= k "Erase")	(wall_del_si))
-		((= k "Move")	(wall_mov))
-		((= k "Fillet")	(wall_flt))
-		((= k "Update")	(wall_updt))
+		((= k "Erase")	(wall_del_single))
+		((= k "Move")	(wall_move))
+		((= k "Fillet")	(wall_fillet))
+		((= k "Update")	(wall_update))
 		((= k "Width") 	(alert "Not ready"))
 		((= k "Query") 	(wall_query))
 		(t)
