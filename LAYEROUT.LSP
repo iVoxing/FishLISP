@@ -1,15 +1,4 @@
 ; LAYEROUT.LSP
-; 
-; 作者：Little Fish				 ^\\\\\\\\\\
-; 版本：1.0 (20001130)			_/ _ \\\\
-; 邮件：ivox@21cn.com			■-■----\\\
-; orca@netease.com/				\\\
-; 网站：http://orca.163.net		 -- /// 
-; http://orca.533.net			 ////// 酷
-; 
-; 本程序可以任意使用、修改、复制、交流，无版权约束；但请保留作者声明！
-; 如果修改本程序，可以将成果寄给我，以便交流 ^_^
-; 
 ; 说明：
 ; --------------------------------------------------------------------
 ; 将图形按图层分别输出为单个的图形文件。
@@ -33,27 +22,24 @@
 ; 在程序运行当中，可能会有极短暂的停顿。这是程序在通过MKDIR命令
 ; 创建子文件夹。
 ;
-; =======================程序部分=================================
-; 
-; 程序定义
-;
-(defun c:layerout (/ lay_list key dwg_name itm exdwg_name exname exss ucsf ucschanged expcnt)
-	(princ "\nby Little Fish. Ver1.0 （20001130）")
-	(setq olderr *error*)
+; 2025-11-29	optimization
+; 2000-11-30
 
-	;; 错误函数
-	(defun *error* (s)
+(defun c:layerout (/ lay_list key dwg_name itm exdwg_name exname exss ucsf ucschanged expcnt)
+	(defun *error* (s_)
 		(setvar "cmdecho" 0)
 		(if ucschanged (cmd "_.ucs" "p"))
 		(setvar "ucsfollow" (if ucsf ucsf 1))
 		(setvar "expert" 0)
+		(fl_undo_end)
 		(setvar "cmdecho" 1)
-		(setq *error* olderr olderr nil)
+		(setq *error* *pub_error*)
+		(princ (strcat "** " s_ " **"))
 		(princ)
 	)
 
 	; 获得输出方式，并得到输出的图层列表
-	(setq lay_list nil)
+	(setq lay_list (list))
 	(initget "Select All Display")
 	(setq key (getkword "\nLayer(s) to export: [Select/All]<Display> "))
 	(setq key (if key key "Display"))
@@ -80,17 +66,15 @@
 	(setq ucschanged t)
 	(setq expcnt 0)
 	(foreach itm lay_list
-		(progn
-			(setq exdwg_name (strcat dwg_name "_layer_" itm ".dwg"))
-			(setq exname (strcat (getvar "dwgprefix") exdwg_name))
-			(setq exss (ssget "x" (list (cons 8 itm))))
-			(if exss
-				(progn
-					(cmd "_.wblock" exname (if (fl_check_ver 15) "") "0,0,0" exss "")
-					(cmd "_oops")
-					(princ (strcat "\n" itm "\t-> " exdwg_name))
-					(setq expcnt (1+ expcnt))
-				)
+		(setq exdwg_name (strcat dwg_name "_layer_" itm ".dwg"))
+		(setq exname (strcat (getvar "dwgprefix") exdwg_name))
+		(setq exss (ssget "x" (list (cons 8 itm))))
+		(if exss
+			(progn
+				(cmd "_.wblock" exname (if (fl_check_ver 15) "") "0,0,0" exss "")
+				(cmd "_oops")
+				(princ (strcat "\n" itm "\t-> " exdwg_name))
+				(setq expcnt (1+ expcnt))
 			)
 		)
 	)
@@ -105,15 +89,15 @@
 
 	(princ)
 )
-; 
-; ==========================子程序==========================================
-;
-; 用于Select参数
-;
+
 (defun layerout_selected (/ ss amt idx laylist lay_name)
 	(princ "\nSelect object(s) on target layer(s): ")
-	(setq ss (ssget) idx 0 laylist (list))
-	(setq amt (if ss (sslength ss) 0))
+	(setq 
+		laylist (list)
+		ss (ssget)
+		amt (if ss (sslength ss) 0)
+	 	idx 0 
+	)
 	(repeat amt
 		(setq lay_name (cdr (assoc 8 (entget (ssname ss idx)))))
 		(if (member lay_name laylist)
@@ -124,11 +108,9 @@
 	)
 	laylist
 )
-;
-; 用于All参数
-;
+
 (defun layerout_all (/ laylist lay_name)
-	(setq laylist nil)
+	(setq laylist (list))
 	(setq lay_name (cdr (assoc 2 (tblnext "layer" t))))
 	(while lay_name
 		(setq laylist (append laylist (list lay_name)))
@@ -136,26 +118,26 @@
 	)
 	laylist
 )
-;
-; 用于Display参数
-;
+
 (defun layerout_display (/ laylist lay_set lay_name lay_stat lay_colr)
-	(setq laylist nil)
-	(setq lay_set (tblnext "layer" t))
-	(while lay_set
+	(setq 
+		laylist (list)
+		flag 	t
+	)
+	(while (setq lay_set (tblnext "layer" flag))
 		(setq 
 			lay_name (cdr (assoc 2 lay_set))
 			lay_stat (cdr (assoc 70 lay_set))
 			lay_colr (cdr (assoc 62 lay_set))
 		)
-		(if
-			(or (member lay_stat (list 69 65))
+		(if (or
+				(member lay_stat (list 69 65))
 				(minusp lay_colr)
 			)
 			nil
 			(setq laylist (append laylist (list lay_name)))
 		)
-		(setq lay_set (tblnext "layer"))
+		(setq flag nil)
 	)
 	laylist
 )

@@ -24,6 +24,7 @@
 
 (defun c:edr (/ olderr en enn ent pt0 ang wid ptm1 ptm2 ptf1 ptf2 ss l1 lent1 pt11 pt12 pt21 pt22 idx renew_list del_list newpt_list)
 	(setvar "cmdecho" 0)
+	(fl_undo_begin)
 	(setq 	en (entsel "\nSelect a door to earse: ")
 			enn (car en)
 	)
@@ -77,8 +78,9 @@
 				'(0 1)
 			)
 		)
-		(princ "\n1 DOOR was not in the Wall. ")
+		(princ "\n1 Door was not in the Wall. ")
 	)
+	(fl_undo_end)
 	(princ)
 )
 

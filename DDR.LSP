@@ -3,7 +3,7 @@
 ;				pure LISP
 ; 1997-12-24
 
-(defun ddr_check (en_ / ent bkname bkins bksc bkang dw_xdt bklist clay)
+(defun ddr_check (en_ / ent bkname bkins bksc bkang bklist clay)
 	(setq 
 		ent 	(entget en_)
 		bkname	(strcase (cdr (assoc 2 ent)))
@@ -69,27 +69,28 @@
 	)
 )
 
-(defun c:ddr (/ en loop)
-	(setq *error* *pub_error*)
+(defun c:ddr (/ ens loop)
 	(setvar "cmdecho" 0)
+	(fl_undo_begin)
 	(setq loop t)
 	(while loop
-		(setq en (entsel "\nPick a Door insert: "))
+		(setq ens (entsel "\nPick a Door insert: "))
 		(cond
-			((not en)
+			((not ens)
 				(setq loop nil)
 			)
-			((/= (cdr (assoc 0 (entget (car en)))) "INSERT")
+			((/= (cdr (assoc 0 (entget (car ens)))) "INSERT")
 				(princ "\n1 was not an Insert. ")
 			)
-			((/= (strcase (substr (cdr (assoc 2 (entget (car en)))) 1 3)) "DR0")
+			((/= (strcase (substr (cdr (assoc 2 (entget (car ens)))) 1 3)) "DR0")
 				(princ "\n1 was unknown Door type. ")
 			)
 			( t
-				(ddr_check (car en))
+				(ddr_check (car ens))
 			)
 		)
 	)
+	(fl_undo_end)
 	(setvar "cmdecho" 1)
 	(princ)
 )

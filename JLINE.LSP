@@ -1,8 +1,8 @@
-; 12/18/97	Can edit in UCS now.
+; 1997-12-18	Can edit in UCS now.
+; 1996-07-22
 
 
-(defun c:j (/ os oo cl ss ssl ucsf count lay ent list_pt list_x list_y max_x min_x max_y min_y pt11 pt12 pt21 pt22 pt1 pt2)
-	(princ "\nFishLISP. July 22 1996")
+(defun c:j (/ os oo cl ss ssl ucsf idx lay ent list_pt list_x list_y max_x min_x max_y min_y pt11 pt12 pt21 pt22 pt1 pt2)
 	(princ "\nJoin lines to one. Start as C:J")
 	(setq 
 		os (getvar "osmode")
@@ -17,34 +17,37 @@
 	(setq cl (getvar "clayer"))
 	(setq ss (ssget '((0 . "LINE"))))
 	(setq ssl (sslength ss))
-	(setq count 0)
+	(setq idx 0)
 	(setq lay (cdr (assoc 8 (entget (ssname ss 0)))))
-	(while (< count ssl)
-		(setq ent (entget (ssname ss count)))
-		;; Check the lines are on the same layer or not
+	(while (< idx ssl)
+		(setq ent (entget (ssname ss idx)))
 		(if (/= (cdr (assoc 8 ent)) lay)
 			(exit (princ "The lines arn't on the same layer. "))
 		)
 		;; Get Endpoints and Xs, Ys
-		(setq 
-			list_pt (append list_pt (list (cdr (assoc 10 ent))))
-			list_pt (append list_pt (list (cdr (assoc 11 ent))))
-			list_x 	(append list_x (list (cadr (assoc 10 ent))))
-			list_x 	(append list_x (list (cadr (assoc 11 ent))))
-			list_y 	(append list_y (list (caddr (assoc 10 ent))))
-			list_y 	(append list_y (list (caddr (assoc 11 ent))))
-			count 	(1+ count)
+		(mapcar 
+			'(lambda (code_)
+				(setq 
+					list_pt (append list_pt (list (cdr (assoc code_ ent))))
+					list_x 	(append list_x (list (cadr (assoc code_ ent))))
+					list_y 	(append list_y (list (caddr (assoc code_ ent))))
+				)
+			)
+			'(10 11)
 		)
+		(setq idx (1+ idx))
+
 	)
 	(setq 
 		max_x 	(apply 'max list_x)
 		min_x 	(apply 'min list_x)
 		max_y 	(apply 'max list_y)
 		min_y 	(apply 'min list_y)
-		pt11 	(list max_x max_y (getvar "elevation"))
-		pt12 	(list max_x min_y (getvar "elevation"))
-		pt21 	(list min_x max_y (getvar "elevation"))
-		pt22 	(list min_x min_y (getvar "elevation"))
+		z		(getvar "elevation")
+		pt11 	(list max_x max_y z)
+		pt12 	(list max_x min_y z)
+		pt21 	(list min_x max_y z)
+		pt22 	(list min_x min_y z)
 	)
 	(if (member pt11 list_pt)
 		(if (member pt21 list_pt)
